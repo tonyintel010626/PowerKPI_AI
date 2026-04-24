@@ -1,0 +1,12 @@
+{
+  "user_id": "REPLACE_WITH_USERNAME",
+  "display_name": "",
+  "preferences": {
+    "default_agent": "kpi_analyst",
+    "output_format": "markdown",
+    "timezone": "UTC",
+    "language": "en"
+  },
+  "created_at": "",
+  "last_active": ""
+}
