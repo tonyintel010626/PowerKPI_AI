@@ -1,0 +1,62 @@
+{
+  "name": "fv-usb",
+  "version": "2.0.0",
+  "description": "FV-USB skill evaluation — machine-readable test configuration",
+  "owner": "kvejaya",
+  "eval_type": "assertion",
+  "assertion_file": "eval/assertions.py",
+  "skills_under_test": [
+    "fv-usb",
+    "fv-usb/enumeration",
+    "fv-usb/xhci",
+    "fv-usb/power",
+    "fv-usb/debug",
+    "fv-usb/debug/etl-decode",
+    "fv-usb/config-checkout",
+    "fv-usb/platform"
+  ],
+  "agent_under_test": "FV-USB",
+  "categories": [
+    {
+      "name": "skill_structure",
+      "description": "Verify SKILL.md files have correct frontmatter, sections, and references",
+      "weight": 1.0
+    },
+    {
+      "name": "technical_accuracy",
+      "description": "Verify USB/xHCI technical content is correct (speeds, registers, protocols)",
+      "weight": 2.0
+    },
+    {
+      "name": "cross_references",
+      "description": "Verify sub-skill references, doc links, and delegation tables are consistent",
+      "weight": 1.5
+    },
+    {
+      "name": "platform_coverage",
+      "description": "Verify all target platforms (NVL, PTL, LNL, MTL, ARL) are covered",
+      "weight": 1.5
+    },
+    {
+      "name": "debug_workflows",
+      "description": "Verify debug playbooks and triage flows are complete and actionable",
+      "weight": 2.0
+    },
+    {
+      "name": "known_issues",
+      "description": "Verify known issues have HSDES IDs, classification, and workarounds",
+      "weight": 1.0
+    },
+    {
+      "name": "uaol_coverage",
+      "description": "Verify UAOL/ACE content covers ACE3, ACE4, FIFO timing, offload behavior",
+      "weight": 1.5
+    }
+  ],
+  "passing_threshold": 0.85,
+  "metadata": {
+    "created": "2026-03-20",
+    "last_updated": "2026-03-20",
+    "author": "AI-assist"
+  }
+}

@@ -1,0 +1,44 @@
+#!/bin/sh
+# THC Skill Quality Gate — Git Pre-Commit Hook
+#
+# Runs thc_self_check.py (fast, ~2s) when THC skill files are staged.
+# To also run self-verify (slower, ~15s), set THC_FULL_GATE=1.
+#
+# Installation:
+#   cp .opencode/skill/fv-thc/tools/pre-commit-thc .git/hooks/pre-commit
+#   chmod +x .git/hooks/pre-commit
+#
+# Or symlink:
+#   ln -sf ../../.opencode/skill/fv-thc/tools/pre-commit-thc .git/hooks/pre-commit
+
+TOOLS_DIR="$(git rev-parse --show-toplevel)/.opencode/skill/fv-thc/tools"
+
+# Only run if THC skill files are staged
+STAGED_THC=$(git diff --cached --name-only -- ".opencode/skill/fv-thc/" ".opencode/agent/FV/FV-THC.md" 2>/dev/null)
+
+if [ -z "$STAGED_THC" ]; then
+    exit 0  # No THC files staged, skip
+fi
+
+echo "[THC Quality Gate] THC skill files detected in commit..."
+
+# Choose mode: --quick (check only) or full (check + verify)
+if [ "${THC_FULL_GATE:-0}" = "1" ]; then
+    MODE=""
+    echo "[THC Quality Gate] Running full gate (self-check + self-verify)..."
+else
+    MODE="--quick"
+    echo "[THC Quality Gate] Running quick gate (self-check only)..."
+    echo "[THC Quality Gate] Set THC_FULL_GATE=1 for full gate with self-verify."
+fi
+
+python "$TOOLS_DIR/thc_quality_gate.py" $MODE
+
+EXIT_CODE=$?
+if [ $EXIT_CODE -ne 0 ]; then
+    echo "[THC Quality Gate] FAILED — commit blocked. Fix issues and retry."
+    echo "[THC Quality Gate] Run: python $TOOLS_DIR/thc_quality_gate.py for details."
+    exit 1
+fi
+
+exit 0

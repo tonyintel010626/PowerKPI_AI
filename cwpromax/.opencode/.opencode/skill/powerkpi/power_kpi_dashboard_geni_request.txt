@@ -1,0 +1,631 @@
+=== GENI Trend Analysis Request ===
+
+INSTRUCTIONS FOR POWERKI_VALIDATOR AGENT:
+Please query GENI Focus Mode 12 (VE Wiki) or Focus Mode 5 (Debug Assistant)
+with the following question:
+
+---
+
+I have Power KPI workload test results from Intel platform validation. 
+Please provide a comprehensive trend analysis with the following structure:
+
+## 1. EXECUTIVE SUMMARY
+Provide a high-level overview of key findings across all workloads and metrics.
+
+## 2. PER-WORKLOAD ANALYSIS
+For EACH workload, provide:
+- **Summary**: Brief description of workload behavior
+- **Trend Overview**: Analysis of each selected parameter (power rails and SocWatch metrics)
+  - Identify if values are stable, increasing, decreasing, or volatile
+  - Compare against expected ranges for this workload type
+- **Key Observations**: Notable patterns, anomalies, or concerns
+- **Health Assessment**: Is this workload performing as expected?
+
+## 3. CROSS-WORKLOAD COMPARISON
+Compare the selected parameters across all workloads:
+- **Power Efficiency Ranking**: Best to worst for each power rail
+- **SocWatch Metrics Comparison**: How do C-states, frequencies, and residencies compare?
+- **Relative Performance**: Which workload is most/least efficient?
+- **Delta Analysis**: Highlight significant differences (>10% variance)
+
+## 4. ANOMALY DETECTION
+Identify and explain:
+- Outliers in power measurements
+- Unexpected SocWatch metric values
+- Inconsistencies between similar workloads
+- Values outside typical validation ranges
+
+## 5. ACTIONABLE RECOMMENDATIONS
+Provide specific next steps:
+- Debug actions for anomalies
+- Configuration changes to try
+- Additional metrics to investigate
+- BIOS knobs or firmware to check
+
+Here is the test data:
+
+=== Power KPI Workload Test Results ===
+
+Total Workloads Analyzed: 6
+Total Metrics Selected: 37
+Data Points: 222 measurements
+
+Power Rails Selected (13): I_VCCCORE_PH1, I_VCCCORE_PH2, I_VCCCORE_PH3, I_VCCCORE_PH4, I_VCCCORE_PH5
+  ... and 8 more
+SocWatch Metrics Selected (24): P_VCCCORE_PH1, P_VCCCORE_PH2, P_VCCCORE_PH3, P_VCCCORE_PH4, P_VCCCORE_PH5
+  ... and 19 more
+
+============================================================
+
+
+## WORKLOAD: CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote
+   (37 data points)
+
+   ### Power Rails:
+     - I_VCCCORE_PH1: Mean=2.5419 A, Min=2.5419 A, Max=2.5419 A, Std=nan A
+     - I_VCCCORE_PH2: Mean=0.0690 A, Min=0.0690 A, Max=0.0690 A, Std=nan A
+     - I_VCCCORE_PH3: Mean=0.0417 A, Min=0.0417 A, Max=0.0417 A, Std=nan A
+     - I_VCCCORE_PH4: Mean=0.0268 A, Min=0.0268 A, Max=0.0268 A, Std=nan A
+     - I_VCCCORE_PH5: Mean=0.0160 A, Min=0.0160 A, Max=0.0160 A, Std=nan A
+     - I_VCCCORE_PH6: Mean=0.0051 A, Min=0.0051 A, Max=0.0051 A, Std=nan A
+     - I_VCCCORE_PH7: Mean=0.0069 A, Min=0.0069 A, Max=0.0069 A, Std=nan A
+     - I_VCCCORE_PH8: Mean=0.0017 A, Min=0.0017 A, Max=0.0017 A, Std=nan A
+     - I_VCCCORE_PH9: Mean=-0.0053 A, Min=-0.0053 A, Max=-0.0053 A, Std=nan A
+     - I_VCCCORE_PH_TOTAL: Mean=2.7039 A, Min=2.7039 A, Max=2.7039 A, Std=nan A
+     - I_VCCSA_PH1: Mean=1.9926 A, Min=1.9926 A, Max=1.9926 A, Std=nan A
+     - I_VCCSA_PH2: Mean=0.0359 A, Min=0.0359 A, Max=0.0359 A, Std=nan A
+     - I_VCCSA_PH_TOTAL: Mean=2.0286 A, Min=2.0286 A, Max=2.0286 A, Std=nan A
+
+   ### SocWatch Metrics:
+     - P_VCCCORE_PH1: Mean=2.8817 W, Min=2.8817 W, Max=2.8817 W, Std=nan W
+     - P_VCCCORE_PH2: Mean=0.0790 W, Min=0.0790 W, Max=0.0790 W, Std=nan W
+     - P_VCCCORE_PH3: Mean=0.0455 W, Min=0.0455 W, Max=0.0455 W, Std=nan W
+     - P_VCCCORE_PH4: Mean=0.0292 W, Min=0.0292 W, Max=0.0292 W, Std=nan W
+     - P_VCCCORE_PH5: Mean=0.0175 W, Min=0.0175 W, Max=0.0175 W, Std=nan W
+     - P_VCCCORE_PH6: Mean=0.0055 W, Min=0.0055 W, Max=0.0055 W, Std=nan W
+     - P_VCCCORE_PH7: Mean=0.0071 W, Min=0.0071 W, Max=0.0071 W, Std=nan W
+     - P_VCCCORE_PH8: Mean=0.0016 W, Min=0.0016 W, Max=0.0016 W, Std=nan W
+     - P_VCCCORE_PH9: Mean=-0.0058 W, Min=-0.0058 W, Max=-0.0058 W, Std=nan W
+     - P_VCCSA_PH1: Mean=2.0604 W, Min=2.0604 W, Max=2.0604 W, Std=nan W
+     - P_VCCSA_PH2: Mean=0.0369 W, Min=0.0369 W, Max=0.0369 W, Std=nan W
+     - V_VCCCORE_PH1: Mean=1.0608 V, Min=1.0608 V, Max=1.0608 V, Std=nan V
+     - V_VCCCORE_PH2: Mean=1.0602 V, Min=1.0602 V, Max=1.0602 V, Std=nan V
+     - V_VCCCORE_PH3: Mean=1.0602 V, Min=1.0602 V, Max=1.0602 V, Std=nan V
+     - V_VCCCORE_PH4: Mean=1.0602 V, Min=1.0602 V, Max=1.0602 V, Std=nan V
+     - V_VCCCORE_PH5: Mean=1.0604 V, Min=1.0604 V, Max=1.0604 V, Std=nan V
+     - V_VCCCORE_PH6: Mean=1.0604 V, Min=1.0604 V, Max=1.0604 V, Std=nan V
+     - V_VCCCORE_PH7: Mean=1.0604 V, Min=1.0604 V, Max=1.0604 V, Std=nan V
+     - V_VCCCORE_PH8: Mean=1.0604 V, Min=1.0604 V, Max=1.0604 V, Std=nan V
+     - V_VCCCORE_PH9: Mean=1.0607 V, Min=1.0607 V, Max=1.0607 V, Std=nan V
+     - V_VCCCORE_SENSE: Mean=1.0577 V, Min=1.0577 V, Max=1.0577 V, Std=nan V
+     - V_VCCSA_PH1: Mean=1.0335 V, Min=1.0335 V, Max=1.0335 V, Std=nan V
+     - V_VCCSA_PH2: Mean=1.0331 V, Min=1.0331 V, Max=1.0331 V, Std=nan V
+     - V_VCCSA_SENSE: Mean=1.0285 V, Min=1.0285 V, Max=1.0285 V, Std=nan V
+
+## WORKLOAD: CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote
+   (37 data points)
+
+   ### Power Rails:
+     - I_VCCCORE_PH1: Mean=2.6230 A, Min=2.6230 A, Max=2.6230 A, Std=nan A
+     - I_VCCCORE_PH2: Mean=0.0867 A, Min=0.0867 A, Max=0.0867 A, Std=nan A
+     - I_VCCCORE_PH3: Mean=0.0540 A, Min=0.0540 A, Max=0.0540 A, Std=nan A
+     - I_VCCCORE_PH4: Mean=0.0354 A, Min=0.0354 A, Max=0.0354 A, Std=nan A
+     - I_VCCCORE_PH5: Mean=0.0218 A, Min=0.0218 A, Max=0.0218 A, Std=nan A
+     - I_VCCCORE_PH6: Mean=0.0074 A, Min=0.0074 A, Max=0.0074 A, Std=nan A
+     - I_VCCCORE_PH7: Mean=0.0089 A, Min=0.0089 A, Max=0.0089 A, Std=nan A
+     - I_VCCCORE_PH8: Mean=0.0022 A, Min=0.0022 A, Max=0.0022 A, Std=nan A
+     - I_VCCCORE_PH9: Mean=-0.0061 A, Min=-0.0061 A, Max=-0.0061 A, Std=nan A
+     - I_VCCCORE_PH_TOTAL: Mean=2.8335 A, Min=2.8335 A, Max=2.8335 A, Std=nan A
+     - I_VCCSA_PH1: Mean=1.9946 A, Min=1.9946 A, Max=1.9946 A, Std=nan A
+     - I_VCCSA_PH2: Mean=0.0457 A, Min=0.0457 A, Max=0.0457 A, Std=nan A
+     - I_VCCSA_PH_TOTAL: Mean=2.0403 A, Min=2.0403 A, Max=2.0403 A, Std=nan A
+
+   ### SocWatch Metrics:
+     - P_VCCCORE_PH1: Mean=2.9750 W, Min=2.9750 W, Max=2.9750 W, Std=nan W
+     - P_VCCCORE_PH2: Mean=0.0988 W, Min=0.0988 W, Max=0.0988 W, Std=nan W
+     - P_VCCCORE_PH3: Mean=0.0588 W, Min=0.0588 W, Max=0.0588 W, Std=nan W
+     - P_VCCCORE_PH4: Mean=0.0386 W, Min=0.0386 W, Max=0.0386 W, Std=nan W
+     - P_VCCCORE_PH5: Mean=0.0238 W, Min=0.0238 W, Max=0.0238 W, Std=nan W
+     - P_VCCCORE_PH6: Mean=0.0080 W, Min=0.0080 W, Max=0.0080 W, Std=nan W
+     - P_VCCCORE_PH7: Mean=0.0093 W, Min=0.0093 W, Max=0.0093 W, Std=nan W
+     - P_VCCCORE_PH8: Mean=0.0022 W, Min=0.0022 W, Max=0.0022 W, Std=nan W
+     - P_VCCCORE_PH9: Mean=-0.0066 W, Min=-0.0066 W, Max=-0.0066 W, Std=nan W
+     - P_VCCSA_PH1: Mean=2.0623 W, Min=2.0623 W, Max=2.0623 W, Std=nan W
+     - P_VCCSA_PH2: Mean=0.0469 W, Min=0.0469 W, Max=0.0469 W, Std=nan W
+     - V_VCCCORE_PH1: Mean=1.0683 V, Min=1.0683 V, Max=1.0683 V, Std=nan V
+     - V_VCCCORE_PH2: Mean=1.0677 V, Min=1.0677 V, Max=1.0677 V, Std=nan V
+     - V_VCCCORE_PH3: Mean=1.0677 V, Min=1.0677 V, Max=1.0677 V, Std=nan V
+     - V_VCCCORE_PH4: Mean=1.0677 V, Min=1.0677 V, Max=1.0677 V, Std=nan V
+     - V_VCCCORE_PH5: Mean=1.0678 V, Min=1.0678 V, Max=1.0678 V, Std=nan V
+     - V_VCCCORE_PH6: Mean=1.0678 V, Min=1.0678 V, Max=1.0678 V, Std=nan V
+     - V_VCCCORE_PH7: Mean=1.0677 V, Min=1.0677 V, Max=1.0677 V, Std=nan V
+     - V_VCCCORE_PH8: Mean=1.0677 V, Min=1.0677 V, Max=1.0677 V, Std=nan V
+     - V_VCCCORE_PH9: Mean=1.0680 V, Min=1.0680 V, Max=1.0680 V, Std=nan V
+     - V_VCCCORE_SENSE: Mean=1.0650 V, Min=1.0650 V, Max=1.0650 V, Std=nan V
+     - V_VCCSA_PH1: Mean=1.0334 V, Min=1.0334 V, Max=1.0334 V, Std=nan V
+     - V_VCCSA_PH2: Mean=1.0330 V, Min=1.0330 V, Max=1.0330 V, Std=nan V
+     - V_VCCSA_SENSE: Mean=1.0283 V, Min=1.0283 V, Max=1.0283 V, Std=nan V
+
+## WORKLOAD: CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote
+   (37 data points)
+
+   ### Power Rails:
+     - I_VCCCORE_PH1: Mean=2.5914 A, Min=2.5914 A, Max=2.5914 A, Std=nan A
+     - I_VCCCORE_PH2: Mean=0.0779 A, Min=0.0779 A, Max=0.0779 A, Std=nan A
+     - I_VCCCORE_PH3: Mean=0.0411 A, Min=0.0411 A, Max=0.0411 A, Std=nan A
+     - I_VCCCORE_PH4: Mean=0.0263 A, Min=0.0263 A, Max=0.0263 A, Std=nan A
+     - I_VCCCORE_PH5: Mean=0.0153 A, Min=0.0153 A, Max=0.0153 A, Std=nan A
+     - I_VCCCORE_PH6: Mean=0.0049 A, Min=0.0049 A, Max=0.0049 A, Std=nan A
+     - I_VCCCORE_PH7: Mean=0.0063 A, Min=0.0063 A, Max=0.0063 A, Std=nan A
+     - I_VCCCORE_PH8: Mean=0.0009 A, Min=0.0009 A, Max=0.0009 A, Std=nan A
+     - I_VCCCORE_PH9: Mean=-0.0060 A, Min=-0.0060 A, Max=-0.0060 A, Std=nan A
+     - I_VCCCORE_PH_TOTAL: Mean=2.7580 A, Min=2.7580 A, Max=2.7580 A, Std=nan A
+     - I_VCCSA_PH1: Mean=2.0051 A, Min=2.0051 A, Max=2.0051 A, Std=nan A
+     - I_VCCSA_PH2: Mean=0.0659 A, Min=0.0659 A, Max=0.0659 A, Std=nan A
+     - I_VCCSA_PH_TOTAL: Mean=2.0710 A, Min=2.0710 A, Max=2.0710 A, Std=nan A
+
+   ### SocWatch Metrics:
+     - P_VCCCORE_PH1: Mean=2.9435 W, Min=2.9435 W, Max=2.9435 W, Std=nan W
+     - P_VCCCORE_PH2: Mean=0.0894 W, Min=0.0894 W, Max=0.0894 W, Std=nan W
+     - P_VCCCORE_PH3: Mean=0.0447 W, Min=0.0447 W, Max=0.0447 W, Std=nan W
+     - P_VCCCORE_PH4: Mean=0.0287 W, Min=0.0287 W, Max=0.0287 W, Std=nan W
+     - P_VCCCORE_PH5: Mean=0.0168 W, Min=0.0168 W, Max=0.0168 W, Std=nan W
+     - P_VCCCORE_PH6: Mean=0.0053 W, Min=0.0053 W, Max=0.0053 W, Std=nan W
+     - P_VCCCORE_PH7: Mean=0.0065 W, Min=0.0065 W, Max=0.0065 W, Std=nan W
+     - P_VCCCORE_PH8: Mean=0.0008 W, Min=0.0008 W, Max=0.0008 W, Std=nan W
+     - P_VCCCORE_PH9: Mean=-0.0065 W, Min=-0.0065 W, Max=-0.0065 W, Std=nan W
+     - P_VCCSA_PH1: Mean=2.0727 W, Min=2.0727 W, Max=2.0727 W, Std=nan W
+     - P_VCCSA_PH2: Mean=0.0678 W, Min=0.0678 W, Max=0.0678 W, Std=nan W
+     - V_VCCCORE_PH1: Mean=1.0645 V, Min=1.0645 V, Max=1.0645 V, Std=nan V
+     - V_VCCCORE_PH2: Mean=1.0639 V, Min=1.0639 V, Max=1.0639 V, Std=nan V
+     - V_VCCCORE_PH3: Mean=1.0638 V, Min=1.0638 V, Max=1.0638 V, Std=nan V
+     - V_VCCCORE_PH4: Mean=1.0638 V, Min=1.0638 V, Max=1.0638 V, Std=nan V
+     - V_VCCCORE_PH5: Mean=1.0640 V, Min=1.0640 V, Max=1.0640 V, Std=nan V
+     - V_VCCCORE_PH6: Mean=1.0640 V, Min=1.0640 V, Max=1.0640 V, Std=nan V
+     - V_VCCCORE_PH7: Mean=1.0639 V, Min=1.0639 V, Max=1.0639 V, Std=nan V
+     - V_VCCCORE_PH8: Mean=1.0639 V, Min=1.0639 V, Max=1.0639 V, Std=nan V
+     - V_VCCCORE_PH9: Mean=1.0640 V, Min=1.0640 V, Max=1.0640 V, Std=nan V
+     - V_VCCCORE_SENSE: Mean=1.0613 V, Min=1.0613 V, Max=1.0613 V, Std=nan V
+     - V_VCCSA_PH1: Mean=1.0333 V, Min=1.0333 V, Max=1.0333 V, Std=nan V
+     - V_VCCSA_PH2: Mean=1.0329 V, Min=1.0329 V, Max=1.0329 V, Std=nan V
+     - V_VCCSA_SENSE: Mean=1.0282 V, Min=1.0282 V, Max=1.0282 V, Std=nan V
+
+## WORKLOAD: CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote
+   (37 data points)
+
+   ### Power Rails:
+     - I_VCCCORE_PH1: Mean=2.4259 A, Min=2.4259 A, Max=2.4259 A, Std=nan A
+     - I_VCCCORE_PH2: Mean=0.0861 A, Min=0.0861 A, Max=0.0861 A, Std=nan A
+     - I_VCCCORE_PH3: Mean=0.0632 A, Min=0.0632 A, Max=0.0632 A, Std=nan A
+     - I_VCCCORE_PH4: Mean=0.0392 A, Min=0.0392 A, Max=0.0392 A, Std=nan A
+     - I_VCCCORE_PH5: Mean=0.0180 A, Min=0.0180 A, Max=0.0180 A, Std=nan A
+     - I_VCCCORE_PH6: Mean=0.0054 A, Min=0.0054 A, Max=0.0054 A, Std=nan A
+     - I_VCCCORE_PH7: Mean=0.0104 A, Min=0.0104 A, Max=0.0104 A, Std=nan A
+     - I_VCCCORE_PH8: Mean=0.0006 A, Min=0.0006 A, Max=0.0006 A, Std=nan A
+     - I_VCCCORE_PH9: Mean=-0.0133 A, Min=-0.0133 A, Max=-0.0133 A, Std=nan A
+     - I_VCCCORE_PH_TOTAL: Mean=2.6357 A, Min=2.6357 A, Max=2.6357 A, Std=nan A
+     - I_VCCSA_PH1: Mean=2.1224 A, Min=2.1224 A, Max=2.1224 A, Std=nan A
+     - I_VCCSA_PH2: Mean=0.0685 A, Min=0.0685 A, Max=0.0685 A, Std=nan A
+     - I_VCCSA_PH_TOTAL: Mean=2.1909 A, Min=2.1909 A, Max=2.1909 A, Std=nan A
+
+   ### SocWatch Metrics:
+     - P_VCCCORE_PH1: Mean=2.7692 W, Min=2.7692 W, Max=2.7692 W, Std=nan W
+     - P_VCCCORE_PH2: Mean=0.0918 W, Min=0.0918 W, Max=0.0918 W, Std=nan W
+     - P_VCCCORE_PH3: Mean=0.0619 W, Min=0.0619 W, Max=0.0619 W, Std=nan W
+     - P_VCCCORE_PH4: Mean=0.0387 W, Min=0.0387 W, Max=0.0387 W, Std=nan W
+     - P_VCCCORE_PH5: Mean=0.0185 W, Min=0.0185 W, Max=0.0185 W, Std=nan W
+     - P_VCCCORE_PH6: Mean=0.0057 W, Min=0.0057 W, Max=0.0057 W, Std=nan W
+     - P_VCCCORE_PH7: Mean=0.0101 W, Min=0.0101 W, Max=0.0101 W, Std=nan W
+     - P_VCCCORE_PH8: Mean=0.0009 W, Min=0.0009 W, Max=0.0009 W, Std=nan W
+     - P_VCCCORE_PH9: Mean=-0.0123 W, Min=-0.0123 W, Max=-0.0123 W, Std=nan W
+     - P_VCCSA_PH1: Mean=2.1945 W, Min=2.1945 W, Max=2.1945 W, Std=nan W
+     - P_VCCSA_PH2: Mean=0.0703 W, Min=0.0703 W, Max=0.0703 W, Std=nan W
+     - V_VCCCORE_PH1: Mean=1.0398 V, Min=1.0398 V, Max=1.0398 V, Std=nan V
+     - V_VCCCORE_PH2: Mean=1.0393 V, Min=1.0393 V, Max=1.0393 V, Std=nan V
+     - V_VCCCORE_PH3: Mean=1.0393 V, Min=1.0393 V, Max=1.0393 V, Std=nan V
+     - V_VCCCORE_PH4: Mean=1.0393 V, Min=1.0393 V, Max=1.0393 V, Std=nan V
+     - V_VCCCORE_PH5: Mean=1.0415 V, Min=1.0415 V, Max=1.0415 V, Std=nan V
+     - V_VCCCORE_PH6: Mean=1.0415 V, Min=1.0415 V, Max=1.0415 V, Std=nan V
+     - V_VCCCORE_PH7: Mean=1.0414 V, Min=1.0414 V, Max=1.0414 V, Std=nan V
+     - V_VCCCORE_PH8: Mean=1.0414 V, Min=1.0414 V, Max=1.0414 V, Std=nan V
+     - V_VCCCORE_PH9: Mean=1.0391 V, Min=1.0391 V, Max=1.0391 V, Std=nan V
+     - V_VCCCORE_SENSE: Mean=1.0372 V, Min=1.0372 V, Max=1.0372 V, Std=nan V
+     - V_VCCSA_PH1: Mean=1.0336 V, Min=1.0336 V, Max=1.0336 V, Std=nan V
+     - V_VCCSA_PH2: Mean=1.0332 V, Min=1.0332 V, Max=1.0332 V, Std=nan V
+     - V_VCCSA_SENSE: Mean=1.0282 V, Min=1.0282 V, Max=1.0282 V, Std=nan V
+
+## WORKLOAD: CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote
+   (37 data points)
+
+   ### Power Rails:
+     - I_VCCCORE_PH1: Mean=2.3286 A, Min=2.3286 A, Max=2.3286 A, Std=nan A
+     - I_VCCCORE_PH2: Mean=0.0797 A, Min=0.0797 A, Max=0.0797 A, Std=nan A
+     - I_VCCCORE_PH3: Mean=0.0565 A, Min=0.0565 A, Max=0.0565 A, Std=nan A
+     - I_VCCCORE_PH4: Mean=0.0312 A, Min=0.0312 A, Max=0.0312 A, Std=nan A
+     - I_VCCCORE_PH5: Mean=0.0252 A, Min=0.0252 A, Max=0.0252 A, Std=nan A
+     - I_VCCCORE_PH6: Mean=0.0135 A, Min=0.0135 A, Max=0.0135 A, Std=nan A
+     - I_VCCCORE_PH7: Mean=0.0196 A, Min=0.0196 A, Max=0.0196 A, Std=nan A
+     - I_VCCCORE_PH8: Mean=0.0101 A, Min=0.0101 A, Max=0.0101 A, Std=nan A
+     - I_VCCCORE_PH9: Mean=-0.0005 A, Min=-0.0005 A, Max=-0.0005 A, Std=nan A
+     - I_VCCCORE_PH_TOTAL: Mean=2.5641 A, Min=2.5641 A, Max=2.5641 A, Std=nan A
+     - I_VCCSA_PH1: Mean=2.1292 A, Min=2.1292 A, Max=2.1292 A, Std=nan A
+     - I_VCCSA_PH2: Mean=0.0360 A, Min=0.0360 A, Max=0.0360 A, Std=nan A
+     - I_VCCSA_PH_TOTAL: Mean=2.1652 A, Min=2.1652 A, Max=2.1652 A, Std=nan A
+
+   ### SocWatch Metrics:
+     - P_VCCCORE_PH1: Mean=2.6725 W, Min=2.6725 W, Max=2.6725 W, Std=nan W
+     - P_VCCCORE_PH2: Mean=0.0849 W, Min=0.0849 W, Max=0.0849 W, Std=nan W
+     - P_VCCCORE_PH3: Mean=0.0548 W, Min=0.0548 W, Max=0.0548 W, Std=nan W
+     - P_VCCCORE_PH4: Mean=0.0307 W, Min=0.0307 W, Max=0.0307 W, Std=nan W
+     - P_VCCCORE_PH5: Mean=0.0249 W, Min=0.0249 W, Max=0.0249 W, Std=nan W
+     - P_VCCCORE_PH6: Mean=0.0131 W, Min=0.0131 W, Max=0.0131 W, Std=nan W
+     - P_VCCCORE_PH7: Mean=0.0186 W, Min=0.0186 W, Max=0.0186 W, Std=nan W
+     - P_VCCCORE_PH8: Mean=0.0098 W, Min=0.0098 W, Max=0.0098 W, Std=nan W
+     - P_VCCCORE_PH9: Mean=-0.0009 W, Min=-0.0009 W, Max=-0.0009 W, Std=nan W
+     - P_VCCSA_PH1: Mean=2.2013 W, Min=2.2013 W, Max=2.2013 W, Std=nan W
+     - P_VCCSA_PH2: Mean=0.0369 W, Min=0.0369 W, Max=0.0369 W, Std=nan W
+     - V_VCCCORE_PH1: Mean=1.0370 V, Min=1.0370 V, Max=1.0370 V, Std=nan V
+     - V_VCCCORE_PH2: Mean=1.0365 V, Min=1.0365 V, Max=1.0365 V, Std=nan V
+     - V_VCCCORE_PH3: Mean=1.0364 V, Min=1.0364 V, Max=1.0364 V, Std=nan V
+     - V_VCCCORE_PH4: Mean=1.0364 V, Min=1.0364 V, Max=1.0364 V, Std=nan V
+     - V_VCCCORE_PH5: Mean=1.0380 V, Min=1.0380 V, Max=1.0380 V, Std=nan V
+     - V_VCCCORE_PH6: Mean=1.0380 V, Min=1.0380 V, Max=1.0380 V, Std=nan V
+     - V_VCCCORE_PH7: Mean=1.0380 V, Min=1.0380 V, Max=1.0380 V, Std=nan V
+     - V_VCCCORE_PH8: Mean=1.0380 V, Min=1.0380 V, Max=1.0380 V, Std=nan V
+     - V_VCCCORE_PH9: Mean=1.0422 V, Min=1.0422 V, Max=1.0422 V, Std=nan V
+     - V_VCCCORE_SENSE: Mean=1.0340 V, Min=1.0340 V, Max=1.0340 V, Std=nan V
+     - V_VCCSA_PH1: Mean=1.0335 V, Min=1.0335 V, Max=1.0335 V, Std=nan V
+     - V_VCCSA_PH2: Mean=1.0331 V, Min=1.0331 V, Max=1.0331 V, Std=nan V
+     - V_VCCSA_SENSE: Mean=1.0282 V, Min=1.0282 V, Max=1.0282 V, Std=nan V
+
+## WORKLOAD: CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote
+   (37 data points)
+
+   ### Power Rails:
+     - I_VCCCORE_PH1: Mean=2.3898 A, Min=2.3898 A, Max=2.3898 A, Std=nan A
+     - I_VCCCORE_PH2: Mean=0.0748 A, Min=0.0748 A, Max=0.0748 A, Std=nan A
+     - I_VCCCORE_PH3: Mean=0.0503 A, Min=0.0503 A, Max=0.0503 A, Std=nan A
+     - I_VCCCORE_PH4: Mean=0.0288 A, Min=0.0288 A, Max=0.0288 A, Std=nan A
+     - I_VCCCORE_PH5: Mean=0.0061 A, Min=0.0061 A, Max=0.0061 A, Std=nan A
+     - I_VCCCORE_PH6: Mean=-0.0067 A, Min=-0.0067 A, Max=-0.0067 A, Std=nan A
+     - I_VCCCORE_PH7: Mean=-0.0013 A, Min=-0.0013 A, Max=-0.0013 A, Std=nan A
+     - I_VCCCORE_PH8: Mean=-0.0125 A, Min=-0.0125 A, Max=-0.0125 A, Std=nan A
+     - I_VCCCORE_PH9: Mean=0.0000 A, Min=0.0000 A, Max=0.0000 A, Std=nan A
+     - I_VCCCORE_PH_TOTAL: Mean=2.5304 A, Min=2.5304 A, Max=2.5304 A, Std=nan A
+     - I_VCCSA_PH1: Mean=2.0196 A, Min=2.0196 A, Max=2.0196 A, Std=nan A
+     - I_VCCSA_PH2: Mean=0.0336 A, Min=0.0336 A, Max=0.0336 A, Std=nan A
+     - I_VCCSA_PH_TOTAL: Mean=2.0535 A, Min=2.0535 A, Max=2.0535 A, Std=nan A
+
+   ### SocWatch Metrics:
+     - P_VCCCORE_PH1: Mean=2.7221 W, Min=2.7221 W, Max=2.7221 W, Std=nan W
+     - P_VCCCORE_PH2: Mean=0.0812 W, Min=0.0812 W, Max=0.0812 W, Std=nan W
+     - P_VCCCORE_PH3: Mean=0.0502 W, Min=0.0502 W, Max=0.0502 W, Std=nan W
+     - P_VCCCORE_PH4: Mean=0.0291 W, Min=0.0291 W, Max=0.0291 W, Std=nan W
+     - P_VCCCORE_PH5: Mean=0.0078 W, Min=0.0078 W, Max=0.0078 W, Std=nan W
+     - P_VCCCORE_PH6: Mean=-0.0049 W, Min=-0.0049 W, Max=-0.0049 W, Std=nan W
+     - P_VCCCORE_PH7: Mean=-0.0002 W, Min=-0.0002 W, Max=-0.0002 W, Std=nan W
+     - P_VCCCORE_PH8: Mean=-0.0106 W, Min=-0.0106 W, Max=-0.0106 W, Std=nan W
+     - P_VCCCORE_PH9: Mean=-0.0005 W, Min=-0.0005 W, Max=-0.0005 W, Std=nan W
+     - P_VCCSA_PH1: Mean=2.0884 W, Min=2.0884 W, Max=2.0884 W, Std=nan W
+     - P_VCCSA_PH2: Mean=0.0344 W, Min=0.0344 W, Max=0.0344 W, Std=nan W
+     - V_VCCCORE_PH1: Mean=1.0409 V, Min=1.0409 V, Max=1.0409 V, Std=nan V
+     - V_VCCCORE_PH2: Mean=1.0404 V, Min=1.0404 V, Max=1.0404 V, Std=nan V
+     - V_VCCCORE_PH3: Mean=1.0403 V, Min=1.0403 V, Max=1.0403 V, Std=nan V
+     - V_VCCCORE_PH4: Mean=1.0403 V, Min=1.0403 V, Max=1.0403 V, Std=nan V
+     - V_VCCCORE_PH5: Mean=1.0356 V, Min=1.0356 V, Max=1.0356 V, Std=nan V
+     - V_VCCCORE_PH6: Mean=1.0356 V, Min=1.0356 V, Max=1.0356 V, Std=nan V
+     - V_VCCCORE_PH7: Mean=1.0356 V, Min=1.0356 V, Max=1.0356 V, Std=nan V
+     - V_VCCCORE_PH8: Mean=1.0356 V, Min=1.0356 V, Max=1.0356 V, Std=nan V
+     - V_VCCCORE_PH9: Mean=1.0341 V, Min=1.0341 V, Max=1.0341 V, Std=nan V
+     - V_VCCCORE_SENSE: Mean=1.0372 V, Min=1.0372 V, Max=1.0372 V, Std=nan V
+     - V_VCCSA_PH1: Mean=1.0335 V, Min=1.0335 V, Max=1.0335 V, Std=nan V
+     - V_VCCSA_PH2: Mean=1.0331 V, Min=1.0331 V, Max=1.0331 V, Std=nan V
+     - V_VCCSA_SENSE: Mean=1.0281 V, Min=1.0281 V, Max=1.0281 V, Std=nan V
+
+
+============================================================
+
+=== CROSS-WORKLOAD COMPARISON ===
+
+### Power Rails Comparison:
+
+## I_VCCCORE_PH1
+  🥇 BEST CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 2.3286 A
+  🥈 CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 2.3898 A
+  🥉 CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 2.4259 A
+    #4 CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 2.5419 A
+    #5 CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 2.5914 A
+    #6 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 2.6230 A
+
+## I_VCCCORE_PH2
+  🥇 BEST CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0690 A
+  🥈 CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 0.0748 A
+  🥉 CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0779 A
+    #4 CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0797 A
+    #5 CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0861 A
+    #6 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0867 A
+
+## I_VCCCORE_PH3
+  🥇 BEST CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0411 A
+  🥈 CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0417 A
+  🥉 CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 0.0503 A
+    #4 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0540 A
+    #5 CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0565 A
+    #6 CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0632 A
+
+## I_VCCCORE_PH4
+  🥇 BEST CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0263 A
+  🥈 CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0268 A
+  🥉 CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 0.0288 A
+    #4 CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0312 A
+    #5 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0354 A
+    #6 CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0392 A
+
+## I_VCCCORE_PH5
+  🥇 BEST CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 0.0061 A
+  🥈 CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0153 A
+  🥉 CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0160 A
+    #4 CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0180 A
+    #5 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0218 A
+    #6 CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0252 A
+
+## I_VCCCORE_PH6
+  🥇 BEST CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: -0.0067 A
+  🥈 CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0049 A
+  🥉 CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0051 A
+    #4 CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0054 A
+    #5 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0074 A
+    #6 CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0135 A
+
+## I_VCCCORE_PH7
+  🥇 BEST CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: -0.0013 A
+  🥈 CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0063 A
+  🥉 CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0069 A
+    #4 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0089 A
+    #5 CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0104 A
+    #6 CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0196 A
+
+## I_VCCCORE_PH8
+  🥇 BEST CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: -0.0125 A
+  🥈 CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0006 A
+  🥉 CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0009 A
+    #4 CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0017 A
+    #5 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0022 A
+    #6 CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0101 A
+
+## I_VCCCORE_PH9
+  🥇 BEST CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: -0.0133 A
+  🥈 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: -0.0061 A
+  🥉 CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: -0.0060 A
+    #4 CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: -0.0053 A
+    #5 CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: -0.0005 A
+    #6 CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 0.0000 A
+
+## I_VCCCORE_PH_TOTAL
+  🥇 BEST CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 2.5304 A
+  🥈 CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 2.5641 A
+  🥉 CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 2.6357 A
+    #4 CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 2.7039 A
+    #5 CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 2.7580 A
+    #6 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 2.8335 A
+
+## I_VCCSA_PH1
+  🥇 BEST CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.9926 A
+  🥈 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.9946 A
+  🥉 CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 2.0051 A
+    #4 CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 2.0196 A
+    #5 CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 2.1224 A
+    #6 CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 2.1292 A
+
+## I_VCCSA_PH2
+  🥇 BEST CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 0.0336 A
+  🥈 CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0359 A
+  🥉 CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0360 A
+    #4 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0457 A
+    #5 CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0659 A
+    #6 CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0685 A
+
+## I_VCCSA_PH_TOTAL
+  🥇 BEST CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 2.0286 A
+  🥈 CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 2.0403 A
+  🥉 CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 2.0535 A
+    #4 CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 2.0710 A
+    #5 CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 2.1652 A
+    #6 CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 2.1909 A
+
+### SocWatch Metrics Comparison:
+
+## P_VCCCORE_PH1
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 2.8817 W
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 2.9750 W
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 2.9435 W
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 2.7692 W
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 2.6725 W
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 2.7221 W
+
+## P_VCCCORE_PH2
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0790 W
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0988 W
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0894 W
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0918 W
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0849 W
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 0.0812 W
+
+## P_VCCCORE_PH3
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0455 W
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0588 W
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0447 W
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0619 W
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0548 W
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 0.0502 W
+
+## P_VCCCORE_PH4
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0292 W
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0386 W
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0287 W
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0387 W
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0307 W
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 0.0291 W
+
+## P_VCCCORE_PH5
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0175 W
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0238 W
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0168 W
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0185 W
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0249 W
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 0.0078 W
+
+## P_VCCCORE_PH6
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0055 W
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0080 W
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0053 W
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0057 W
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0131 W
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: -0.0049 W
+
+## P_VCCCORE_PH7
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0071 W
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0093 W
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0065 W
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0101 W
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0186 W
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: -0.0002 W
+
+## P_VCCCORE_PH8
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0016 W
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0022 W
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0008 W
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0009 W
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0098 W
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: -0.0106 W
+
+## P_VCCCORE_PH9
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: -0.0058 W
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: -0.0066 W
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: -0.0065 W
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: -0.0123 W
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: -0.0009 W
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: -0.0005 W
+
+## P_VCCSA_PH1
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 2.0604 W
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 2.0623 W
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 2.0727 W
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 2.1945 W
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 2.2013 W
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 2.0884 W
+
+## P_VCCSA_PH2
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 0.0369 W
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 0.0469 W
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 0.0678 W
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 0.0703 W
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 0.0369 W
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 0.0344 W
+
+## V_VCCCORE_PH1
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0608 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0683 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0645 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0398 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0370 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0409 V
+
+## V_VCCCORE_PH2
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0602 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0677 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0639 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0393 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0365 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0404 V
+
+## V_VCCCORE_PH3
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0602 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0677 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0638 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0393 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0364 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0403 V
+
+## V_VCCCORE_PH4
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0602 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0677 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0638 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0393 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0364 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0403 V
+
+## V_VCCCORE_PH5
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0604 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0678 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0640 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0415 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0380 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0356 V
+
+## V_VCCCORE_PH6
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0604 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0678 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0640 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0415 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0380 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0356 V
+
+## V_VCCCORE_PH7
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0604 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0677 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0639 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0414 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0380 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0356 V
+
+## V_VCCCORE_PH8
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0604 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0677 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0639 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0414 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0380 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0356 V
+
+## V_VCCCORE_PH9
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0607 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0680 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0640 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0391 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0422 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0341 V
+
+## V_VCCCORE_SENSE
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0577 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0650 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0613 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0372 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0340 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0372 V
+
+## V_VCCSA_PH1
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0335 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0334 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0333 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0336 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0335 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0335 V
+
+## V_VCCSA_PH2
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0331 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0330 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0329 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0332 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0331 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0331 V
+
+## V_VCCSA_SENSE
+  - CDM_write_daq_bk1_2_1/20260409T000147_perf.cdm.CDM_remote: 1.0285 V
+  - CDM_write_daq_bk1_1_1/20260408T231953_perf.cdm.CDM_remote: 1.0283 V
+  - CDM_write_daq_bk1_0_1/20260408T191852_perf.cdm.CDM_remote: 1.0282 V
+  - CDM_read_daq_bk1_2_1/20260409T021332_perf.cdm.CDM_remote: 1.0282 V
+  - CDM_read_daq_bk1_1_1/20260409T004011_perf.cdm.CDM_remote: 1.0282 V
+  - CDM_read_daq_bk1_0_1/20260409T001011_perf.cdm.CDM_remote: 1.0281 V
+
+Please format your response with clear headings, bullet points, and specific numerical references.
+Focus on actionable insights that validation engineers can use immediately.

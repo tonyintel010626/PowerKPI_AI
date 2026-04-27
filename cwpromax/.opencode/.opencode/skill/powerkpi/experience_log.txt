@@ -1,0 +1,439 @@
+===========================================================================
+Run 9 – 2026-04-18
+Task: Fix "results.json not detected" bug in dashboard_gui_v6.py.
+===========================================================================
+
+WHAT WAS DONE
+-------------
+- Read commands.txt: "dashboard_gui_v6.py results.json is now not detected."
+- Inspected C:\test2\step_phy\ recursively: ZERO *-results.json files found anywhere.
+  All data files are raw CSVs:
+    *-power-default_Raw_Summary.csv (power rails)
+    *-socwatch-default.csv          (SoCWatch)
+  Folder tree: Version 1\ (CMS, IDLE, YOUTUBE) and Version 2\ (CATAPULT_BROWSING, WW15).
+- Located the bug: dashboard_gui_v6.py line 826 sets default data_source_var = "results_json"
+  and line 1203 sets _source_display_var = "results_json".
+  The scan uses rglob("*-results.json") which finds nothing because no such files exist.
+- Fix: Changed both defaults from "results_json" to "raw_csv" (lines 826 and 1203).
+  The raw_csv scan (scan_folders_csv) uses rglob("*-power-*_Raw_Summary.csv") which
+  matches all files present.
+- Syntax verified: python -c "import ast; ast.parse(...)" → OK.
+
+ERRORS ENCOUNTERED
+------------------
+None.
+
+ROOT CAUSE
+----------
+The data source radio button defaulted to "results_json" mode, but the step_phy
+folder contains only raw CSV output files (no aggregated results.json is produced
+by this test setup). Changing the default to "raw_csv" aligns the scan mode with
+the actual file types present.
+
+FILES MODIFIED
+--------------
+  C:\test2\dashboard_gui_v6.py  – lines 826, 1203: "results_json" → "raw_csv" default
+
+===========================================================================
+Run 8 – 2026-04-17
+Task: New commands.txt – integrate geni.py auth, socwatch/power prompt,
+      and HSDES export (Excel + HTML) into dashboard_gui_v6.py at C:\test2.
+===========================================================================
+
+WHAT WAS DONE
+-------------
+Files read:
+  C:\Python313\Lib\site-packages\hopper\base\instrument\geni.py  (4222 bytes)
+  C:\test2\dashboard_gui_v6.py  (154740 bytes, 3545 lines)
+
+Three changes made to C:\test2\dashboard_gui_v6.py:
+
+1. REPLACED _query_geni() (lines 287–353):
+   - Old: used subprocess importing GeniAuthManager from geni_auth_manager.py
+     (a separate skill-path dependency that may not be present).
+   - New: subprocess imports geni.py directly from the hopper package at
+     C:\Python313\Lib\site-packages\hopper\base\instrument\geni.py.
+   - Uses geni.token (module-level MSAL auth via sys_moka@intel.com),
+     geni.HOPPER_WORKSPACE_ID (1574), and geni.GENI_PROMPT for response format.
+   - Calls askQuestionHistoryNoStreaming endpoint (same as geni.py itself).
+   - Constant _GENI_PY_PATH added at module level for the hopper instrument path.
+
+2. UPDATED _geni_prompt_default (line ~833):
+   - Old: generic "root causes for high power or bad C-state residency" prompt.
+   - New: structured expert prompt that:
+       * Defines SoCWatch metric context (C-states PC0/PC2/PC6/PC10, S0ix
+         substates s0i2.0/s0i2.1/s0i2.2, PCD Active State absolute + % PMC).
+       * Defines power rails context (voltage/current SoC measurements).
+       * Asks GENI to: explain what the metrics indicate, identify high
+         residency/power metrics, suggest root causes, recommend debug steps.
+
+3. ADDED HSDES export to Excel and HTML:
+   a. New instance variable: self._last_hsdes_result = "" (in __init__).
+   b. _run_single_source: stores HSDES result in self._last_hsdes_result
+      when key == 'hsdes'.
+   c. _run_ai_summary._done(): extracts HSDES section from full summary
+      (searches for "HSDES SIGHTING SEARCH" marker) and stores it.
+   d. create_ai_summary_tab: added "HSDES Export" LabelFrame with two buttons:
+        "Export HSDES → Excel (.xlsx)"
+        "Export HSDES → HTML"
+   e. New methods:
+        _hsdes_result_to_rows(): parses last HSDES text into structured rows
+          (detects 10-12 digit sighting IDs, bracket entries, section headers).
+        _export_hsdes_excel(): saves structured rows to .xlsx with colour coding
+          (header rows in blue-grey, sighting rows in light blue).
+        _export_hsdes_html(): saves standalone HTML table with clickable links
+          to https://hsdes.intel.com/appstore/article/#/{id} for each sighting ID,
+          plus a metadata block showing selected rails/socwatch/workloads.
+
+ERRORS ENCOUNTERED
+------------------
+None. Syntax verified with: python -c "import ast; ast.parse(...)"
+
+DESIGN NOTES
+------------
+- geni.py runs authenticate_user() at import time (module level).
+  Importing it in a subprocess means auth runs exactly once per GENI call.
+- The askQuestionHistoryNoStreaming endpoint differs from the old
+  askQuestion?focusId=X endpoint; the workspaceId approach matches
+  the hopper team's intended usage.
+- HSDES export works on the *text* output of _query_hsdes; structured
+  parsing uses regex for 10–12 digit sighting IDs. If pysvtools is not
+  available, only prompt/header rows will appear (no live IDs), but the
+  export still works as a formatted text document.
+
+===========================================================================
+Run 7 – 2026-04-17
+Task: commands.txt line 7 changed input files to "Audio Disabled.csv" and
+      "Audio Default.csv". Re-run both focused and all-sections comparisons.
+===========================================================================
+
+WHAT WAS DONE
+-------------
+- Detected file rename: "Default.csv" → "Audio Default.csv" (526588 bytes, same data).
+  "Audio Disabled.csv" (524629 bytes) unchanged from Run 4.
+- Updated FILE_AUDIO / FILE_DEFAULT in both scripts.
+- Updated all column header labels to "Audio Default (%)" (was "Default (%)").
+- Updated HTML titles and legend text to match new file names.
+- Updated output filenames to:
+    audio_disabled_vs_audio_default_comparison.csv / .html
+    audio_disabled_vs_audio_default_all_sections.csv / .html
+- Both scripts ran without errors.
+  Focused:    7 PkgC + 3 S0ix + 337 PCD rows.
+  All-sections: 23 sections, 1445 rows (same as Run 5 – Audio Default.csv
+                matches the old Default.csv exactly).
+
+ERRORS ENCOUNTERED
+------------------
+None. One minor edit complication: the title/h2 strings in the scripts used
+  an em-dash (–) rather than a hyphen (-), which caused an exact-match
+  failure on the first edit attempt. Fixed by reading the file first to get
+  the exact character before editing.
+
+KEY DATA FINDINGS (Audio Disabled vs Audio Default)
+----------------------------------------------------
+Identical to Run 4/5 findings (same underlying data, renamed files):
+
+CPU Package C-States (PMT):
+  PC10.3: Audio Disabled 85.19% vs Audio Default 88.21%  (Default +3.02pp)
+  PC0   : Audio Disabled  7.15% vs Audio Default  6.63%  (Disabled +0.52pp)
+  PC2   : Audio Disabled  6.46% vs Audio Default  4.13%  (Disabled +2.33pp)
+
+S0ix Substates:
+  s0i2.2: Audio Disabled 0.00%  vs Audio Default 58.33%  (Default +58.33pp)
+  s0i2.1: Audio Disabled 0.00%  vs Audio Default  8.30%  (Default  +8.30pp)
+  All S0ix at 0% in Audio Disabled – no deep sleep entered.
+
+PCD Active (|delta| >= 5pp): 58 rows.
+  Audio Disabled 0.00% vs Audio Default 100.00% for CNVi, ISCLK-RTC-PLL,
+  HSIO-USB2-PLL, TCSS-TBT2-PGD, TCSS-XDCI-PGD, PGD-PMC-1, CSME-LF, etc.
+
+All-sections (|delta| >= 5pp): 117 rows total.
+
+OUTPUT FILES
+------------
+  Z:\Users\zphan\Audio socwatch\audio_disabled_vs_audio_default_comparison.csv      (13 KB)
+  Z:\Users\zphan\Audio socwatch\audio_disabled_vs_audio_default_comparison.html     (53 KB)
+  Z:\Users\zphan\Audio socwatch\audio_disabled_vs_audio_default_all_sections.csv   (154 KB)
+  Z:\Users\zphan\Audio socwatch\audio_disabled_vs_audio_default_all_sections.html  (267 KB)
+
+===========================================================================
+Run 6 – 2026-04-16
+Task: commands.txt line 7 changed input files to Disabled_new.csv and OOB_new.csv.
+      Re-run both focused (3-section) and all-sections comparisons on new files.
+===========================================================================
+
+WHAT WAS DONE
+-------------
+- Confirmed new files present in Z:\Users\zphan\Audio socwatch\:
+    Disabled_new.csv  609819 bytes  (larger than previous – more devices/sections)
+    OOB_new.csv       566082 bytes
+- Updated FILE_AUDIO / FILE_DEFAULT in both scripts to new filenames.
+- Updated output filenames to avoid overwriting prior results:
+    compare_audio_socwatch.py      → disabled_vs_oob_comparison.csv / .html
+    compare_audio_all_sections.py  → disabled_vs_oob_all_sections.csv / .html
+- Ran both scripts successfully.
+  Focused:    7 PkgC + 3 S0ix + 337 PCD rows extracted from each file.
+  All-sections: 24 sections found (1 new section vs Run 5: CDie C-State Debug),
+                1498 total comparison rows.
+
+ERRORS ENCOUNTERED
+------------------
+None. Lessons from prior runs applied:
+  - Always re-inspect folder for renamed files before running.
+  - Output filenames changed to disambiguate from previous run outputs.
+
+KEY DATA FINDINGS (Disabled_new vs OOB_new)
+--------------------------------------------
+CPU Package C-States (PMT):
+  PC0  (active) : Disabled_new 19.82% vs OOB_new 10.37%  (Disabled +9.45pp – notably higher)
+  PC2           : Disabled_new 80.18% vs OOB_new 89.63%  (OOB_new  +9.45pp deeper)
+  PC6.1/6.2/PC10.*: Both 0.00% – system never reached deep C-states in either run.
+
+S0ix Substates:
+  All 0.00% in both files – system did not enter S0ix during either collection.
+
+PCD Active State (% of PMC):
+  PMC: 100.00% in both (expected for idle baseline).
+  PGD-LPSS-0: Disabled_new 0.04% vs OOB_new 6.98%  (OOB +6.94pp – only notable PCD diff).
+  Most other IPs identical between files.
+
+All-sections (|delta| >= 5pp): 19 rows total.
+  Compared to Run 5 (117 rows), this dataset shows much smaller differences
+  between Disabled_new and OOB_new, suggesting these are closer in behavior
+  than the HD Audio Disabled vs Default comparison.
+
+NEW SECTION (vs Run 5):
+  "Compute Die (CDie) C-State Debug Blocking Residency" – 11 rows, now included.
+
+OUTPUT FILES
+------------
+  Z:\Users\zphan\Audio socwatch\disabled_vs_oob_comparison.csv       (13 KB)
+  Z:\Users\zphan\Audio socwatch\disabled_vs_oob_comparison.html      (43 KB)
+  Z:\Users\zphan\Audio socwatch\disabled_vs_oob_all_sections.csv    (160 KB)
+  Z:\Users\zphan\Audio socwatch\disabled_vs_oob_all_sections.html   (252 KB)
+
+===========================================================================
+Experience Log – Audio vs Default SoCWatch Comparison
+Date: 2026-04-16
+Task: Extract and compare 3 sections from Audio disabled.csv and Socwatch Default.csv
+
+===========
+WHAT WAS DONE
+===========
+- Parsed both SoCWatch CSV files located in Z:\Users\zphan\Audio socwatch\
+- Extracted 3 sections for side-by-side comparison:
+    1. Platform Monitoring Technology CPU Package C-States Residency (7 states: PC0, PC2, PC6.1, PC6.2, PC10.1, PC10.2, PC10.3)
+    2. Platform Controller Die S0ix Substates (3 states: s0i2.0, s0i2.1, s0i2.2)
+    3. PCD Active State (as % of PMC Active + SLP_S0 Time) (337 IP rows)
+- Generated side-by-side comparison outputs:
+    - audio_vs_default_comparison.csv
+    - audio_vs_default_comparison.html  (with color-coded delta highlighting)
+- Script: compare_audio_socwatch.py (saved in same folder)
+
+===========
+ERRORS ENCOUNTERED
+===========
+1. Initial file path error:
+   - Searched C:\git\skill\powerkpi\command.txt but actual path was
+     C:\git\applications.ai.ocode.market.skills\.opencode\skill\powerkpi\commands.txt (note plural).
+   - Solution: searched for the file with glob, found it at the .opencode subpath.
+
+2. PKgC and S0ix parser returned 0 rows on first run:
+   - Root cause: The CSV section header line is immediately followed by a column-header
+     row (e.g. "C-State, Package Residency (%)...") and a separator line ("-------, ...").
+     The original parser broke out of the loop as soon as it saw a row whose first field
+     didn't start with "PC" (or "s0i"), which happened immediately on the column-header.
+   - Solution: Changed logic to skip non-matching rows silently until a matching row is
+     found, then break once matching rows stop appearing.
+
+3. PCD table section detection (no issue):
+   - The section header contains a long parenthetical phrase.
+     Used exact match string:
+     "PCD Active State (as percentage of PMC Active plus SLP_S0 Time) Summary: Residency"
+     and it matched correctly on both files.
+
+===========
+WHAT'S NOT COVERED / KNOWN LIMITATIONS
+===========
+- The compile.xlsx reference uses an Excel format via openpyxl. The output here uses
+  CSV + HTML instead (no openpyxl dependency required). If Excel output with highlighting
+  is needed, adapt the reference socwatch_combine_pkgc.py approach.
+- Delta thresholding for HTML highlight is set at 0.5%. Adjust DIFF_THRESHOLD in the script.
+- Collection durations differ: Audio Disabled = 156.1s, Socwatch Default = ~160.4s.
+  Absolute msec values are not directly comparable; use percentage columns for comparison.
+
+===========
+OUTPUT FILES
+===========
+  Z:\Users\zphan\Audio socwatch\audio_vs_default_comparison.csv
+  Z:\Users\zphan\Audio socwatch\audio_vs_default_comparison.html
+  Z:\Users\zphan\Audio socwatch\compare_audio_socwatch.py   (reusable script)
+
+===========================================================================
+Run 2 – 2026-04-16
+Task: Same extraction but percentage only (no msec); experience log now saved
+      to C:\git\applications.ai.ocode.market.skills\.opencode\skill\powerkpi\
+===========================================================================
+
+WHAT WAS DONE
+-------------
+- Re-read commands.txt: new instruction says "only take the percentage, ignore msec".
+- Rewrote compare_audio_socwatch.py (v2) to strip msec columns from all 3 sections.
+- Output columns: Metric | Audio Disabled (%) | Socwatch Default (%) | Delta (%)
+- HTML color coding: orange rows = Default higher by >=0.5%; green = Audio higher.
+- Outputs regenerated:
+    Z:\Users\zphan\Audio socwatch\audio_vs_default_comparison.csv
+    Z:\Users\zphan\Audio socwatch\audio_vs_default_comparison.html
+
+ERRORS ENCOUNTERED
+------------------
+None on this run. Applied lessons from Run 1:
+  - PkgC/S0ix parsers skip header/separator rows, only break after collecting data rows.
+  - PCD section matched correctly with full header string.
+
+KEY DATA FINDINGS (percentage only)
+-------------------------------------
+CPU Package C-States (PMT):
+  PC10.3 (deepest): Audio Disabled 83.87% vs Default 88.21%  (Default +4.34pp)
+  PC0    (active) : Audio Disabled  7.63% vs Default  6.63%  (Audio  +1.00pp more active)
+  PC2             : Audio Disabled  7.32% vs Default  4.13%  (Audio  +3.19pp)
+
+S0ix Substates:
+  s0i2.2: Audio Disabled 53.33% vs Default 58.33%  (Default +5.00pp deeper sleep)
+  s0i2.0: Audio Disabled  8.61% vs Default  4.38%  (Audio   +4.23pp)
+
+PCD Active (notable differences):
+  CNVI-0/1/3: Audio Disabled ~17% vs Default ~100% (WiFi/BT/CNVi behavior difference)
+  ISCLK-XTAL : Audio Disabled 29.89% vs Default 21.31%
+  PGD-SBRG-0 : Audio Disabled 20.64% vs Default 16.98%
+
+===========================================================================
+Run 5 – 2026-04-16
+Task: New instruction in commands.txt line 11 – "draft another html and csv
+      file with comparing ALL of the sections."
+      Produce all_sections_comparison.csv / .html covering every
+      "Summary: Residency (Percentage and Time)" section in both files.
+===========================================================================
+
+WHAT WAS DONE
+-------------
+- Scanned both CSV files for all "Summary: Residency (Percentage and Time)"
+  section headers.  Found 23 matching sections in each file.
+- Wrote compare_audio_all_sections.py with a generic section parser:
+    * Per-core / per-thread sections (Core C-State, Thread C-State,
+      CPU P-State, Core P-State, Thread P-State): averages % across all
+      CPU entities, one row per state.
+    * ACPI D-State / ACPI F-State: expands each D/F state into its own
+      row per device (key = "FriendlyName – D0", "FriendlyName – D3Cold", …).
+    * All other sections: direct state → % extraction.
+    * All msec columns stripped.
+- Total comparison rows: 1,445 across 23 sections.
+- Outputs written:
+    Z:\Users\zphan\Audio socwatch\all_sections_comparison.csv   (154 KB)
+    Z:\Users\zphan\Audio socwatch\all_sections_comparison.html  (267 KB)
+    Z:\Users\zphan\Audio socwatch\compare_audio_all_sections.py
+
+ERRORS ENCOUNTERED
+------------------
+None.  Applied lessons from prior runs:
+  - Docstring paths used forward slashes (avoids \U unicode escape error).
+  - Parser detects expand vs. average mode from column header patterns.
+
+KEY DATA FINDINGS (notable sections with |delta| >= 5pp)
+---------------------------------------------------------
+117 rows with |delta| >= 5pp found.  Most are in PCD Active State:
+  - PMC / CSME-LF / ESE-LF / OSSE-LF / CNVi / ISCLK-RTC-PLL /
+    HSIO-USB2-PLL: 0% Audio vs 97-100% Default (IP tree fully gated in
+    HD Audio Disabled condition).
+  - S0ix substates: Audio 0% vs Default up to 58.33% (s0i2.2).
+  - CPU P-State and C-State sections show only minor differences
+    (< 3pp), consistent with the system being in similar CPU activity.
+
+SECTIONS COVERED (23)
+---------------------
+  ACPI S-State | PMT CPU PkgC | Package C-State (HW) | Core C-State |
+  Package C-State (OS) | Core C-State (OS) | Thread C-State (OS) |
+  OS Requested C-State | CPU-iGPU Concurrency | CPU P-State/Frequency |
+  Package P-State (OS) | Core P-State (OS) | Thread P-State (OS) |
+  Timer Resolution (OS) | ACPI D-State | ACPI F-State |
+  PCD Active State | PCD Active State (% of PMC) |
+  Type-C Subsystem | S0ix Substates | PCD SLP-S0 |
+  Sxix Substates | PkgC Debug Blocking Residency
+
+===========================================================================
+Run 4 – 2026-04-16
+Task: New "Audio Disabled.csv" file (HD Audio variant, 524629 bytes);
+      regenerate side-by-side comparison with same 3 sections, % only.
+===========================================================================
+
+WHAT WAS DONE
+-------------
+- Noted Audio Disabled.csv changed size (524629 bytes) vs Run 3 (520712 bytes).
+  The reference folder Z:\Users\zphan\Audio_default\...\socwatch\ had the same
+  file as "Socwtach HD Audio Disabled.csv" (524629 bytes) – confirming this is
+  the HD Audio variant.
+- Read socwatch_combine_pkgc.py from reference folder for format context.
+- Re-ran compare_audio_socwatch.py (updated in-place) on the new Audio Disabled.csv.
+- All 3 sections extracted cleanly: 7 PkgC rows, 3 S0ix rows, 337 PCD rows.
+- Outputs regenerated:
+    Z:\Users\zphan\Audio socwatch\audio_vs_default_comparison.csv
+    Z:\Users\zphan\Audio socwatch\audio_vs_default_comparison.html
+
+ERRORS ENCOUNTERED
+------------------
+1. SyntaxError – unicode escape in docstring:
+   - The raw triple-quoted docstring contained "Z:\Users" where \U was interpreted
+     as a Unicode escape sequence at exec() time.
+   - Solution: Changed the path in the docstring to use forward slashes.
+
+KEY DATA FINDINGS (Run 4 – HD Audio Disabled vs Default)
+---------------------------------------------------------
+CPU Package C-States (PMT):
+  PC10.3 (deepest): HD Audio Disabled 85.19% vs Default 88.21%  (Default +3.02pp deeper)
+  PC0    (active) : HD Audio Disabled  7.15% vs Default  6.63%  (Audio   +0.52pp more active)
+  PC2             : HD Audio Disabled  6.46% vs Default  4.13%  (Audio   +2.33pp)
+
+S0ix Substates:
+  s0i2.0: HD Audio Disabled 0.00% vs Default 4.38%  (Default +4.38pp)
+  s0i2.1: HD Audio Disabled 0.00% vs Default 8.30%  (Default +8.30pp)
+  s0i2.2: HD Audio Disabled 0.00% vs Default 58.33% (Default +58.33pp – significant)
+  All S0ix substates are 0% in Audio Disabled; system never entered S0ix deep sleep.
+
+PCD Active (notable differences, default significantly higher):
+  CNVI-0/1/3/16/PGD-CNVI-0/PGD-PMC-1: ~100% Default vs 0% Audio (WiFi/BT/CNVi)
+  ISCLK-RTC-PLL/HSIO-USB2-PLL: 100% Default vs 0% Audio
+  PMC: 18.43% Default vs 0.00% Audio
+  CSME-LF/ESE-LF/OSSE-LF: ~99-100% Default vs 0.00% Audio
+  Most PGD-SBR* entries: ~17% Default vs 0.00% Audio
+
+NOTE: The HD Audio Disabled condition results in ALL PCD IPs showing 0.00% active
+      (system clock/IP tree fully gated), which is very different from the prior
+      "Audio disabled" run (Runs 1-3) where many IPs had non-zero activity.
+
+===========================================================================
+Run 3 – 2026-04-16
+Task: Re-run comparison with renamed input files per updated commands.txt
+===========================================================================
+
+WHAT WAS DONE
+-------------
+- Read commands.txt: line 7 changed from "Socwatch Default.csv" to "Default.csv".
+- Checked folder contents — both input files were renamed:
+    OLD: "Audio disabled.csv"    → NEW: "Audio Disabled.csv"  (520712 bytes)
+    OLD: "Socwatch Default.csv"  → NEW: "Default.csv"         (526588 bytes)
+- Updated compare_audio_socwatch.py to reference new filenames.
+- Re-ran script: all 3 sections extracted cleanly (7 PkgC, 3 S0ix, 337 PCD rows).
+- Outputs regenerated:
+    Z:\Users\zphan\Audio socwatch\audio_vs_default_comparison.csv
+    Z:\Users\zphan\Audio socwatch\audio_vs_default_comparison.html
+
+ERRORS ENCOUNTERED
+------------------
+None. Lesson learned and applied:
+  - Always re-check actual filenames in the folder before running; files may be
+    renamed between runs. The commands.txt hint (changing "Socwatch Default.csv"
+    to "Default.csv") was the signal to re-inspect the folder.
+
+DATA UNCHANGED
+--------------
+  Extracted values are identical to Run 2 — same underlying data, only filenames changed.

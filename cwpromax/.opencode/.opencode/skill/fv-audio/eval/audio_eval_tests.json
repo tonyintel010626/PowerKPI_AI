@@ -1,0 +1,881 @@
+{
+  "_comment": "FV-AUDIO eval tests — assertions verified by audio_self_verify.py",
+  "_version": "2.0",
+  "tests": [
+    {
+      "id": "eval_agent_ace4",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "ACE 4",
+      "description": "Agent definition must reference ACE 4.x architecture"
+    },
+    {
+      "id": "eval_agent_pci_bdf",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "0:31:3",
+      "description": "Agent definition must reference audio PCI BDF 0:31:3"
+    },
+    {
+      "id": "eval_agent_owner",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "huiyingt",
+      "description": "Agent definition must identify owner huiyingt"
+    },
+    {
+      "id": "eval_agent_nvl",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "NVL",
+      "description": "Agent definition must reference NVL platform"
+    },
+    {
+      "id": "eval_agent_delegation",
+      "skill": "",
+      "assertion": "has_section",
+      "pattern": "Skill-Based Delegation",
+      "description": "Agent definition must have delegation table"
+    },
+    {
+      "id": "eval_agent_audit_trail",
+      "skill": "",
+      "assertion": "has_section",
+      "pattern": "AUDIT TRAIL",
+      "description": "Agent definition must have audit trail section"
+    },
+    {
+      "id": "eval_agent_did_values",
+      "skill": "",
+      "assertion": "regex",
+      "pattern": "0x[Dd][23][2Cc]8",
+      "description": "Agent definition must reference audio Device IDs (0xD228 or 0xD328)"
+    },
+    {
+      "id": "eval_agent_ace_version_range",
+      "skill": "",
+      "assertion": "regex",
+      "pattern": "ACE\\s*[34]",
+      "description": "Agent definition must reference ACE generation (3 or 4)"
+    },
+    {
+      "id": "eval_hda_corb_rirb",
+      "skill": "hda",
+      "assertion": "contains",
+      "pattern": "CORB",
+      "description": "HDA skill must cover CORB command buffer"
+    },
+    {
+      "id": "eval_hda_rirb",
+      "skill": "hda",
+      "assertion": "contains",
+      "pattern": "RIRB",
+      "description": "HDA skill must cover RIRB response buffer"
+    },
+    {
+      "id": "eval_hda_codec_discovery",
+      "skill": "hda",
+      "assertion": "contains",
+      "pattern": "codec",
+      "description": "HDA skill must cover codec discovery"
+    },
+    {
+      "id": "eval_hda_corb_register_offset",
+      "skill": "hda",
+      "assertion": "regex",
+      "pattern": "0x4[0AaCc]",
+      "description": "HDA skill must reference CORB/RIRB register offsets (0x40 CORB base, 0x4A CORBRP, 0x4C CORBWP)"
+    },
+    {
+      "id": "eval_hda_verb_command_format",
+      "skill": "hda",
+      "assertion": "regex",
+      "pattern": "0x[Ff]0[0129]",
+      "description": "HDA skill must reference HDA verb command format (0xF00 params, 0xF01 conn list, 0xF02 proc, 0xF09 pin sense)"
+    },
+    {
+      "id": "eval_hda_gcap_or_statests",
+      "skill": "hda",
+      "assertion": "regex",
+      "pattern": "(GCAP|STATESTS|GCTL|WAKEEN)",
+      "description": "HDA skill must reference key HDA controller registers"
+    },
+    {
+      "id": "eval_soundwire_mipi",
+      "skill": "soundwire",
+      "assertion": "contains",
+      "pattern": "MIPI",
+      "description": "SoundWire skill must reference MIPI Alliance standard"
+    },
+    {
+      "id": "eval_soundwire_data_port",
+      "skill": "soundwire",
+      "assertion": "contains",
+      "pattern": "data port",
+      "description": "SoundWire skill must cover data port concept"
+    },
+    {
+      "id": "eval_soundwire_enumeration",
+      "skill": "soundwire",
+      "assertion": "contains",
+      "pattern": "enumerat",
+      "description": "SoundWire skill must cover bus enumeration"
+    },
+    {
+      "id": "eval_soundwire_shim_registers",
+      "skill": "soundwire",
+      "assertion": "regex",
+      "pattern": "SHIM_(CFG|IOCTL|WAKEEN|WAKESTS|CTMCTL)",
+      "description": "SoundWire skill must reference SHIM control registers by name"
+    },
+    {
+      "id": "eval_soundwire_alh_register",
+      "skill": "soundwire",
+      "assertion": "contains",
+      "pattern": "ALH_STRMZCFG",
+      "description": "SoundWire skill must reference ALH stream config register"
+    },
+    {
+      "id": "eval_soundwire_clock_stop",
+      "skill": "soundwire",
+      "assertion": "regex",
+      "pattern": "(clock.?stop|ClockStop)",
+      "description": "SoundWire skill must cover clock stop mode for power management"
+    },
+    {
+      "id": "eval_dsp_firmware",
+      "skill": "dsp",
+      "assertion": "contains",
+      "pattern": "firmware",
+      "description": "DSP skill must cover firmware loading"
+    },
+    {
+      "id": "eval_dsp_ipc",
+      "skill": "dsp",
+      "assertion": "contains",
+      "pattern": "IPC",
+      "description": "DSP skill must cover IPC messaging"
+    },
+    {
+      "id": "eval_dsp_sram",
+      "skill": "dsp",
+      "assertion": "contains",
+      "pattern": "SRAM",
+      "description": "DSP skill must cover SRAM management"
+    },
+    {
+      "id": "eval_dsp_ipc_message_types",
+      "skill": "dsp",
+      "assertion": "regex",
+      "pattern": "(INIT_INSTANCE|SET_PIPELINE|SET_PARAMS|FW_READY|LARGE_CONFIG)",
+      "description": "DSP skill must reference specific IPC message types"
+    },
+    {
+      "id": "eval_dsp_adspcs_or_core_ctl",
+      "skill": "dsp",
+      "assertion": "regex",
+      "pattern": "(ADSPCS|ADSPIC|ADSPIS|core.*enabl|power.*core)",
+      "description": "DSP skill must reference DSP core control registers or power-up procedures"
+    },
+    {
+      "id": "eval_dsp_pipeline_state",
+      "skill": "dsp",
+      "assertion": "regex",
+      "pattern": "(pipeline|RUNNING|PAUSED|RESET)",
+      "description": "DSP skill must cover pipeline state management"
+    },
+    {
+      "id": "eval_dmic_pdm",
+      "skill": "dmic",
+      "assertion": "contains",
+      "pattern": "PDM",
+      "description": "DMIC skill must cover PDM interface"
+    },
+    {
+      "id": "eval_dmic_gpio",
+      "skill": "dmic",
+      "assertion": "contains",
+      "pattern": "GPIO",
+      "description": "DMIC skill must cover GPIO pad mode for DMIC pins"
+    },
+    {
+      "id": "eval_dmic_pad_names",
+      "skill": "dmic",
+      "assertion": "regex",
+      "pattern": "DMIC_(CLK|DATA)_[ABab]",
+      "description": "DMIC skill must reference specific DMIC GPIO pad names (DMIC_CLK_A/B, DMIC_DATA_A/B)"
+    },
+    {
+      "id": "eval_dmic_gain_register",
+      "skill": "dmic",
+      "assertion": "regex",
+      "pattern": "(PDMGAIN|PDM.*gain|gain.*PDM)",
+      "description": "DMIC skill must reference PDMGAIN register for digital gain control"
+    },
+    {
+      "id": "eval_dmic_clock_freq",
+      "skill": "dmic",
+      "assertion": "regex",
+      "pattern": "(2\\.4\\s*MHz|3\\.072\\s*MHz|4\\.8\\s*MHz|PDM.CLK)",
+      "description": "DMIC skill must reference PDM clock frequencies"
+    },
+    {
+      "id": "eval_power_d0i3",
+      "skill": "power",
+      "assertion": "contains",
+      "pattern": "D0i3",
+      "description": "Power skill must cover D0i3 low-power state"
+    },
+    {
+      "id": "eval_power_s0ix",
+      "skill": "power",
+      "assertion": "contains",
+      "pattern": "S0ix",
+      "description": "Power skill must cover S0ix integration"
+    },
+    {
+      "id": "eval_power_ltr",
+      "skill": "power",
+      "assertion": "contains",
+      "pattern": "LTR",
+      "description": "Power skill must cover Latency Tolerance Reporting"
+    },
+    {
+      "id": "eval_power_cgctl_register",
+      "skill": "power",
+      "assertion": "contains",
+      "pattern": "CGCTL",
+      "description": "Power skill must reference CGCTL clock gating control register"
+    },
+    {
+      "id": "eval_power_sram_pg",
+      "skill": "power",
+      "assertion": "regex",
+      "pattern": "(SRAM.PG|SRAM.*power.*gat|power.*gat.*SRAM)",
+      "description": "Power skill must cover SRAM power gating"
+    },
+    {
+      "id": "eval_power_d_state_transitions",
+      "skill": "power",
+      "assertion": "regex",
+      "pattern": "D0i[23].*D3|D3.*D0",
+      "description": "Power skill must describe D-state transition sequences"
+    },
+    {
+      "id": "eval_uaol_xhci",
+      "skill": "uaol",
+      "assertion": "contains",
+      "pattern": "xHCI",
+      "description": "UAOL skill must cover xHCI integration"
+    },
+    {
+      "id": "eval_uaol_isochronous",
+      "skill": "uaol",
+      "assertion": "contains",
+      "pattern": "isochronous",
+      "description": "UAOL skill must cover isochronous stream management"
+    },
+    {
+      "id": "eval_uaol_fifo",
+      "skill": "uaol",
+      "assertion": "contains",
+      "pattern": "FIFO",
+      "description": "UAOL skill must cover FIFO timing"
+    },
+    {
+      "id": "eval_uaol_behind_hub",
+      "skill": "uaol",
+      "assertion": "regex",
+      "pattern": "(behind.hub|behind.*hub|hub.*support)",
+      "description": "UAOL skill must cover behind-hub USB device support"
+    },
+    {
+      "id": "eval_uaol_ace_engine",
+      "skill": "uaol",
+      "assertion": "regex",
+      "pattern": "ACE[34]|ACE\\s*[34]",
+      "description": "UAOL skill must reference ACE3 or ACE4 offload engine"
+    },
+    {
+      "id": "eval_wov_keyword",
+      "skill": "wov",
+      "assertion": "contains",
+      "pattern": "keyword",
+      "description": "WoV skill must cover keyword detection"
+    },
+    {
+      "id": "eval_wov_cro",
+      "skill": "wov",
+      "assertion": "contains",
+      "pattern": "CRO",
+      "description": "WoV skill must cover Clock Ring Oscillator"
+    },
+    {
+      "id": "eval_wov_s0ix_integration",
+      "skill": "wov",
+      "assertion": "regex",
+      "pattern": "(S0ix|S0i[xX].*wak|wake.*S0i)",
+      "description": "WoV skill must cover S0ix wake integration for always-on detection"
+    },
+    {
+      "id": "eval_aioc_soundwire",
+      "skill": "aioc",
+      "assertion": "contains",
+      "pattern": "SoundWire",
+      "description": "AIOC skill must reference SoundWire interface"
+    },
+    {
+      "id": "eval_aioc_sdca",
+      "skill": "aioc",
+      "assertion": "contains",
+      "pattern": "SDCA",
+      "description": "AIOC skill must cover SDCA driver model"
+    },
+    {
+      "id": "eval_aioc_codec_model",
+      "skill": "aioc",
+      "assertion": "regex",
+      "pattern": "ALC(712|1320)",
+      "description": "AIOC skill must reference specific ALC codec models (ALC712 or ALC1320)"
+    },
+    {
+      "id": "eval_aioc_5star_topology",
+      "skill": "aioc",
+      "assertion": "regex",
+      "pattern": "(5.Star|five.star|5.?star)",
+      "description": "AIOC skill must reference 5-Star SoundWire topology"
+    },
+    {
+      "id": "eval_display_audio_hdmi",
+      "skill": "display-audio",
+      "assertion": "contains",
+      "pattern": "HDMI",
+      "description": "Display Audio skill must cover HDMI audio"
+    },
+    {
+      "id": "eval_display_audio_dp",
+      "skill": "display-audio",
+      "assertion": "contains",
+      "pattern": "DisplayPort",
+      "description": "Display Audio skill must cover DisplayPort audio"
+    },
+    {
+      "id": "eval_display_audio_eld",
+      "skill": "display-audio",
+      "assertion": "regex",
+      "pattern": "(ELD|EDID.Like.Data|ELD.*readback|GET_HDMI_ELD)",
+      "description": "Display Audio skill must cover ELD (EDID-Like Data) readback"
+    },
+    {
+      "id": "eval_display_audio_hotplug",
+      "skill": "display-audio",
+      "assertion": "regex",
+      "pattern": "(hot.?plug|HPD|hotplug)",
+      "description": "Display Audio skill must cover hot plug detection for display audio"
+    },
+    {
+      "id": "eval_bt_offload_ssp",
+      "skill": "bt-offload",
+      "assertion": "contains",
+      "pattern": "SSP",
+      "description": "BT Audio Offload skill must cover SSP/I2S interface"
+    },
+    {
+      "id": "eval_bt_offload_hfp",
+      "skill": "bt-offload",
+      "assertion": "contains",
+      "pattern": "HFP",
+      "description": "BT Audio Offload skill must cover HFP voice profile"
+    },
+    {
+      "id": "eval_bt_offload_bclk",
+      "skill": "bt-offload",
+      "assertion": "contains",
+      "pattern": "BCLK",
+      "description": "BT Audio Offload skill must reference BCLK clock configuration"
+    },
+    {
+      "id": "eval_bt_offload_cnvi",
+      "skill": "bt-offload",
+      "assertion": "regex",
+      "pattern": "(CNVi|CNVI|cnvi)",
+      "description": "BT Audio Offload skill must reference CNVi integration for BT offload"
+    },
+    {
+      "id": "eval_clocking_pll",
+      "skill": "clocking",
+      "assertion": "contains",
+      "pattern": "PLL",
+      "description": "Clocking skill must cover PLL configuration"
+    },
+    {
+      "id": "eval_clocking_xtal",
+      "skill": "clocking",
+      "assertion": "contains",
+      "pattern": "XTAL",
+      "description": "Clocking skill must cover XTAL clock source"
+    },
+    {
+      "id": "eval_clocking_pysv_path",
+      "skill": "clocking",
+      "assertion": "regex",
+      "pattern": "soc\\.ace\\.hda",
+      "description": "Clocking skill must reference PythonSV register paths (soc.ace.hda.*)"
+    },
+    {
+      "id": "eval_clocking_clkctl_register",
+      "skill": "clocking",
+      "assertion": "regex",
+      "pattern": "(CLKCTL|clkctl|INTCLKCTL|intclkctl)",
+      "description": "Clocking skill must reference clock control registers"
+    },
+    {
+      "id": "eval_interrupts_msi",
+      "skill": "interrupts",
+      "assertion": "contains",
+      "pattern": "MSI",
+      "description": "Interrupts skill must cover MSI routing"
+    },
+    {
+      "id": "eval_interrupts_ipc_registers",
+      "skill": "interrupts",
+      "assertion": "regex",
+      "pattern": "(HIPCIE|HIPCIS|HIPCT|HIPCTE)",
+      "description": "Interrupts skill must reference IPC interrupt registers (HIPCIE/HIPCIS/HIPCT)"
+    },
+    {
+      "id": "eval_interrupts_intctl_intsts",
+      "skill": "interrupts",
+      "assertion": "regex",
+      "pattern": "(INTCTL|INTSTS)",
+      "description": "Interrupts skill must reference interrupt control/status registers"
+    },
+    {
+      "id": "eval_jack_detect_pin",
+      "skill": "jack-detect",
+      "assertion": "contains",
+      "pattern": "pin",
+      "description": "Jack detection skill must cover pin sense"
+    },
+    {
+      "id": "eval_jack_detect_pin_sense_verb",
+      "skill": "jack-detect",
+      "assertion": "regex",
+      "pattern": "(0x[Ff]09|pin.?sense|Pin.?Sense|GET_PIN_SENSE)",
+      "description": "Jack detect skill must reference pin sense verb command (0xF09) or mechanism"
+    },
+    {
+      "id": "eval_jack_detect_unsolicited",
+      "skill": "jack-detect",
+      "assertion": "regex",
+      "pattern": "(unsolicited|UNSOL|slave.alert|SLAVE_ALERT)",
+      "description": "Jack detect skill must cover unsolicited response or SoundWire slave alert mechanism"
+    },
+    {
+      "id": "eval_config_checkout_bar",
+      "skill": "config-checkout",
+      "assertion": "contains",
+      "pattern": "BAR",
+      "description": "Config checkout skill must cover BAR allocation"
+    },
+    {
+      "id": "eval_config_checkout_bios",
+      "skill": "config-checkout",
+      "assertion": "contains",
+      "pattern": "BIOS",
+      "description": "Config checkout skill must verify BIOS configuration"
+    },
+    {
+      "id": "eval_config_checkout_vid",
+      "skill": "config-checkout",
+      "assertion": "regex",
+      "pattern": "0x8086",
+      "description": "Config checkout skill must reference Intel Vendor ID 0x8086"
+    },
+    {
+      "id": "eval_config_checkout_did",
+      "skill": "config-checkout",
+      "assertion": "regex",
+      "pattern": "0x[Dd][23][2Cc]8",
+      "description": "Config checkout skill must reference audio Device ID (0xD228 or 0xD328)"
+    },
+    {
+      "id": "eval_config_checkout_fncfg",
+      "skill": "config-checkout",
+      "assertion": "regex",
+      "pattern": "(FNCFG|fncfg|GPROCEN|gprocen)",
+      "description": "Config checkout skill must reference FNCFG or GPROCEN configuration registers"
+    },
+    {
+      "id": "eval_failure_analysis_uaol",
+      "skill": "failure-analysis",
+      "assertion": "contains",
+      "pattern": "UAOL",
+      "description": "Failure analysis skill must cover UAOL failure patterns"
+    },
+    {
+      "id": "eval_failure_analysis_nga",
+      "skill": "failure-analysis",
+      "assertion": "contains",
+      "pattern": "NGA",
+      "description": "Failure analysis skill must reference NGA test results"
+    },
+    {
+      "id": "eval_failure_analysis_exit_codes",
+      "skill": "failure-analysis",
+      "assertion": "regex",
+      "pattern": "EXIT_(PASS|FAIL|BLOCKED|ERROR)",
+      "description": "Failure analysis skill must reference NGA exit code constants"
+    },
+    {
+      "id": "eval_failure_analysis_pattern_categories",
+      "skill": "failure-analysis",
+      "assertion": "regex",
+      "pattern": "(HDA_PATTERN|SDW_PATTERN|DSP_PATTERN|UAOL_PATTERN)",
+      "description": "Failure analysis skill must define failure pattern categories by protocol"
+    },
+    {
+      "id": "eval_agent_automation_repo",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "windows-test-content",
+      "description": "Agent definition must reference NGA automation repo at windows-test-content"
+    },
+    {
+      "id": "eval_agent_galaxy_hjson",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "audio_validation.hjson",
+      "description": "Agent definition must reference Galaxy HJSON entry point"
+    },
+    {
+      "id": "eval_agent_audio_validation_py",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "audio_validation.py",
+      "description": "Agent definition must reference AudioValidation main script"
+    },
+    {
+      "id": "eval_agent_nga_traffic_xml",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "nga_traffic_xmls",
+      "description": "Agent definition must reference NGA traffic XML directory"
+    },
+    {
+      "id": "eval_agent_audiovalidation_class",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "AudioValidation",
+      "description": "Agent definition must document AudioValidation test framework class"
+    },
+    {
+      "id": "eval_agent_test_pre_test_flow",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "pre_test",
+      "description": "Agent definition must document pre_test/test/post_test flow"
+    },
+    {
+      "id": "eval_agent_legacy_audio_common",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "audio_common",
+      "description": "Agent definition must reference legacy audio_common test module"
+    },
+    {
+      "id": "eval_agent_svnndef_ltr",
+      "skill": "",
+      "assertion": "regex",
+      "pattern": "NN_LTR_C2P2_IP_ACE|SvNnDef",
+      "description": "Agent definition must reference SvNnDef named nodes for LTR checks"
+    },
+    {
+      "id": "eval_agent_bios_knobs_dir",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "bios_knobs",
+      "description": "Agent definition must reference audio BIOS knobs config directory"
+    },
+    {
+      "id": "eval_agent_s0ix_test_script",
+      "skill": "",
+      "assertion": "regex",
+      "pattern": "Audio_Test_S0ix",
+      "description": "Agent definition must map S0ix test to automation script"
+    },
+    {
+      "id": "eval_agent_wov_test_script",
+      "skill": "",
+      "assertion": "regex",
+      "pattern": "WoV_.*\\.py",
+      "description": "Agent definition must map WoV tests to automation scripts"
+    },
+    {
+      "id": "eval_agent_concurrent_tests",
+      "skill": "",
+      "assertion": "contains",
+      "pattern": "Audio_Tests_B0_Concurrent",
+      "description": "Agent definition must reference concurrent test directory"
+    },
+    {
+      "id": "eval_failure_analysis_automation_repo",
+      "skill": "failure-analysis",
+      "assertion": "contains",
+      "pattern": "windows-test-content",
+      "description": "Failure analysis skill must reference automation repo path"
+    },
+    {
+      "id": "eval_failure_analysis_test_script_mapping",
+      "skill": "failure-analysis",
+      "assertion": "contains",
+      "pattern": "audio_validation.py",
+      "description": "Failure analysis skill must map NGA tests to automation scripts"
+    },
+    {
+      "id": "eval_failure_analysis_galaxy_entry",
+      "skill": "failure-analysis",
+      "assertion": "contains",
+      "pattern": "audio_validation.hjson",
+      "description": "Failure analysis skill must reference Galaxy HJSON entry point"
+    },
+    {
+      "id": "eval_debug_triage",
+      "skill": "debug",
+      "assertion": "contains",
+      "pattern": "triage",
+      "description": "Debug skill must cover triage methodology"
+    },
+    {
+      "id": "eval_debug_statests",
+      "skill": "debug",
+      "assertion": "contains",
+      "pattern": "STATESTS",
+      "description": "Debug skill must reference STATESTS register for codec detection"
+    },
+    {
+      "id": "eval_debug_ffff_signature",
+      "skill": "debug",
+      "assertion": "contains",
+      "pattern": "0xFFFF",
+      "description": "Debug skill must cover 0xFFFF Device ID failure signature"
+    },
+    {
+      "id": "eval_debug_adspcs",
+      "skill": "debug",
+      "assertion": "contains",
+      "pattern": "ADSPCS",
+      "description": "Debug skill must reference ADSPCS register for DSP status checking"
+    },
+    {
+      "id": "eval_debug_4phase",
+      "skill": "debug",
+      "assertion": "regex",
+      "pattern": "(Phase [1234]|Identify|Gather.*State|Analyze|Deep.*[Dd]ebug|[4four].*phase)",
+      "description": "Debug skill must describe multi-phase triage methodology"
+    },
+    {
+      "id": "eval_debug_pythonsv_read",
+      "skill": "debug",
+      "assertion": "regex",
+      "pattern": "soc\\.(ace|pch|pcd)",
+      "description": "Debug skill must reference PythonSV register read paths"
+    },
+    {
+      "id": "eval_debug_failure_signatures",
+      "skill": "debug",
+      "assertion": "has_section",
+      "pattern": "Failure Signature",
+      "description": "Debug skill must have a failure signature reference section"
+    },
+    {
+      "id": "eval_platform_die_variants",
+      "skill": "platform",
+      "assertion": "regex",
+      "pattern": "(PCD-H|PCH-S|die.*variant|variant)",
+      "description": "Platform skill must cover die variant differences"
+    },
+    {
+      "id": "eval_platform_device_ids",
+      "skill": "platform",
+      "assertion": "regex",
+      "pattern": "0x[Dd][23][2Cc]8",
+      "description": "Platform skill must list Audio Device IDs (0xD228 or 0xD328)"
+    },
+    {
+      "id": "eval_platform_bdf",
+      "skill": "platform",
+      "assertion": "contains",
+      "pattern": "0:31:3",
+      "description": "Platform skill must reference standard Audio BDF 0:31:3"
+    },
+    {
+      "id": "eval_platform_namednode",
+      "skill": "platform",
+      "assertion": "regex",
+      "pattern": "(namednode|soc\\.ace|pythonsv.*path|PythonSV.*path)",
+      "description": "Platform skill must provide PythonSV namednode paths"
+    },
+    {
+      "id": "eval_platform_bios_knobs",
+      "skill": "platform",
+      "assertion": "regex",
+      "pattern": "(BIOS.*[Kk]nob|HD.*Audio.*Enable|GPROCEN|HdAudio)",
+      "description": "Platform skill must document BIOS knobs for audio configuration"
+    },
+    {
+      "id": "eval_platform_multi_platform",
+      "skill": "platform",
+      "assertion": "regex",
+      "pattern": "(NVL|PTL|LNL|MTL|ARL)",
+      "description": "Platform skill must cover multiple Intel Client SoC platforms"
+    },
+    {
+      "id": "eval_platform_ace_version",
+      "skill": "platform",
+      "assertion": "regex",
+      "pattern": "ACE\\s*[1234]",
+      "description": "Platform skill must specify ACE version per platform"
+    },
+    {
+      "id": "eval_platform_bar_sizes",
+      "skill": "platform",
+      "assertion": "regex",
+      "pattern": "(512.*KB|4.*KB|2.*MB|BAR[012])",
+      "description": "Platform skill must document BAR sizes for audio controller"
+    },
+    {
+      "id": "eval_platform_wcl",
+      "skill": "platform",
+      "assertion": "contains",
+      "pattern": "WCL",
+      "description": "Platform skill must include WCL (Wildcat Lake) platform data"
+    },
+    {
+      "id": "eval_platform_ttl",
+      "skill": "platform",
+      "assertion": "contains",
+      "pattern": "TTL",
+      "description": "Platform skill must include TTL (Titan Lake) platform data"
+    },
+    {
+      "id": "eval_platform_rzl",
+      "skill": "platform",
+      "assertion": "contains",
+      "pattern": "RZL",
+      "description": "Platform skill must include RZL (Razor Lake) platform data"
+    },
+    {
+      "id": "eval_platform_version",
+      "skill": "platform",
+      "assertion": "regex",
+      "pattern": "version:\\s*\"?1\\.[1-9]",
+      "description": "Platform skill must have version field in frontmatter"
+    },
+    {
+      "id": "eval_debug_wcl_notes",
+      "skill": "debug",
+      "assertion": "contains",
+      "pattern": "WCL",
+      "description": "Debug skill must include WCL platform-specific debug notes"
+    },
+    {
+      "id": "eval_debug_ttl_notes",
+      "skill": "debug",
+      "assertion": "contains",
+      "pattern": "TTL",
+      "description": "Debug skill must include TTL platform-specific debug notes"
+    },
+    {
+      "id": "eval_debug_rzl_notes",
+      "skill": "debug",
+      "assertion": "contains",
+      "pattern": "RZL",
+      "description": "Debug skill must include RZL platform-specific debug notes"
+    },
+    {
+      "id": "eval_debug_routing_table",
+      "skill": "debug",
+      "assertion": "regex",
+      "pattern": "(Platform Debug Approach|Route To|PTL procedures|NVL PCD-H procedures)",
+      "description": "Debug skill must include platform debug routing table"
+    },
+    {
+      "id": "eval_aioc_wcl",
+      "skill": "aioc",
+      "assertion": "contains",
+      "pattern": "WCL",
+      "description": "AIOC skill must document WCL AIOC support status"
+    },
+    {
+      "id": "eval_aioc_ttl",
+      "skill": "aioc",
+      "assertion": "contains",
+      "pattern": "TTL",
+      "description": "AIOC skill must document TTL AIOC support status"
+    },
+    {
+      "id": "eval_aioc_rzl",
+      "skill": "aioc",
+      "assertion": "contains",
+      "pattern": "RZL",
+      "description": "AIOC skill must document RZL AIOC support status"
+    },
+    {
+      "id": "eval_clocking_routing",
+      "skill": "clocking",
+      "assertion": "regex",
+      "pattern": "(Platform Debug Approach|Route To|WCL.*PTL|RZL.*NVL)",
+      "description": "Clocking skill must include platform debug routing for new platforms"
+    },
+    {
+      "id": "eval_dmic_routing",
+      "skill": "dmic",
+      "assertion": "regex",
+      "pattern": "(Platform Debug Approach|Route To|WCL.*PTL|RZL.*NVL)",
+      "description": "DMIC skill must include platform debug routing for new platforms"
+    },
+    {
+      "id": "eval_wov_wcl",
+      "skill": "wov",
+      "assertion": "contains",
+      "pattern": "WCL",
+      "description": "WoV skill must include WCL platform WoV support data"
+    },
+    {
+      "id": "eval_wov_ttl",
+      "skill": "wov",
+      "assertion": "contains",
+      "pattern": "TTL",
+      "description": "WoV skill must include TTL platform WoV support data"
+    },
+    {
+      "id": "eval_wov_rzl",
+      "skill": "wov",
+      "assertion": "contains",
+      "pattern": "RZL",
+      "description": "WoV skill must include RZL platform WoV support data"
+    },
+    {
+      "id": "eval_wov_routing",
+      "skill": "wov",
+      "assertion": "regex",
+      "pattern": "(Platform Debug Approach|Route To|WCL.*PTL|RZL.*NVL)",
+      "description": "WoV skill must include platform debug routing for new platforms"
+    },
+    {
+      "id": "eval_failure_analysis_multi_platform",
+      "skill": "failure-analysis",
+      "assertion": "regex",
+      "pattern": "(WCL|TTL|RZL)",
+      "description": "Failure analysis skill must include WCL/TTL/RZL platform coverage"
+    },
+    {
+      "id": "eval_failure_analysis_routing",
+      "skill": "failure-analysis",
+      "assertion": "regex",
+      "pattern": "(Platform Debug Routing|Route To|Multi-Platform Failure)",
+      "description": "Failure analysis skill must include multi-platform debug routing"
+    }
+  ]
+}

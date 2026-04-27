@@ -1,0 +1,13 @@
+
+Before proceed the execution, go through the experience_log.txt at C:\git\applications.ai.ocode.market.skills\.opencode\skill\powerkpi, understand the past errors
+
+
+1. Go through file Z:\Users\zphan\TSE related stuff
+
+2.Go through both files NVLS TSE Experiment_Latest.xlsx, the NVLS TSE Experiment excel file contains 3 tab Hardware accelerate and Software bit locker and Encrypt without dTPM, compare all the workload inside 
+
+3. The insight could use codesign to generate insight, focus on VCCSA and VCCORE related powers
+
+4. generate one excel file of summary which contains ONLY look into Hardware accelerate and Software bit locker data, compare each workload delta for OOB vs Encryption with bitlocker for Software bitlocker and OOB vs  TSE + Encryption for Hardware Accelerate 
+
+5. Generate one excel file and one html analysis with insghts, view NVLS TSE Power analysis.pdf as an example.

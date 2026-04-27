@@ -1,0 +1,59 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "eval-fv-debugger-mode": {
+      "template": "Read the file .opencode/agent/FV/FV_Debugger_V1.md and check its YAML frontmatter. EVAL STATEMENT: The 'mode' field in the YAML frontmatter is set to 'all'",
+      "description": "Verify FV_Debugger_V1 agent mode is set to 'all' for both primary and subagent callable",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "eval-fv-debugger-tool-format": {
+      "template": "Read the file .opencode/agent/FV/FV_Debugger_V1.md and check its YAML frontmatter. EVAL STATEMENT: The YAML frontmatter uses 'tool:' key (not 'tools:') with a flat map of boolean values like 'read: true'",
+      "description": "Verify FV_Debugger_V1 uses the aligned 'tool:' flat map format matching FV.md",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "eval-fv-debugger-permission-format": {
+      "template": "Read the file .opencode/agent/FV/FV_Debugger_V1.md and check its YAML frontmatter. EVAL STATEMENT: The YAML frontmatter uses 'permission:' key (not 'permissions:') with a flat map format",
+      "description": "Verify FV_Debugger_V1 uses the aligned 'permission:' flat format matching FV.md",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "eval-fv-debugger-subagent-fv-thc": {
+      "template": "Read the file .opencode/agent/FV/FV_Debugger_V1.md and check its YAML frontmatter agents list. EVAL STATEMENT: The 'agents:' list in the YAML frontmatter includes 'FV-THC'",
+      "description": "Verify FV-THC is listed as a callable sub-agent of FV_Debugger_V1",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "eval-fv-debugger-subagent-ttk3": {
+      "template": "Read the file .opencode/agent/FV/FV_Debugger_V1.md and check its YAML frontmatter agents list. EVAL STATEMENT: The 'agents:' list includes TTK3-POWER, TTK3-BIOS, TTK3-DIAG, TTK3-BOOT, and TTK3-COMM",
+      "description": "Verify all TTK3 sub-agents are listed in FV_Debugger_V1",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "eval-fv-debugger-skill-pysv": {
+      "template": "Read the file .opencode/agent/FV/FV_Debugger_V1.md and look for the Skills Available table in the markdown body. EVAL STATEMENT: The Skills Available table contains an entry for 'pysv' skill",
+      "description": "Verify pysv skill is documented in FV_Debugger_V1 skills table",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "eval-fv-debugger-skill-onebkc": {
+      "template": "Read the file .opencode/agent/FV/FV_Debugger_V1.md and look for the Skills Available table in the markdown body. EVAL STATEMENT: The Skills Available table contains an entry for 'onebkc' skill",
+      "description": "Verify onebkc skill is documented in FV_Debugger_V1 skills table",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "eval-fv-debugger-browsermcp": {
+      "template": "Read the file .opencode/agent/FV/FV_Debugger_V1.md and check the YAML frontmatter permission section. EVAL STATEMENT: The permission section includes 'mcp-browsermcp: allow'",
+      "description": "Verify FV_Debugger_V1 has browsermcp permission for SoC Architecture queries",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "eval-fv-debugger-soc-architecture": {
+      "template": "Read the file .opencode/agent/FV/FV_Debugger_V1.md and look for a section about SoC Architecture in the markdown body. EVAL STATEMENT: The markdown body contains a 'SoC Architecture Knowledge Resource' section that references browsermcp and https://chat.co-design.intel.com/chat",
+      "description": "Verify FV_Debugger_V1 has SoC Architecture knowledge resource section matching FV.md",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    }
+  }
+}

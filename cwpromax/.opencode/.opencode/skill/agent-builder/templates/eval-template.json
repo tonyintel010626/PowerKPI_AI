@@ -1,0 +1,23 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "{{TEST_NAME_1}}": {
+      "template": "use skills_{{SKILL_REF}}. {{INSTRUCTION_1}}. EVAL STATEMENT: {{ASSERTION_1}}",
+      "description": "{{TEST_DESCRIPTION_1}}",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "{{TEST_NAME_2}}": {
+      "template": "use skills_{{SKILL_REF}}. {{INSTRUCTION_2}}. EVAL STATEMENT: {{ASSERTION_2}}",
+      "description": "{{TEST_DESCRIPTION_2}}",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "{{TEST_NAME_3}}": {
+      "template": "use skills_{{SKILL_REF}}. {{INSTRUCTION_3}}. EVAL STATEMENT: {{ASSERTION_3}}",
+      "description": "{{TEST_DESCRIPTION_3}}",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    }
+  }
+}

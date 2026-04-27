@@ -1,0 +1,113 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "knows_i219_bdf": {
+      "template": "use skills_fv_gbe. What is the expected BDF for the Intel I219 GbE controller on Intel Client SoC platforms? EVAL STATEMENT: The response should mention Bus 0, Device 31, Function 6 or 00:1F.6",
+      "description": "Verify skill documents I219 fixed BDF assignment",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_i219_device_ids": {
+      "template": "use skills_fv_gbe_enumeration. What is the Device ID for I219-LM on MTL (Meteor Lake)? EVAL STATEMENT: The response should mention 0x550A",
+      "description": "Verify skill documents MTL I219-LM Device ID",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_link_status_register": {
+      "template": "use skills_fv_gbe_registers. What MMIO register offset and bit should I read to check if the GbE link is up on I219? EVAL STATEMENT: The response should mention STATUS register at offset 0x0008 and the LU (Link Up) bit",
+      "description": "Verify skill documents STATUS register and LU bit for link detection",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_wol_linux": {
+      "template": "use skills_fv_gbe_power. How do I enable Wake-on-LAN magic packet on Linux for the Intel GbE adapter? EVAL STATEMENT: The response should mention ethtool and the -s wol g command",
+      "description": "Verify skill documents Linux WoL enable command",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_i219_driver_linux": {
+      "template": "use skills_fv_gbe_driver. What Linux kernel module handles the Intel I219 GbE controller? EVAL STATEMENT: The response should mention e1000e",
+      "description": "Verify skill documents Linux e1000e driver for I219",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_i226_throughput": {
+      "template": "use skills_fv_gbe_traffic. What is the expected TCP throughput for the Intel I226 2.5GbE controller? EVAL STATEMENT: The response should mention 2300 Mbps or 2400 Mbps or 2.3 Gbps or 2.4 Gbps",
+      "description": "Verify skill documents I226 expected TCP throughput",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_debug_bundle_collection": {
+      "template": "use skills_fv_gbe_debug. How do I collect a GbE debug bundle on Linux? EVAL STATEMENT: The response should mention ethtool -S and dmesg as part of the debug bundle collection",
+      "description": "Verify skill documents Linux debug bundle collection procedure",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_phy_bringup_sequence": {
+      "template": "use skills_fv_gbe_phy_bringup. What is the SGMII interface used between the I219 MAC and external PHY? EVAL STATEMENT: The response should mention SGMII as the MAC-to-PHY interface",
+      "description": "Verify skill documents SGMII PHY interface for I219",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_i226_device_ids": {
+      "template": "use skills_fv_gbe_platform. What are the Device IDs for I226-LM and I226-V? EVAL STATEMENT: The response should mention 0x125B for I226-LM and 0x125C for I226-V",
+      "description": "Verify skill documents I226 discrete controller Device IDs",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_lnl_device_ids": {
+      "template": "use skills_fv_gbe_platform. What are the Device IDs for I219 on LNL (Lunar Lake)? EVAL STATEMENT: The response should mention 0x7F0C for I219-LM and 0x7F0D for I219-V",
+      "description": "Verify skill documents LNL platform I219 Device IDs",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_pythonsv_gbe_path": {
+      "template": "use skills_fv_gbe_platform. What is the PythonSV named node path to access the I219 GbE controller? EVAL STATEMENT: The response should mention sv.socket0.pcieB0D31F6 or socket0.soc.gbe or socket0.pch.gbe",
+      "description": "Verify skill documents PythonSV access paths for GbE",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_eee_standard": {
+      "template": "use skills_fv_gbe_power. What IEEE standard governs Energy Efficient Ethernet (EEE)? EVAL STATEMENT: The response should mention IEEE 802.3az",
+      "description": "Verify skill documents EEE IEEE standard",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_debug_escalation": {
+      "template": "use skills_fv_gbe_debug. When should I escalate GbE issues to the IP team? EVAL STATEMENT: The response should mention 0xFFFFFFFF register reads or PHY ID garbage values or register stuck",
+      "description": "Verify skill documents escalation criteria for GbE IP team",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_lan_enable_bios_knob": {
+      "template": "use skills_fv_gbe_platform. What BIOS knob enables or disables the GbE controller? EVAL STATEMENT: The response should mention LanEnable",
+      "description": "Verify skill documents LanEnable BIOS knob",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_simics_limitations": {
+      "template": "use skills_fv_gbe_simics. What GbE features cannot be validated in Simics pre-silicon? EVAL STATEMENT: The response should mention throughput or PHY timing or EEE or real traffic",
+      "description": "Verify skill documents Simics validation limitations",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_failure_bucket_types": {
+      "template": "use skills_fv_gbe_failure_analysis. What are the NGA failure bucket types? EVAL STATEMENT: The response should mention INFRA, PRODUCT, and TEST buckets",
+      "description": "Verify skill documents NGA failure bucket classification",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_ctrl_register_offset": {
+      "template": "use skills_fv_gbe_registers. What is the MMIO offset of the CTRL (Device Control) register on I219? EVAL STATEMENT: The response should mention offset 0x0000",
+      "description": "Verify skill documents CTRL register offset",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_mdic_phy_access": {
+      "template": "use skills_fv_gbe_registers. How do I read PHY registers on I219 via the MAC? EVAL STATEMENT: The response should mention MDIC register at offset 0x0020",
+      "description": "Verify skill documents PHY register access via MDIC",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    }
+  }
+}

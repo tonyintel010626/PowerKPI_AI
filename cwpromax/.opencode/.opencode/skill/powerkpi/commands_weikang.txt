@@ -1,0 +1,6 @@
+Goto C:\test2
+
+read dashboard_gui_v7.py and modify to dashboard_gui_v8.py based on the following requirements:
+
+0) Keep the current plotting capability.
+1) Please add an aggregated workload option to plot for all the select workloads selected. It should be a radio button to select traditional plotting or aggregated workload plotting. The plotting method is slightly different x axis is the workloads selected whereas the y axis is the power number for the line graph to be plotted.

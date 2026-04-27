@@ -1,0 +1,52 @@
+{
+    "_comment": "Self-Improvement Configuration for FV-USB skill tree",
+    "_owner": "kvejaya",
+    "_version": "1.0.0",
+
+    "paths": {
+        "skill_base": ".opencode/skill/fv-usb",
+        "agent_def": ".opencode/agent/FV/FV-USB.md",
+        "docs_dir": ".opencode/skill/fv-usb/docs",
+        "eval_dir": ".opencode/skill/fv-usb/eval",
+        "tools_dir": ".opencode/skill/fv-usb/tools",
+        "reports_dir": ".opencode/skill/fv-usb/reports"
+    },
+
+    "skills": ["enumeration", "xhci", "power", "debug"],
+
+    "docs": ["known_issues.md", "cheat_sheet.md", "test_coverage_matrix.md"],
+
+    "owner": {
+        "name": "Vejaya, Kalaivanan",
+        "idsid": "kvejaya",
+        "email": "kalaivanan.vejaya@intel.com"
+    },
+
+    "self_check": {
+        "owner_tag": "kvejaya",
+        "expected_skill_count": 4,
+        "cross_references": {
+            "xhci": ["debug"],
+            "power": ["debug"],
+            "enumeration": ["xhci"]
+        },
+        "stale_patterns": {
+            "old_frontmatter_tools": "^tools:",
+            "old_frontmatter_permissions": "^permissions:"
+        }
+    },
+
+    "self_verify": {
+        "assertions_file": ".opencode/skill/fv-usb/eval/assertions.py",
+        "pass_threshold_pct": 95,
+        "results_dir": ".opencode/skill/fv-usb/reports"
+    },
+
+    "self_improve": {
+        "auto_apply": false,
+        "require_human_approval": true,
+        "max_proposals_per_run": 20,
+        "proposals_file": ".opencode/skill/fv-usb/reports/proposals.json",
+        "changelog_file": ".opencode/skill/fv-usb/reports/CHANGELOG.md"
+    }
+}

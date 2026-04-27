@@ -1,0 +1,11 @@
+{  
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "eval-onebkc-sdc-fetch-kits": {
+      "template": "use skills_onebkc. find out promoted to BKC from PTL CONSUMER for 2025 December. EVAL STATEMENT: the kit name is PTL-UPH-25H2-CONS-25.51.5.319",
+      "description": "",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    }
+  }
+}

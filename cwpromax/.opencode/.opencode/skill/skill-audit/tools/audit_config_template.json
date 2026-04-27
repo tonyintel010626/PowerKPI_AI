@@ -1,0 +1,38 @@
+{
+    "_comment": "Skill Audit Configuration Template — copy and customize for your audit",
+    "_version": "1.0.0",
+
+    "skill_dir": ".opencode/skill/YOUR_SKILL",
+
+    "reference_documents": [
+        {
+            "name": "Primary Spec v1.0",
+            "path": "C:\\path\\to\\spec.docx",
+            "priority": 1,
+            "scope": "HW registers, state machines, bit fields"
+        },
+        {
+            "name": "Software Architecture Spec",
+            "path": "C:\\path\\to\\swas.docx",
+            "priority": 1,
+            "scope": "Full E2E solution architecture"
+        },
+        {
+            "name": "Linux Kernel Source",
+            "path": "https://github.com/torvalds/linux/tree/master/drivers/your/driver",
+            "priority": 2,
+            "scope": "Actual implementation"
+        }
+    ],
+
+    "exclude_dirs": ["docs", "eval", "tools"],
+
+    "output_dir": ".opencode/skill/YOUR_SKILL/reports",
+
+    "quality_gates": {
+        "extraction_coverage_pct": 95,
+        "max_missing_findings": 0,
+        "max_wrong_findings": 0,
+        "require_all_docs_processed": true
+    }
+}

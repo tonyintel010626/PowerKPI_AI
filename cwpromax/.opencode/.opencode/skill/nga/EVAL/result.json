@@ -1,0 +1,20 @@
+{
+  "skill_name": "nga",
+  "skill_description": "use rest API via scripts provided",
+  "status": "Passing",
+  "timestamp": "2025-12-03 09:25:59",
+  "eval_result": {
+    "skill_name": "nga",
+    "skill_path": "C:\\git\\market\\applications.ai.ocode.market.skills\\.opencode\\skills\\nga",
+    "timestamp": "2025-12-03T09:24:45.647118",
+    "commands": {
+      "eval-nga-test-run": {
+        "return_code": 0,
+        "result": {
+          "result": "success"
+        },
+        "success": true
+      }
+    }
+  }
+}

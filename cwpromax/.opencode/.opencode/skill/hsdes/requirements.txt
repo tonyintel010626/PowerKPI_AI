@@ -1,0 +1,1 @@
+pysvtools.hsdes>= 0.0.0

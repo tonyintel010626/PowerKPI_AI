@@ -1,0 +1,53 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "skill_loads_with_agent_reference": {
+      "template": "use skills_agent_builder. What are the required YAML frontmatter fields for an agent definition file? EVAL STATEMENT: The response should mention 'name', 'description', and 'mode' as required fields.",
+      "description": "Verify the agent-builder skill loads and contains agent definition reference information",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_agent_modes": {
+      "template": "use skills_agent_builder. Explain the three agent mode values and when to use each one. EVAL STATEMENT: The response should describe 'primary' (user-selectable), 'subagent' (delegation only), and 'all' (both) modes.",
+      "description": "Verify the skill correctly explains primary, subagent, and all modes",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_skill_patterns": {
+      "template": "use skills_agent_builder. What are the different types of skill body patterns? EVAL STATEMENT: The response should mention documentation-only, script-backed, API-wrapper, and hierarchical patterns.",
+      "description": "Verify the skill documents the four skill body patterns",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_naming_conventions": {
+      "template": "use skills_agent_builder. What naming conventions should I follow for agent names and skill names? EVAL STATEMENT: The response should state that agent names use UPPERCASE-HYPHENATED format and skill names use lowercase-hyphenated format.",
+      "description": "Verify the skill explains naming conventions for agents and skills",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_eval_test_format": {
+      "template": "use skills_agent_builder. How do I create EVAL tests for a skill? What format does the opencode.json file use? EVAL STATEMENT: The response should describe the EVAL/opencode.json structure with template, description, agent, and model fields.",
+      "description": "Verify the skill explains EVAL test creation and format",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_delegation_pattern": {
+      "template": "use skills_agent_builder. How does an agent delegate work to a sub-agent? EVAL STATEMENT: The response should mention using @AGENT-NAME syntax in the agent body for delegation.",
+      "description": "Verify the skill explains agent-to-agent delegation via @NAME syntax",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "knows_model_selection": {
+      "template": "use skills_agent_builder. What model should I use for an agent that needs deep reasoning about complex problems? EVAL STATEMENT: The response should recommend claude-opus for complex reasoning tasks.",
+      "description": "Verify the skill provides model selection guidance",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "has_templates": {
+      "template": "use skills_agent_builder. Where can I find templates for creating new agents and skills? EVAL STATEMENT: The response should reference templates in the agent-builder skill directory at .opencode/skill/agent-builder/templates/.",
+      "description": "Verify the skill references its bundled templates",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    }
+  }
+}
