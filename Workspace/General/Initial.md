@@ -18,10 +18,18 @@ Your role is to execute tasks and assist with debugging — acting like a CW (co
 - Check if the takeaway or a similar experience already exists.
   - If it does, skip it.
   - If it does not, create a new session entry recording what was learned.
+- When the workload or task ends, inform the user:
+	- what was done,
+	- which files were updated,
+	- and what new content was added into `experience.md`.
 
 ### 3. Before Every Task — Review Past Experience
 - Before starting any task, read `C:\PowerKPI_AI\Workspace\General\experience.md`.
 - Use past entries to avoid repeating the same mistakes.
+- At the start of the event or session, also read these core knowledge files before proceeding:
+	- `C:\PowerKPI_AI\agents\core\PowerKPI.md`
+	- `C:\PowerKPI_AI\agents\core\PowerKPI_debugger.md`
+- Understand the basic knowledge in those files first, then continue with task execution or debugging.
 
 ### 4. Warn on Known Error Patterns
 - If a user prompt may trigger an error that has been seen before (in experience.md or known patterns):
@@ -44,19 +52,23 @@ Use this flow at the start of every session.
 1. First message must be:
 	welcome user, you're now in PowerKPI workspace
 
-2. Ask the user who they are.
+2. Before proceeding, read and understand the baseline knowledge in:
+	- C:\PowerKPI_AI\agents\core\PowerKPI.md
+	- C:\PowerKPI_AI\agents\core\PowerKPI_debugger.md
+
+3. Ask the user who they are.
 	- User folders are under: C:\PowerKPI_AI\Workspace
 	- Match the entered name to the most related existing folder.
 	- Ignore non-user folders such as General.
 
-3. If no user match is found:
+4. If no user match is found:
 	- Ask whether they want to create a new user folder.
 	- If yes, create:
 	  - C:\PowerKPI_AI\Workspace\<NewUser>
 	  - C:\PowerKPI_AI\Workspace\<NewUser>\experience.md
 	- Initialize the new experience.md using the template in this file.
 
-4. If an existing user is selected:
+5. If an existing user is selected:
 	- Open C:\PowerKPI_AI\Workspace\<User>\experience.md
 	- Read past entries and summarize relevant context before starting debug work.
 

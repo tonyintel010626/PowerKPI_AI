@@ -99,6 +99,8 @@ Execute power validation workloads through the **Hopper Automation Framework** o
 - Automatic IFWI flashing and platform setup via TTK3
 - Proxy configuration (enable/disable) and Windows optimization
 - BIOS knob extraction and validation via XMLCLI
+- For user-requested workload execution, default to the canonical Hopper commands in `c:\PowerKPI_AI\skills\powerkpi\SKILL.md`
+- For any Hopper command using `-flex_cfg`, use the project-specific path from the skill file and default to the NVL P config unless the user specifies another project
 - Results stored in `C:\_hopper_results\<workload>_<timestamp>\`
 
 ### 2. Multi-Instrumentation Support
@@ -171,7 +173,13 @@ Automate software installation on SUT (192.168.137.5) via **Chocolatey** package
 ### 4. Post-Processing and Visualization
 
 #### Interactive Dashboard Generator (GUI v3.2)
-**Current Version:** v3.2 with GENI AI-Powered Trend Analysis
+**Current Version:** v3.2 with Co-DeSign-first analysis and GENI secondary support
+
+**Dashboard Definition:**
+- The default dashboard workload set includes **CMS, IDON, YouTube, Netflix, and MM30**.
+- When enough data is available, the generated report must include **delta versus pre-silicon projection data**.
+- The report must highlight **power rail insights**, **unusual rails**, and **suggested further debug actions**.
+- If the user explicitly requests a different tool or dashboard composition, follow the user's request instead of the default flow.
 
 **5-Tab Workflow:**
 1. **Folder Selection**: Browse and scan `C:\_hopper_results` for workload data
@@ -201,15 +209,30 @@ Automate software installation on SUT (192.168.137.5) via **Chocolatey** package
 - **generate_interactive_html_report.py**: CLI dashboard generator
 - **plot_tdms_power_rails.py**: TDMS time-series plotter (supports 49 power rails)
 
-### 5. AI-Powered Trend Analysis (GENI Integration)
+### 5. AI-Powered Trend Analysis (DOC-STUDY + Co-DeSign Default, GENI Secondary)
 
-**NEW in v3.2:** Integration with Intel GENI (Generative Engine for Intel) for automated power trend analysis via MCP (no separate authentication required).
+**Primary Analysis Workflow:** Use **DOC-STUDY first** to read data, then use **Co-DeSign** to generate insights from the extracted content. Use GENI only when the user explicitly asks for it or when Co-DeSign is insufficient.
+
+**Data Reading Rule:**
+- For reading any kind of study, report, exported table, or reference document, use:
+   `C:\git\applications.ai.ocode.market.skills\.opencode\agent\DOC-STUDY`
+
+**Analysis Priority Order:**
+1. Read and extract the relevant data using **DOC-STUDY**.
+2. Pass the extracted data into **Co-DeSign** for insight generation.
+3. Include **pre-silicon projection comparison**, **unusual rail detection**, and **potential rail-cause analysis** using Co-DeSign insights.
+4. Use other analysis tools only if the user explicitly requests them or if the default flow cannot answer the question.
+
+**NEW in v3.2:** Integration with Intel GENI (Generative Engine for Intel) for automated power trend analysis via MCP (no separate authentication required), but it is not the default analysis path.
 
 **Capabilities:**
 - **Per-Workload Summaries**: Detailed analysis for each workload with trend overview
 - **Cross-Workload Comparison**: Automatic ranking and efficiency comparison (🥇🥈🥉)
 - **Separated Analysis**: Power rails analyzed separately from SocWatch metrics
 - **Categorized Metrics**: Automatic categorization into power rails vs SocWatch
+- **Pre-Silicon Projection Delta**: Compare measured results against pre-silicon projection data where available
+- **Unusual Rail Highlighting**: Flag rails that are unexpectedly high, low, unstable, or inconsistent with projection
+- **Potential Cause Analysis**: Use Co-DeSign insights to explain likely rail contributors, design-level causes, or expected dependencies
 - **5-Section Structured Output**:
   1. **Executive Summary**: High-level findings across all workloads
   2. **Per-Workload Analysis**: Individual workload behavior, trends, health assessment
@@ -218,8 +241,8 @@ Automate software installation on SUT (192.168.137.5) via **Chocolatey** package
   5. **Actionable Recommendations**: Debug steps, BIOS knobs, configuration changes
 
 **Two Operating Modes:**
-- **Mode 1 (Manual)**: GUI generates dashboard → User asks agent to process GENI analysis
-- **Mode 2 (Automatic)**: User asks agent directly → Agent generates dashboard with GENI insights
+- **Mode 1 (Default)**: Read with DOC-STUDY → analyze with Co-DeSign → generate dashboard/report with insights
+- **Mode 2 (User-Specified)**: User explicitly asks for GENI or another tool → follow the requested tool path
 
 **Benefits:**
 - ✅ 93% time savings (45 min → 2 min per analysis)
@@ -236,9 +259,10 @@ Automate software installation on SUT (192.168.137.5) via **Chocolatey** package
 - Document: Package power, SoC power, specific rail targets
 
 #### PVIM (Platform Validation Integration Management)
-- Query HSDES Test Case workload parameters via GENI MCP
+- Query HSDES Test Case workload parameters via **Co-DeSign** by default
 - Retrieve validation targets and acceptance criteria
 - Map NGA test runs to PVIM test cycles
+- Unless the user specifies another program, default the HSDES project scope to **Nova Lake related projects only**
 
 ### 7. Platform Configuration Management
 
@@ -3154,23 +3178,26 @@ Data extracted from Martini simulation reports and power reports.
 
 
 
-### ⭐ Use GENI or Co-DeSign MCP First
-**GENI** (Focus ID 9 — ChatHSD) and **Co-DeSign MCP** are the **primary tools** for all HSDES sighting research. They can:
+### ⭐ Use Co-DeSign MCP First for HSDES
+**Co-DeSign MCP** is the default tool for all HSDES sighting research and HSD-related data generation. Use **Nova Lake related projects only** unless the user explicitly specifies a different project. Co-DeSign can:
 - Read full sighting **title, description, and comments**
 - Determine whether a sighting is **open, resolved, or waived**
-- Search semantically across the entire NVL (or any) program's sightings without EQL syntax
+- Search semantically across the NVL program's sightings without EQL syntax
 - Summarize root cause, owner, fix version, and workaround from the full sighting body
+- Generate relevant HSDES summaries tied to workload, rail, platform, or debug symptoms
 
-**Use the `hsdes` skill only as a fallback** — when you have an exact HSD ID and need structured field access, or when GENI/Co-DeSign is unavailable.
+**Use GENI as a secondary option** when Co-DeSign is unavailable or does not provide enough detail.
+
+**Use the `hsdes` skill only as a fallback** — when you have an exact HSD ID and need structured field access, or when Co-DeSign/GENI is unavailable.
 
 ### ⚠️ CRITICAL — Never Use WebFetch for HSDES Queries
 WebFetch returns raw HTML from the HSDES UI, not structured data, and breaks when the UI changes. Always use GENI, Co-DeSign MCP, or the `hsdes` skill.
 
 ---
 
-## GENI MCP — Sighting Research Workflow
+## GENI MCP — Secondary Sighting Research Workflow
 
-**GENI ChatHSD** (Focus ID 9) is the primary sighting research tool. Load the `geni` skill and query in natural language:
+**GENI ChatHSD** (Focus ID 9) is a secondary sighting research tool. Use it when the user explicitly asks for GENI or when Co-DeSign is insufficient:
 
 **Example queries for power sightings:**
 - *"Find all open sightings about high power during Idle Display On in NVL"*
@@ -3185,7 +3212,7 @@ GENI reads the full sighting record — title, description, comments, status —
 | Focus ID | Name | Use For |
 |----------|------|---------|
 | 5 | Debug Assistant | Query product wikis, Promark, SharePoint for debug procedures |
-| 9 | ChatHSD | **Primary sighting research** — semantic search, full description + comment read, open/resolved status |
+| 9 | ChatHSD | **Secondary sighting research** — use when Co-DeSign is insufficient or when the user explicitly asks for GENI |
 | 12 | VE Wiki | Power validation wiki knowledge, platform power targets |
 | 15 | Axon Assistant | Query Axon test execution records in natural language |
 
@@ -3193,14 +3220,18 @@ GENI reads the full sighting record — title, description, comments, status —
 
 ## Co-DeSign MCP — Sighting Research and SoC Architecture Queries
 
-**Co-DeSign MCP** at `https://chat.co-design.intel.com/chat` can also query HSDES sightings with full field access (title, description, comments, status, owner). Use it for:
-- Sighting research when GENI is unavailable or returns insufficient detail
+**Co-DeSign MCP** at `https://chat.co-design.intel.com/chat` is the default engine for power-data analysis, HSDES generation, and SoC architecture queries. Use it for:
+- Default HSDES research scoped to **Nova Lake related projects only** unless the user requests another project
+- Power-data analysis after DOC-STUDY extraction
+- Pre-silicon projection comparison and unusual rail analysis
+- Rail-level potential cause analysis using Co-DeSign design insights
+- Sighting research when direct HSD context is needed
 - SoC architecture questions and IP block specs (e.g., *"what is the expected PC10 entry latency for NVL?"*)
 - Design-level power questions
 
 **How to use via `browsermcp`:**
 1. Navigate to `https://chat.co-design.intel.com/chat`
-2. Type the query into the textarea (sighting queries or architecture questions)
+2. Type the query into the textarea (data-analysis, sighting, or architecture queries)
 3. Wait for the response to complete
 4. Read the response from the `div.chat-feed-container` element
 
@@ -3337,11 +3368,13 @@ The `wiki_crawl_manifest.json` page index contains 21,188 page titles and IDs. T
 | **sighting-info** | Test execution status lookup | Sighting correlation |
 | **hsdes** | HSDES structured field access — fallback only | Use only when you have an exact HSD ID and need raw field data, or when GENI/Co-DeSign is unavailable. `hsdes.config_by_id(id)` auto-detects tenant; `hsdes.search_id(id)` for direct lookup; `hsdes.search(eql)` for EQL queries. Tenants: `heia_soc.sighting`, `heia_soc.bug`, `client.test_case`. **Never use webfetch for HSDES.** |
 | **pmc** | OneBKC PMC release info | PMC FW version validation |
-| **geni** | **⭐ PRIMARY SIGHTING RESEARCH** — GENI AI across Intel knowledge bases | Focus ID 9 (ChatHSD): primary tool for NVL/program sighting research — reads full title, description, comments, open/resolved status. Focus ID 5 (Debug Assistant): wikis/debug BKMs. Focus ID 12 (VE Wiki): power validation knowledge. Focus ID 15 (Axon Assistant): test data queries |
+| **geni** | **Secondary sighting and knowledge engine** — GENI AI across Intel knowledge bases | Focus ID 9 (ChatHSD): secondary tool for NVL/program sighting research when Co-DeSign is insufficient or explicitly requested. Focus ID 5 (Debug Assistant): wikis/debug BKMs. Focus ID 12 (VE Wiki): power validation knowledge. Focus ID 15 (Axon Assistant): test data queries |
+| **codesign** | **⭐ PRIMARY ANALYSIS AND HSD ENGINE** — Co-DeSign for design-aware power analysis and HSD context | Default analysis path after DOC-STUDY extraction. Use for pre-silicon projection comparison, unusual rail highlighting, rail-cause analysis, and HSDES research. Default project scope: **Nova Lake related projects only** unless the user specifies otherwise. |
+| **doc-study** | **⭐ PRIMARY DATA READER** — document and report extraction workflow | Use `C:\git\applications.ai.ocode.market.skills\.opencode\agent\DOC-STUDY` to read any kind of study, report, exported document, or data package before analysis. |
 | **pysv** | PythonSV silicon validation tool | DFT interaction via ITP/DAL, OpenIPC/LTB, TSSA, Simics |
 | **onebkc** | OneBKC release management | Software/firmware release lookup and BKC steps |
 | **chocolatey** | Software packages management | Install 44 required packages (Python, Chrome, pandas, etc.) on SUT via remote PsExec |
-| **powerkpi**  | **⭐ PRIMARY SKILL** - Power KPI Automation & Analysis | **Workload Execution**: Run IDON, CMS, ICOB, Busy Idle, YouTube, Netflix, Teams, S5 via Hopper with DAQ/SocWatch/PerfTracer instrumentation. **Dashboard Generation**: GUI v3.2 with 6 graph types, GENI AI trend analysis, Excel/HTML export. **Post-Processing**: Parse results.json, plot TDMS time-series (49 power rails), batch Excel reports. **Platform Setup**: IFWI flashing, proxy config, BIOS knob extraction, Chocolatey package management |
+| **powerkpi**  | **⭐ PRIMARY SKILL** - Power KPI Automation & Analysis | **Workload Execution**: Run IDON, CMS, ICOB, Busy Idle, YouTube, Netflix, Teams, S5 via Hopper with DAQ/SocWatch/PerfTracer instrumentation. **Dashboard Generation**: GUI v3.2 with default CMS, IDON, YouTube, Netflix, and MM30 coverage, plus pre-silicon delta, rail insights, and suggested actions. **Post-Processing**: Read with DOC-STUDY first, analyze with Co-DeSign by default, parse results.json, plot TDMS time-series (49 power rails), batch Excel reports. **Platform Setup**: IFWI flashing, proxy config, BIOS knob extraction, Chocolatey package management |
 
 ---
 
@@ -3440,10 +3473,12 @@ You MUST follow these phases in order. Do NOT skip phases. Do NOT rush the user.
 
 ### Phase 1: Workload Execution
 1. **Launch Hopper Commands** for each workload:
+   - By default, refer to `c:\PowerKPI_AI\skills\powerkpi\SKILL.md` for the authoritative Hopper command lines
    - Use correct `-instrument` flag: `daq`, `socwatch`, `perftracer`, `ipta`
    - Use `-communicator ps_exec` with SUT credentials
    - Specify `-job <workload>_<instrument>` for unique folder names
    - Set `-quiesce_time` and `-capture_time` if non-default
+   - For DAQ runs, update `-flex_cfg` according to project; default to the NVL P FlexLogger config from the skill file unless the user specifies a different project
    - Apply `-power_plan` if specified
 
 2. **Monitor Execution**:

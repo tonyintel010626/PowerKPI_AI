@@ -627,6 +627,37 @@ C:\_hopper_results\
 └── ...
 ```
 
+## Compiling Data Section
+
+Use this section for post-run compilation and insight generation.
+
+### Latest Run Location
+- The latest run is under `C:\_hopper_results`.
+- Example run folder name: `20260421T112051_hopper.pnp.workloads.idle`.
+- Inside each run folder, find the summary CSV file (file name includes `summary` or workload summary naming).
+- Compile data from the summary CSV files across selected runs.
+
+### Full Data Capture Working Flow
+1. **Specify Task**
+  - Define the workload target(s), for example: `IDON`, `YouTube`.
+2. **Specify Number of Runs**
+  - Define how many repeated runs are required for each selected task.
+3. **Compile Multi-Run Data**
+  - After all runs are completed, compile all selected run summaries.
+  - Generate output in both **HTML** and **CSV** formats for all runs.
+4. **Generate Insights**
+  - Generate insights in the **HTML** report based on:
+    - Pre-silicon reference data
+    - Related HSDES (user wording: HSED) files/findings
+
+### Output Expectations
+- Consolidated CSV file containing run-to-run metrics for the selected tasks.
+- HTML report containing:
+  - Per-run summary
+  - Cross-run comparison
+  - Delta vs pre-silicon projection
+  - Related HSDES context and recommended next actions
+
 ---
 
 # Proxy Configuration
@@ -925,11 +956,16 @@ When using `--flexlogger`:
 
 | Parameter | Description | Example |
 |-----------|-------------|---------|
-| `-flex_cfg` | Path to FlexLogger project file | `-flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\...\project.flxproj` |
+| `-flex_cfg` | Path to the project-specific FlexLogger project file | `-flex_cfg "your_path"` |
 | `--flexlogger_sampling_rate` | Sampling rate in Hz | `--flexlogger_sampling_rate 1000` |
 | `--flexlogger_keep_open` | Keep FlexLogger open after test | `--flexlogger_keep_open` |
 | `--flexlogger_keep_raw` | Keep raw FlexLogger data | `--flexlogger_keep_raw` |
 | `-flex_dis_down` | Disable FlexLogger download | `-flex_dis_down` |
+
+**Default FlexLogger Project Path:**
+- Unless the user specifies a different project, use the default NVL P path below for every Hopper command that includes `-flex_cfg`:
+  `C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj`
+- If the user specifies another project, update only the `-flex_cfg` value to the correct project-specific `.flxproj` path.
 
 ## PerfTracer Parameters
 
@@ -949,7 +985,7 @@ python -m hopper.pnp.workloads.oorja_idle -job "IDON_perftracer" -rep 1 -pysv -p
 
 **Combined DAQ + SocWatch + PerfTracer:**
 ```bash
-python -m hopper.pnp.workloads.oorja_idle -job "IDON_daq_soc_perf" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -pysv -ptrc -ptc C:\pythonsv\meteorlake\users\ptp\mtlp_perftracer_registers_pcie.csv -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto -comm_type ps_exec -dbg -qui 180s -dur 180s
+python -m hopper.pnp.workloads.oorja_idle -job "IDON_daq_soc_perf" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -pysv -ptrc -ptc C:\pythonsv\meteorlake\users\ptp\mtlp_perftracer_registers_pcie.csv -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto -comm_type ps_exec -dbg -qui 180s -dur 180s
 ```
 
 ## Getting Help for Workloads
@@ -1044,7 +1080,7 @@ python -m hopper.pnp.workloads.oorja_idle -job "IDON" -rep 1 -comm_type ps_exec 
 
 ### 1.2 IDON + DAQ
 ```bash
-python -m hopper.pnp.workloads.oorja_idle -job "IDON_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -comm_type ps_exec -dbg -qui 180s -dur 180s
+python -m hopper.pnp.workloads.oorja_idle -job "IDON_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -comm_type ps_exec -dbg -qui 180s -dur 180s
 ```
 
 ### 1.3 IDON + SocWatch
@@ -1054,7 +1090,7 @@ python -m hopper.pnp.workloads.oorja_idle -job "IDON_soc" -rep 1 -comm_type ps_e
 
 ### 1.4 IDON + DAQ + SocWatch
 ```bash
-python -m hopper.pnp.workloads.oorja_idle -job "IDON_daq_soc" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto -comm_type ps_exec -dbg -qui 180s -dur 180s
+python -m hopper.pnp.workloads.oorja_idle -job "IDON_daq_soc" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto -comm_type ps_exec -dbg -qui 180s -dur 180s
 ```
 
 ### 1.5 IDON + Intec (25°C)
@@ -1064,7 +1100,7 @@ python -m hopper.pnp.workloads.oorja_idle -job "IDON_intec" -rep 1 -comm_type ps
 
 ### 1.6 IDON + Intec + DAQ (25°C)
 ```bash
-python -m hopper.pnp.workloads.oorja_idle -job "IDON_intec_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -comm_type ps_exec -dbg -qui 180s -dur 180s -intc -intec_sp 25
+python -m hopper.pnp.workloads.oorja_idle -job "IDON_intec_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -comm_type ps_exec -dbg -qui 180s -dur 180s -intc -intec_sp 25
 ```
 
 ### 1.7 IDON + Intec + SocWatch (25°C)
@@ -1074,7 +1110,7 @@ python -m hopper.pnp.workloads.oorja_idle -job "IDON_intec_soc" -rep 1 -comm_typ
 
 ### 1.8 IDON + Intec + DAQ + SocWatch (25°C)
 ```bash
-python -m hopper.pnp.workloads.oorja_idle -job "IDON_intec_daq_soc" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto -comm_type ps_exec -dbg -qui 180s -dur 180s -intc -intec_sp 25
+python -m hopper.pnp.workloads.oorja_idle -job "IDON_intec_daq_soc" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto -comm_type ps_exec -dbg -qui 180s -dur 180s -intc -intec_sp 25
 ```
 
 ---
@@ -1109,7 +1145,7 @@ python -m hopper.pnp.workloads.kpi.connected_modern_standby -job "CMS" -rep 1 -c
 
 ### 2.2 CMS + DAQ
 ```bash
-python -m hopper.pnp.workloads.kpi.connected_modern_standby -job "CMS_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -comm_type ps_exec -dbg -qui 180s --quiesce_screen_on 120s
+python -m hopper.pnp.workloads.kpi.connected_modern_standby -job "CMS_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -comm_type ps_exec -dbg -qui 180s --quiesce_screen_on 120s
 ```
 
 ### 2.3 CMS + SocWatch
@@ -1119,7 +1155,7 @@ python -m pnpauto.connected_modern_standby_socwatch -job "CMS_soc" -rep 1 -comm_
 
 ### 2.4 CMS + DAQ + SocWatch
 ```bash
-python -m pnpauto.connected_modern_standby_socwatch -job "CMS_daq_soc" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -comm_type ps_exec -dbg --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --auto_connected_standby --quiesce 180s -soc_dur 180s
+python -m pnpauto.connected_modern_standby_socwatch -job "CMS_daq_soc" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -comm_type ps_exec -dbg --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --auto_connected_standby --quiesce 180s -soc_dur 180s
 ```
 
 ### 2.5 CMS + Intec (25°C)
@@ -1134,12 +1170,12 @@ python -m pnpauto.connected_modern_standby_socwatch -job "CMS_intec_soc" -rep 1 
 
 ### 2.7 CMS + Intec + DAQ (25°C)
 ```bash
-python -m hopper.pnp.workloads.kpi.connected_modern_standby -job "CMS_intec_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -comm_type ps_exec -dbg -qui 180s --quiesce_screen_on 120s -intc -intec_sp 25
+python -m hopper.pnp.workloads.kpi.connected_modern_standby -job "CMS_intec_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -comm_type ps_exec -dbg -qui 180s --quiesce_screen_on 120s -intc -intec_sp 25
 ```
 
 ### 2.8 CMS + Intec + DAQ + SocWatch (25°C)
 ```bash
-python -m pnpauto.connected_modern_standby_socwatch -job "CMS_intec_daq_soc" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -comm_type ps_exec -dbg --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --auto_connected_standby --quiesce 180s -soc_dur 180s -intc -intec_sp 25
+python -m pnpauto.connected_modern_standby_socwatch -job "CMS_intec_daq_soc" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -comm_type ps_exec -dbg --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --auto_connected_standby --quiesce 180s -soc_dur 180s -intc -intec_sp 25
 ```
 
 **Key CMS Parameters:**
@@ -1179,7 +1215,7 @@ python -m hopper.pnp.workloads.power.icob_catapult.icob_catapult -job "ICOB" -re
 
 ### 3.2 ICOB + DAQ
 ```bash
-python -m hopper.pnp.workloads.power.icob_catapult.icob_catapult -job "ICOB_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down --icob_responsiveness --ip_server 172.22.21.116 --icob_version V2 --browser edge --icob_path "C:/Applications/ICOB_DUT/ICOB.exe" -comm_type ps_exec -dbg --quiesce 30s
+python -m hopper.pnp.workloads.power.icob_catapult.icob_catapult -job "ICOB_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down --icob_responsiveness --ip_server 172.22.21.116 --icob_version V2 --browser edge --icob_path "C:/Applications/ICOB_DUT/ICOB.exe" -comm_type ps_exec -dbg --quiesce 30s
 ```
 
 ### 3.3 ICOB + SocWatch
@@ -1189,7 +1225,7 @@ python -m hopper.pnp.workloads.power.icob_catapult.icob_catapult -job "ICOB_soc"
 
 ### 3.4 ICOB + DAQ + SocWatch
 ```bash
-python -m hopper.pnp.workloads.power.icob_catapult.icob_catapult -job "ICOB_daq_soc" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --icob_responsiveness --ip_server 172.22.21.116 --icob_version V2 --browser edge --icob_path "C:/Applications/ICOB_DUT/ICOB.exe" -comm_type ps_exec -dbg --quiesce 30s
+python -m hopper.pnp.workloads.power.icob_catapult.icob_catapult -job "ICOB_daq_soc" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --icob_responsiveness --ip_server 172.22.21.116 --icob_version V2 --browser edge --icob_path "C:/Applications/ICOB_DUT/ICOB.exe" -comm_type ps_exec -dbg --quiesce 30s
 ```
 
 ### 3.5 ICOB + Intec (40°C)
@@ -1204,12 +1240,12 @@ python -m hopper.pnp.workloads.power.icob_catapult.icob_catapult -job "ICOB_inte
 
 ### 3.7 ICOB + Intec + DAQ (40°C)
 ```bash
-python -m hopper.pnp.workloads.power.icob_catapult.icob_catapult -job "ICOB_intec_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down --icob_responsiveness --ip_server 172.22.21.116 --icob_version V2 --browser edge --icob_path "C:/Applications/ICOB_DUT/ICOB.exe" -comm_type ps_exec -dbg --quiesce 30s -intc -intec_sp 40
+python -m hopper.pnp.workloads.power.icob_catapult.icob_catapult -job "ICOB_intec_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down --icob_responsiveness --ip_server 172.22.21.116 --icob_version V2 --browser edge --icob_path "C:/Applications/ICOB_DUT/ICOB.exe" -comm_type ps_exec -dbg --quiesce 30s -intc -intec_sp 40
 ```
 
 ### 3.8 ICOB + Intec + DAQ + SocWatch (40°C)
 ```bash
-python -m hopper.pnp.workloads.power.icob_catapult.icob_catapult -job "ICOB_intec_daq_soc" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --icob_responsiveness --ip_server 172.22.21.116 --icob_version V2 --browser edge --icob_path "C:/Applications/ICOB_DUT/ICOB.exe" -comm_type ps_exec -dbg --quiesce 30s -intc -intec_sp 40
+python -m hopper.pnp.workloads.power.icob_catapult.icob_catapult -job "ICOB_intec_daq_soc" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --icob_responsiveness --ip_server 172.22.21.116 --icob_version V2 --browser edge --icob_path "C:/Applications/ICOB_DUT/ICOB.exe" -comm_type ps_exec -dbg --quiesce 30s -intc -intec_sp 40
 ```
 
 **Key ICOB Parameters:**
@@ -1261,7 +1297,7 @@ python -m hopper.pnp.workloads.power.busy_idle.busy_idle -job "BUSY_IDLE" -rep 1
 
 ### 4.2 Busy Idle + DAQ
 ```bash
-python -m hopper.pnp.workloads.power.busy_idle.busy_idle -job "BUSY_IDLE_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down --skip_spotify_uninstall --skip_login_logout --gmail_username "ptp.pg.powerkpi@gmail.com" --gmail_password "ptp_pg_powerkpi_1234" --spotify_username "ptp.pg.powerkpi@gmail.com" --spotify_password "ptp_pg_powerkpi_12345" --office_username "ptp_powerkpi@14qrl3.onmicrosoft.com" --office_password "ptp_pg_powerkpi_1234" --drive_excel_path "https://docs.google.com/spreadsheets/d/1zdO1Z6whQ5dAuCP81fs5hBDCukNDPdpszEIgDHkARRY/edit?gid=1642539714#gid=1642539714" -comm_type ps_exec -dbg --spotify_path "C:/Users/Administrator/AppData/Local/Microsoft/WindowsApps/Spotify.exe" --quiesce 180s --duration 180s
+python -m hopper.pnp.workloads.power.busy_idle.busy_idle -job "BUSY_IDLE_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down --skip_spotify_uninstall --skip_login_logout --gmail_username "ptp.pg.powerkpi@gmail.com" --gmail_password "ptp_pg_powerkpi_1234" --spotify_username "ptp.pg.powerkpi@gmail.com" --spotify_password "ptp_pg_powerkpi_12345" --office_username "ptp_powerkpi@14qrl3.onmicrosoft.com" --office_password "ptp_pg_powerkpi_1234" --drive_excel_path "https://docs.google.com/spreadsheets/d/1zdO1Z6whQ5dAuCP81fs5hBDCukNDPdpszEIgDHkARRY/edit?gid=1642539714#gid=1642539714" -comm_type ps_exec -dbg --spotify_path "C:/Users/Administrator/AppData/Local/Microsoft/WindowsApps/Spotify.exe" --quiesce 180s --duration 180s
 ```
 
 ### 4.3 Busy Idle + SocWatch
@@ -1271,7 +1307,7 @@ python -m hopper.pnp.workloads.power.busy_idle.busy_idle -job "BUSY_IDLE_soc" -r
 
 ### 4.4 Busy Idle + DAQ + SocWatch
 ```bash
-python -m hopper.pnp.workloads.power.busy_idle.busy_idle -job "BUSY_IDLE_daq_soc" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --skip_spotify_uninstall --skip_login_logout --gmail_username "ptp.pg.powerkpi@gmail.com" --gmail_password "ptp_pg_powerkpi_1234" --spotify_username "ptp.pg.powerkpi@gmail.com" --spotify_password "ptp_pg_powerkpi_12345" --office_username "ptp_powerkpi@14qrl3.onmicrosoft.com" --office_password "ptp_pg_powerkpi_1234" --drive_excel_path "https://docs.google.com/spreadsheets/d/1zdO1Z6whQ5dAuCP81fs5hBDCukNDPdpszEIgDHkARRY/edit?gid=1642539714#gid=1642539714" -comm_type ps_exec -dbg --spotify_path "C:/Users/Administrator/AppData/Local/Microsoft/WindowsApps/Spotify.exe" --quiesce 180s --duration 180s
+python -m hopper.pnp.workloads.power.busy_idle.busy_idle -job "BUSY_IDLE_daq_soc" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --skip_spotify_uninstall --skip_login_logout --gmail_username "ptp.pg.powerkpi@gmail.com" --gmail_password "ptp_pg_powerkpi_1234" --spotify_username "ptp.pg.powerkpi@gmail.com" --spotify_password "ptp_pg_powerkpi_12345" --office_username "ptp_powerkpi@14qrl3.onmicrosoft.com" --office_password "ptp_pg_powerkpi_1234" --drive_excel_path "https://docs.google.com/spreadsheets/d/1zdO1Z6whQ5dAuCP81fs5hBDCukNDPdpszEIgDHkARRY/edit?gid=1642539714#gid=1642539714" -comm_type ps_exec -dbg --spotify_path "C:/Users/Administrator/AppData/Local/Microsoft/WindowsApps/Spotify.exe" --quiesce 180s --duration 180s
 ```
 
 ### 4.5 Busy Idle + Intec (25°C)
@@ -1286,12 +1322,12 @@ python -m hopper.pnp.workloads.power.busy_idle.busy_idle -job "BUSY_IDLE_intec_s
 
 ### 4.7 Busy Idle + Intec + DAQ (25°C)
 ```bash
-python -m hopper.pnp.workloads.power.busy_idle.busy_idle -job "BUSY_IDLE_intec_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down --skip_spotify_uninstall --skip_login_logout --gmail_username "ptp.pg.powerkpi@gmail.com" --gmail_password "ptp_pg_powerkpi_1234" --spotify_username "ptp.pg.powerkpi@gmail.com" --spotify_password "ptp_pg_powerkpi_12345" --office_username "ptp_powerkpi@14qrl3.onmicrosoft.com" --office_password "ptp_pg_powerkpi_1234" --drive_excel_path "https://docs.google.com/spreadsheets/d/1zdO1Z6whQ5dAuCP81fs5hBDCukNDPdpszEIgDHkARRY/edit?gid=1642539714#gid=1642539714" -comm_type ps_exec -dbg --spotify_path "C:/Users/Administrator/AppData/Local/Microsoft/WindowsApps/Spotify.exe" --quiesce 180s --duration 180s -intc -intec_sp 25
+python -m hopper.pnp.workloads.power.busy_idle.busy_idle -job "BUSY_IDLE_intec_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down --skip_spotify_uninstall --skip_login_logout --gmail_username "ptp.pg.powerkpi@gmail.com" --gmail_password "ptp_pg_powerkpi_1234" --spotify_username "ptp.pg.powerkpi@gmail.com" --spotify_password "ptp_pg_powerkpi_12345" --office_username "ptp_powerkpi@14qrl3.onmicrosoft.com" --office_password "ptp_pg_powerkpi_1234" --drive_excel_path "https://docs.google.com/spreadsheets/d/1zdO1Z6whQ5dAuCP81fs5hBDCukNDPdpszEIgDHkARRY/edit?gid=1642539714#gid=1642539714" -comm_type ps_exec -dbg --spotify_path "C:/Users/Administrator/AppData/Local/Microsoft/WindowsApps/Spotify.exe" --quiesce 180s --duration 180s -intc -intec_sp 25
 ```
 
 ### 4.8 Busy Idle + Intec + DAQ + SocWatch (25°C)
 ```bash
-python -m hopper.pnp.workloads.power.busy_idle.busy_idle -job "BUSY_IDLE_intec_daq_soc" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --skip_spotify_uninstall --skip_login_logout --gmail_username "ptp.pg.powerkpi@gmail.com" --gmail_password "ptp_pg_powerkpi_1234" --spotify_username "ptp.pg.powerkpi@gmail.com" --spotify_password "ptp_pg_powerkpi_12345" --office_username "ptp_powerkpi@14qrl3.onmicrosoft.com" --office_password "ptp_pg_powerkpi_1234" --drive_excel_path "https://docs.google.com/spreadsheets/d/1zdO1Z6whQ5dAuCP81fs5hBDCukNDPdpszEIgDHkARRY/edit?gid=1642539714#gid=1642539714" -comm_type ps_exec -dbg --spotify_path "C:/Users/Administrator/AppData/Local/Microsoft/WindowsApps/Spotify.exe" --quiesce 180s --duration 180s -intc -intec_sp 25
+python -m hopper.pnp.workloads.power.busy_idle.busy_idle -job "BUSY_IDLE_intec_daq_soc" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --skip_spotify_uninstall --skip_login_logout --gmail_username "ptp.pg.powerkpi@gmail.com" --gmail_password "ptp_pg_powerkpi_1234" --spotify_username "ptp.pg.powerkpi@gmail.com" --spotify_password "ptp_pg_powerkpi_12345" --office_username "ptp_powerkpi@14qrl3.onmicrosoft.com" --office_password "ptp_pg_powerkpi_1234" --drive_excel_path "https://docs.google.com/spreadsheets/d/1zdO1Z6whQ5dAuCP81fs5hBDCukNDPdpszEIgDHkARRY/edit?gid=1642539714#gid=1642539714" -comm_type ps_exec -dbg --spotify_path "C:/Users/Administrator/AppData/Local/Microsoft/WindowsApps/Spotify.exe" --quiesce 180s --duration 180s -intc -intec_sp 25
 ```
 
 ---
@@ -1329,7 +1365,7 @@ python -m hopper.pnp.workloads.power.youtube_4k.youtube_powershell -job "YOUTUBE
 
 ### 5.2 YouTube + DAQ
 ```bash
-python -m hopper.pnp.workloads.power.youtube_4k.youtube_powershell -job "YOUTUBE_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down --youtube_username "ptp.pg.powerkpi@gmail.com" --youtube_password "ptp_pg_powerkpi_1234" -comm_type ps_exec -dbg --quiesce 180s --duration 180s
+python -m hopper.pnp.workloads.power.youtube_4k.youtube_powershell -job "YOUTUBE_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down --youtube_username "ptp.pg.powerkpi@gmail.com" --youtube_password "ptp_pg_powerkpi_1234" -comm_type ps_exec -dbg --quiesce 180s --duration 180s
 ```
 
 ### 5.3 YouTube + SocWatch
@@ -1339,7 +1375,7 @@ python -m hopper.pnp.workloads.power.youtube_4k.youtube_powershell -job "YOUTUBE
 
 ### 5.4 YouTube + DAQ + SocWatch
 ```bash
-python -m hopper.pnp.workloads.power.youtube_4k.youtube_powershell -job "YOUTUBE_daq_soc" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --youtube_username "ptp.pg.powerkpi@gmail.com" --youtube_password "ptp_pg_powerkpi_1234" -comm_type ps_exec -dbg --quiesce 180s --duration 180s
+python -m hopper.pnp.workloads.power.youtube_4k.youtube_powershell -job "YOUTUBE_daq_soc" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --youtube_username "ptp.pg.powerkpi@gmail.com" --youtube_password "ptp_pg_powerkpi_1234" -comm_type ps_exec -dbg --quiesce 180s --duration 180s
 ```
 
 ### 5.5 YouTube + Intec (40°C)
@@ -1354,12 +1390,12 @@ python -m hopper.pnp.workloads.power.youtube_4k.youtube_powershell -job "YOUTUBE
 
 ### 5.7 YouTube + Intec + DAQ (40°C)
 ```bash
-python -m hopper.pnp.workloads.power.youtube_4k.youtube_powershell -job "YOUTUBE_intec_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down --youtube_username "ptp.pg.powerkpi@gmail.com" --youtube_password "ptp_pg_powerkpi_1234" -comm_type ps_exec -dbg --quiesce 180s --duration 180s -intc -intec_sp 40
+python -m hopper.pnp.workloads.power.youtube_4k.youtube_powershell -job "YOUTUBE_intec_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down --youtube_username "ptp.pg.powerkpi@gmail.com" --youtube_password "ptp_pg_powerkpi_1234" -comm_type ps_exec -dbg --quiesce 180s --duration 180s -intc -intec_sp 40
 ```
 
 ### 5.8 YouTube + Intec + DAQ + SocWatch (40°C)
 ```bash
-python -m hopper.pnp.workloads.power.youtube_4k.youtube_powershell -job "YOUTUBE_intec_daq_soc" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --youtube_username "ptp.pg.powerkpi@gmail.com" --youtube_password "ptp_pg_powerkpi_1234" -comm_type ps_exec -dbg --quiesce 180s --duration 180s -intc -intec_sp 40
+python -m hopper.pnp.workloads.power.youtube_4k.youtube_powershell -job "YOUTUBE_intec_daq_soc" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto --youtube_username "ptp.pg.powerkpi@gmail.com" --youtube_password "ptp_pg_powerkpi_1234" -comm_type ps_exec -dbg --quiesce 180s --duration 180s -intc -intec_sp 40
 ```
 
 ---
@@ -1397,7 +1433,7 @@ python -m hopper.pnp.workloads.kpi.netflix -job "NETFLIX" -rep 1 -dbg --netflix_
 
 ### 6.2 Netflix + DAQ
 ```bash
-python -m hopper.pnp.workloads.kpi.netflix -job "NETFLIX_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -dbg --netflix_username tester_intc_IVE_CAVE_PNP_FM_1@netflix.com --netflix_password 0mn4N*G*e8 -comm_type ps_exec --quiesce 180s --duration 180s
+python -m hopper.pnp.workloads.kpi.netflix -job "NETFLIX_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -dbg --netflix_username tester_intc_IVE_CAVE_PNP_FM_1@netflix.com --netflix_password 0mn4N*G*e8 -comm_type ps_exec --quiesce 180s --duration 180s
 ```
 
 ### 6.3 Netflix + SocWatch
@@ -1407,7 +1443,7 @@ python -m hopper.pnp.workloads.kpi.netflix -job "NETFLIX_soc" -rep 1 -soc --opti
 
 ### 6.4 Netflix + DAQ + SocWatch
 ```bash
-python -m hopper.pnp.workloads.kpi.netflix -job "NETFLIX_daq_soc" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto -dbg --netflix_username tester_intc_IVE_CAVE_PNP_FM_1@netflix.com --netflix_password 0mn4N*G*e8 -comm_type ps_exec --quiesce 180s --duration 180s
+python -m hopper.pnp.workloads.kpi.netflix -job "NETFLIX_daq_soc" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto -dbg --netflix_username tester_intc_IVE_CAVE_PNP_FM_1@netflix.com --netflix_password 0mn4N*G*e8 -comm_type ps_exec --quiesce 180s --duration 180s
 ```
 
 ### 6.5 Netflix + Intec (40°C)
@@ -1422,12 +1458,12 @@ python -m hopper.pnp.workloads.kpi.netflix -job "NETFLIX_intec_soc" -rep 1 -soc 
 
 ### 6.7 Netflix + Intec + DAQ (40°C)
 ```bash
-python -m hopper.pnp.workloads.kpi.netflix -job "NETFLIX_intec_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -dbg --netflix_username tester_intc_IVE_CAVE_PNP_FM_1@netflix.com --netflix_password 0mn4N*G*e8 -comm_type ps_exec --quiesce 180s --duration 180s -intc -intec_sp 40
+python -m hopper.pnp.workloads.kpi.netflix -job "NETFLIX_intec_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -dbg --netflix_username tester_intc_IVE_CAVE_PNP_FM_1@netflix.com --netflix_password 0mn4N*G*e8 -comm_type ps_exec --quiesce 180s --duration 180s -intc -intec_sp 40
 ```
 
 ### 6.8 Netflix + Intec + DAQ + SocWatch (40°C)
 ```bash
-python -m hopper.pnp.workloads.kpi.netflix -job "NETFLIX_intec_daq_soc" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto -dbg --netflix_username tester_intc_IVE_CAVE_PNP_FM_1@netflix.com --netflix_password 0mn4N*G*e8 -comm_type ps_exec --quiesce 180s --duration 180s -intc -intec_sp 40
+python -m hopper.pnp.workloads.kpi.netflix -job "NETFLIX_intec_daq_soc" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -soc --option pch-count-always -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res -f display -f tcss -f pcie-lpm -f xhci -f device -r auto -dbg --netflix_username tester_intc_IVE_CAVE_PNP_FM_1@netflix.com --netflix_password 0mn4N*G*e8 -comm_type ps_exec --quiesce 180s --duration 180s -intc -intec_sp 40
 ```
 
 ---
@@ -1463,7 +1499,7 @@ python -m hopper.pnp.workloads.S5 -job "S5" -rep 1 -dbg -qui 180s -dur 180s -com
 
 ### 7.2 S5 + DAQ
 ```bash
-python -m hopper.pnp.workloads.S5 -job "S5_daq" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -dbg -qui 180s -dur 180s -comm_type ps_exec
+python -m hopper.pnp.workloads.S5 -job "S5_daq" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -dbg -qui 180s -dur 180s -comm_type ps_exec
 ```
 
 ### 7.3 S5 + Intec (25°C)
@@ -1473,7 +1509,7 @@ python -m hopper.pnp.workloads.S5 -job "S5_intec" -rep 1 -dbg -qui 180s -dur 180
 
 ### 7.4 S5 + DAQ + Intec (25°C)
 ```bash
-python -m hopper.pnp.workloads.S5 -job "S5_daq_intec" -rep 1 --flexlogger -flex_cfg C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -dbg -qui 180s -dur 180s -comm_type ps_exec -intc -intec_sp 25
+python -m hopper.pnp.workloads.S5 -job "S5_daq_intec" -rep 1 --flexlogger -flex_cfg "C:\Users\pgsvlab\Documents\FlexLogger Config Utility\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3\NVL_HX_RVP04_UPH_LP5X_T4_CPU_PCD_only_NoDLVR_Config_Rev2p3.flxproj" --flexlogger_sampling_rate 1000 --flexlogger_keep_open --flexlogger_keep_raw -flex_dis_down -dbg -qui 180s -dur 180s -comm_type ps_exec -intc -intec_sp 25
 ```
 
 ---
@@ -1536,7 +1572,7 @@ python -m hopper.pnp.workloads.S5 -job "S5_daq_intec" -rep 1 --flexlogger -flex_
 2. **Apply Optional Presteps (if requested)** — Reboot, Windows optimization, virtualization, hardware acceleration
 3. **Verify Prerequisites** — Hopper packages installed on HOST; Chocolatey packages on SUT
 4. **Run Workload** — Execute appropriate workload command with desired instrumentation
-5. **Analyze Results** — Review generated reports, logs, and measurements in `C:\_hopper_results\`
+5. **Compile and Analyze Results** — Use the **Compiling Data Section** flow to combine run summaries and generate HTML + CSV outputs from `C:\_hopper_results\`
 6. **Reset Proxy (if needed)** — Configure proxy settings for next workload if different
 
 ---
