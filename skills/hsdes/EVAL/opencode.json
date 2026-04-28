@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "eval-sighting-retrieve": {
+      "template": "use skills_sighting_info findout for HSD 15018601544, who is the sighting submited by? EVAL: is submited_by houyongl",
+      "description": "Eval that submitted_by is houyongl",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    }
+  }
+}

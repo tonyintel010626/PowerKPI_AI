@@ -1,0 +1,44 @@
+{
+    "_comment": "Self-Improvement Configuration Template — copy and customize for your skill tree",
+    "_version": "1.0.0",
+
+    "paths": {
+        "skill_base": ".opencode/skill/YOUR_SKILL",
+        "agent_def": ".opencode/agent/YOUR_AGENT/YOUR_AGENT.md",
+        "docs_dir": ".opencode/skill/YOUR_SKILL/docs",
+        "eval_dir": ".opencode/skill/YOUR_SKILL/eval",
+        "tools_dir": ".opencode/skill/YOUR_SKILL/tools",
+        "reports_dir": ".opencode/skill/YOUR_SKILL/reports"
+    },
+
+    "skills": ["sub-skill-1", "sub-skill-2", "sub-skill-3"],
+
+    "docs": ["reference_extraction.md", "known_issues.md"],
+
+    "owner": {
+        "name": "Your Name",
+        "idsid": "yourid",
+        "email": "your.name@intel.com"
+    },
+
+    "self_check": {
+        "owner_tag": "yourid",
+        "expected_skill_count": 3,
+        "cross_references": {},
+        "stale_patterns": {}
+    },
+
+    "self_verify": {
+        "assertions_file": ".opencode/skill/YOUR_SKILL/eval/assertions.json",
+        "pass_threshold_pct": 95,
+        "results_dir": ".opencode/skill/YOUR_SKILL/reports"
+    },
+
+    "self_improve": {
+        "auto_apply": false,
+        "require_human_approval": true,
+        "max_proposals_per_run": 20,
+        "proposals_file": ".opencode/skill/YOUR_SKILL/reports/proposals.json",
+        "changelog_file": ".opencode/skill/YOUR_SKILL/reports/CHANGELOG.md"
+    }
+}

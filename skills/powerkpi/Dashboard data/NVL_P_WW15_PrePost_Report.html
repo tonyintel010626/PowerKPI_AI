@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>NVL-P Power KPI Report: Pre vs Post Silicon (WW15)</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 30px; color: #222; }
+  h1 { color: #1a252f; border-bottom: 3px solid #2980b9; padding-bottom: 8px; }
+  h2 { color: #2c3e50; margin-top: 30px; }
+  h3 { color: #34495e; }
+  .metadata { background:#ecf0f1; padding:12px; border-radius:6px; margin-bottom:20px; font-size:13px; }
+  .section { margin-top: 30px; }
+  table { margin-bottom: 20px; }
+  .legend { margin: 10px 0; font-size: 12px; }
+  .legend span { display:inline-block; width:18px; height:14px; margin-right:5px; vertical-align:middle; border-radius:3px; }
+</style>
+</head>
+<body>
+<h1>NVL-P A0 Power KPI Report &mdash; Pre-Silicon vs Post-Silicon</h1>
+<div class="metadata">
+  <b>Pre-Silicon Reference:</b> Q1&apos;26 Projection (from NVL P A0 PO BL KPIs WW15&apos;26.xlsx)<br>
+  <b>Post-Silicon Data:</b> WW15 Run2 (Median) from NVLP_WW15&apos;26_Power_summary.xlsx<br>
+  <b>Unit:</b> milliwatts (mW) &mdash; Summary covers G12:G24 (P_MCP_TOTAL row is system-level total)<br>
+  <b>Note:</b> Netflix WW15 data = 0 (no measurement available yet)
+</div>
+
+<div class="legend">
+  <b>Ratio color code:</b>
+  <span style="background:#27ae60"></span> &le;1.0 (meets/beats projection)
+  &nbsp;
+  <span style="background:#f39c12"></span> 1.0&ndash;1.3 (moderately over)
+  &nbsp;
+  <span style="background:#e74c3c"></span> &gt;1.3 (significantly over projection)
+</div>
+
+<div class="section">
+<h2>1. System-Level KPI Summary (P_MCP_TOTAL)</h2>
+<table border="1" cellspacing="0" cellpadding="8" style="border-collapse:collapse;font-size:13px;width:700px"><thead><tr style="background:#1a252f;color:white"><th>Workload</th><th>Pre-Silicon Q1'26 (mW)</th><th>Post-Silicon WW15 Median (mW)</th><th>Ratio (Post/Pre)</th><th>Status</th></tr></thead><tbody><tr style="background:#f2f8ff"><td><b>OS Idle (25C)</b></td><td style="text-align:right">144</td><td style="text-align:right;font-weight:bold">302.73</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.102</span></td><td style="text-align:center;color:#e74c3c;font-weight:bold">OVER</td></tr><tr style="background:white"><td><b>MCS (25C)</b></td><td style="text-align:right">48</td><td style="text-align:right;font-weight:bold">136.83</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.851</span></td><td style="text-align:center;color:#e74c3c;font-weight:bold">OVER</td></tr><tr style="background:#f2f8ff"><td><b>Netflix 1080p AVC (40C)</b></td><td style="text-align:right">728</td><td style="text-align:right;font-weight:bold">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:center;color:#e74c3c;font-weight:bold">N/A</td></tr><tr style="background:white"><td><b>AVI 4K YouTube (40C)</b></td><td style="text-align:right">1223</td><td style="text-align:right;font-weight:bold">1802.15</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.474</span></td><td style="text-align:center;color:#e74c3c;font-weight:bold">OVER</td></tr><tr style="background:#f2f8ff"><td><b>4-tab Catapult (40C)</b></td><td style="text-align:right">1120</td><td style="text-align:right;font-weight:bold">1521.29</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.358</span></td><td style="text-align:center;color:#e74c3c;font-weight:bold">OVER</td></tr></tbody></table>
+</div>
+
+<div class="section">
+<h3>Executive Summary</h3>
+<ul>
+<li><b>OS Idle (25C)</b>: Post=302.73 mW vs Pre=144 mW &mdash; <span style="color:#e74c3c">+110.2% above projection</span> (ratio=2.102)</li>
+<li><b>MCS (25C)</b>: Post=136.83 mW vs Pre=48 mW &mdash; <span style="color:#e74c3c">+185.1% above projection</span> (ratio=2.851)</li>
+<li><b>Netflix 1080p AVC (40C)</b>: No data available</li>
+<li><b>AVI 4K YouTube (40C)</b>: Post=1802.15 mW vs Pre=1223 mW &mdash; <span style="color:#e74c3c">+47.4% above projection</span> (ratio=1.474)</li>
+<li><b>4-tab Catapult (40C)</b>: Post=1521.29 mW vs Pre=1120 mW &mdash; <span style="color:#e74c3c">+35.8% above projection</span> (ratio=1.358)</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>2. Power Rail Breakdown (WW15 Run2 = Median)</h2>
+<p style="font-size:12px;color:#666">Pre-silicon projections from NVL_P_Q1&apos;26 tab. Post-silicon = WW15 Run2 median value per workload.</p>
+<table border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse;font-size:12px;width:100%"><thead><tr style="background:#2c3e50;color:white"><th rowspan="2" style="min-width:140px">Power Rail</th><th colspan="3" style="text-align:center">IDON (25C)</th><th colspan="3" style="text-align:center">CMS (25C)</th><th colspan="3" style="text-align:center">Catapult @40C</th><th colspan="3" style="text-align:center">Youtube @40C</th><th colspan="3" style="text-align:center">Netflix @40C</th></tr><tr style="background:#34495e;color:white"><th>Pre (mW)</th><th>Post WW15 (mW)</th><th>Ratio</th><th>Pre (mW)</th><th>Post WW15 (mW)</th><th>Ratio</th><th>Pre (mW)</th><th>Post WW15 (mW)</th><th>Ratio</th><th>Pre (mW)</th><th>Post WW15 (mW)</th><th>Ratio</th><th>Pre (mW)</th><th>Post WW15 (mW)</th><th>Ratio</th></tr></thead><tbody><tr style="background:#f9f9f9;font-weight:normal"><td style="font-family:monospace">P_VCC_LP_ECORE</td><td style="text-align:right">4.98</td><td style="text-align:right">19.532</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">3.922</span></td><td style="text-align:right">0.0</td><td style="text-align:right">0.0</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">223.63</td><td style="text-align:right">185.721</td><td style="text-align:center"><span style="background:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">0.830</span></td><td style="text-align:right">151.38</td><td style="text-align:right">189.029</td><td style="text-align:center"><span style="background:#f39c12;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.249</span></td><td style="text-align:right">75.51</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr><tr style="background:white;font-weight:normal"><td style="font-family:monospace">P_VCCPRIM_IO</td><td style="text-align:right">14.23</td><td style="text-align:right">39.315</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.763</span></td><td style="text-align:right">1.55</td><td style="text-align:right">21.491</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">13.865</span></td><td style="text-align:right">122.49</td><td style="text-align:right">129.428</td><td style="text-align:center"><span style="background:#f39c12;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.057</span></td><td style="text-align:right">159.38</td><td style="text-align:right">122.521</td><td style="text-align:center"><span style="background:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">0.769</span></td><td style="text-align:right">111.65</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr><tr style="background:#f9f9f9;font-weight:normal"><td style="font-family:monospace">P_VCCPRIM_VNNAON</td><td style="text-align:right">67.29</td><td style="text-align:right">141.429</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.102</span></td><td style="text-align:right">42.23</td><td style="text-align:right">88.224</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.089</span></td><td style="text-align:right">327.09</td><td style="text-align:right">396.387</td><td style="text-align:center"><span style="background:#f39c12;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.212</span></td><td style="text-align:right">318.3</td><td style="text-align:right">376.04</td><td style="text-align:center"><span style="background:#f39c12;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.181</span></td><td style="text-align:right">266.98</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr><tr style="background:white;font-weight:normal"><td style="font-family:monospace">P_VCCPRIM_1P8</td><td style="text-align:right">4.45</td><td style="text-align:right">1.494</td><td style="text-align:center"><span style="background:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">0.336</span></td><td style="text-align:right">4.32</td><td style="text-align:right">1.263</td><td style="text-align:center"><span style="background:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">0.292</span></td><td style="text-align:right">7.53</td><td style="text-align:right">2.277</td><td style="text-align:center"><span style="background:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">0.302</span></td><td style="text-align:right">5.68</td><td style="text-align:right">3.402</td><td style="text-align:center"><span style="background:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">0.599</span></td><td style="text-align:right">5.49</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr><tr style="background:#f9f9f9;font-weight:normal"><td style="font-family:monospace">P_VCCRTC</td><td style="text-align:right">0.05</td><td style="text-align:right">0.129</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.580</span></td><td style="text-align:right">0.05</td><td style="text-align:right">0.131</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.620</span></td><td style="text-align:right">0.05</td><td style="text-align:right">0.128</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.560</span></td><td style="text-align:right">0.05</td><td style="text-align:right">0.13</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.600</span></td><td style="text-align:right">0.05</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr><tr style="background:white;font-weight:normal"><td style="font-family:monospace">P_VCCPRIM_1P8_FLTRA</td><td style="text-align:right">N/A</td><td style="text-align:right">6.766</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">N/A</td><td style="text-align:right">5.967</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">N/A</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">N/A</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">N/A</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr><tr style="background:#f9f9f9;font-weight:normal"><td style="font-family:monospace">P_VCCPRIM_1P8_FLTRB</td><td style="text-align:right">N/A</td><td style="text-align:right">24.498</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">N/A</td><td style="text-align:right">17.14</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">N/A</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">N/A</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">N/A</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr><tr style="background:white;font-weight:normal"><td style="font-family:monospace">P_VDDQ_CPU</td><td style="text-align:right">3.34</td><td style="text-align:right">3.757</td><td style="text-align:center"><span style="background:#f39c12;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.125</span></td><td style="text-align:right">0.0</td><td style="text-align:right">0.764</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">52.47</td><td style="text-align:right">21.419</td><td style="text-align:center"><span style="background:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">0.408</span></td><td style="text-align:right">58.27</td><td style="text-align:right">32.398</td><td style="text-align:center"><span style="background:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">0.556</span></td><td style="text-align:right">24.59</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr><tr style="background:#f9f9f9;font-weight:normal"><td style="font-family:monospace">P_VDD2H_CPU</td><td style="text-align:right">14.49</td><td style="text-align:right">14.101</td><td style="text-align:center"><span style="background:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">0.973</span></td><td style="text-align:right">0.87</td><td style="text-align:right">1.852</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.129</span></td><td style="text-align:right">166.21</td><td style="text-align:right">100.344</td><td style="text-align:center"><span style="background:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">0.604</span></td><td style="text-align:right">220.41</td><td style="text-align:right">152.365</td><td style="text-align:center"><span style="background:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">0.691</span></td><td style="text-align:right">87.87</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr><tr style="background:white;font-weight:normal"><td style="font-family:monospace">P_VCCCORE</td><td style="text-align:right">0.0</td><td style="text-align:right">1.739</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">0.0</td><td style="text-align:right">0.0</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">28.87</td><td style="text-align:right">101.496</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">3.516</span></td><td style="text-align:right">4.49</td><td style="text-align:right">46.628</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">10.385</span></td><td style="text-align:right">0.0</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr><tr style="background:#f9f9f9;font-weight:normal"><td style="font-family:monospace">P_VCCGT</td><td style="text-align:right">0.0</td><td style="text-align:right">0.347</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">0.0</td><td style="text-align:right">0.0</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td style="text-align:right">24.13</td><td style="text-align:right">28.899</td><td style="text-align:center"><span style="background:#f39c12;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.198</span></td><td style="text-align:right">0.49</td><td style="text-align:right">7.954</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">16.233</span></td><td style="text-align:right">0.0</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr><tr style="background:white;font-weight:normal"><td style="font-family:monospace">P_VCCSA</td><td style="text-align:right">35.96</td><td style="text-align:right">49.513</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.377</span></td><td style="text-align:right">0.2</td><td style="text-align:right">0.0</td><td style="text-align:center"><span style="background:#27ae60;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">0.000</span></td><td style="text-align:right">320.78</td><td style="text-align:right">483.292</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.507</span></td><td style="text-align:right">450.36</td><td style="text-align:right">795.231</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.766</span></td><td style="text-align:right">263.9</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr><tr style="background:#f9f9f9;font-weight:bold"><td style="font-family:monospace">P_MCP_TOTAL</td><td style="text-align:right">144.79</td><td style="text-align:right">302.729</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.091</span></td><td style="text-align:right">49.22</td><td style="text-align:right">136.833</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.780</span></td><td style="text-align:right">1273.25</td><td style="text-align:right">1521.285</td><td style="text-align:center"><span style="background:#f39c12;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.195</span></td><td style="text-align:right">1368.81</td><td style="text-align:right">1802.149</td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.317</span></td><td style="text-align:right">836.04</td><td style="text-align:right">N/A</td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td></tr></tbody></table>
+</div>
+
+<div class="section">
+<h2>3. Brief Summary &mdash; Power Ratio Analysis</h2>
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse;font-size:13px">
+<thead><tr style="background:#2c3e50;color:white">
+  <th>Workload</th><th>Post/Pre Ratio</th><th>Interpretation</th>
+</tr></thead>
+<tbody>
+<tr style="background:#fdedec"><td><b>OS Idle (25C)</b></td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.102</span></td><td>Critically above projection — action required</td></tr>
+<tr style="background:#fdedec"><td><b>MCS (25C)</b></td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">2.851</span></td><td>Critically above projection — action required</td></tr>
+<tr style="background:#f4f4f4"><td><b>Netflix 1080p AVC (40C)</b></td><td style="text-align:center"><span style="background:#aaaaaa;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">N/A</span></td><td>No measurement data</td></tr>
+<tr style="background:#fdf2f8"><td><b>AVI 4K YouTube (40C)</b></td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.474</span></td><td>Significantly above projection — investigate</td></tr>
+<tr style="background:#fdf2f8"><td><b>4-tab Catapult (40C)</b></td><td style="text-align:center"><span style="background:#e74c3c;color:white;padding:2px 6px;border-radius:4px;font-weight:bold">1.358</span></td><td>Significantly above projection — investigate</td></tr>
+</tbody></table>
+</div>
+
+<div class="section">
+<h2>4. Notes</h2>
+<ul>
+  <li>Netflix WW15 data shows all zeros — measurement not yet captured for WW15 (only WW15 header row present, runs TBD).</li>
+  <li>IDON, CMS, Catapult, Youtube show WW15 Run2 as the representative median run per test design.</li>
+  <li>P_VCCPRIM_VNNAON consistently above pre-silicon projection across workloads — potential VNNAON leakage issue.</li>
+  <li>P_VCCSA is the dominant contributor to excess power in Youtube and Catapult workloads.</li>
+</ul>
+</div>
+
+
+<div class="section">
+<h2>5. HSDES Sighting Analysis — Why Power is Not Meeting Projections</h2>
+<p style="font-size:12px;color:#555">Source: YC_Debugger agent HSDES search — 25,042 open sightings scanned → 2,025 NVL hits → 209 power/PM-related → 28 directly relevant. Analysis performed WW15 2026.</p>
+
+<div style="background:#fff3cd;border-left:4px solid #f39c12;padding:12px;margin-bottom:16px;font-size:13px">
+  <b>Key Finding:</b> The NVL-P post-silicon power gap is <b>NOT a single root cause</b> — it is an overlay of at least <b>6 independent issues</b> across VNNAON, VCCSA, VCCCORE, PkgC residency, CNVi, and fuse/measurement infrastructure. Most have open sightings on NVL-S/NVL-Hx variants. One critical sighting (<b>HSD 15019229805</b>) is NVL-P specific.
+</div>
+
+<!-- ======= 5.1 IDON ======= -->
+<h3>5.1 IDON (25°C) — 302.73 mW vs 144 mW projected (2.10×)</h3>
+
+<h4 style="color:#c0392b">5.1.1 P_VCCPRIM_VNNAON (2.0–2.2× above pre-silicon)</h4>
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:12px;width:100%">
+<thead><tr style="background:#2c3e50;color:white"><th>HSD ID</th><th>Title</th><th>Status</th><th>Owner</th><th>Priority</th><th>Relevance</th></tr></thead>
+<tbody>
+<tr style="background:#fdf2f8"><td><b>15018538099</b></td><td>[NVL][PCDH][PTH][SICC]: Elevated PGOFF VNNAON at HVM</td><td>open</td><td>mamirudd</td><td>P2-high</td><td>DIRECT — SORT VNNAON elevated by 35mA from projection (0.119A measured vs 0.084A projected). CLASS VNNAON double the elevation.</td></tr>
+<tr><td><b>22021310430</b></td><td>[NVL][HUB][CDIE][GCD][PCD][VNNAON] Temporary voltage increase on VNNAON rail</td><td>open</td><td>swjohnso</td><td>P2-high</td><td>DIRECT — Documented VNNAON voltage increase across multiple die types. Kill voltage adjusted 675→690mV.</td></tr>
+<tr style="background:#fdf2f8"><td><b>14027432226</b></td><td>[NVL-HX_PTP_Low_Power] 15mW savings on VNNAON and VCCIO when RTC PLL is forced off</td><td>open</td><td>jleow</td><td>P2-high</td><td>DIRECT — PMC patch forcing RTC PLL off at S0i2.2 entry saves ~15mW on VNNAON+VCCIO.</td></tr>
+<tr><td><b>14027518830</b></td><td>[NVLHx_PTP_Low_Power] PC10.3 AON power impacted due to clkreqs staying Active</td><td>open</td><td>kgoh8</td><td>P2-high</td><td>DIRECT — In PC10.3, clkreqs for GBE and XHCI are active when they shouldn't be, adding ~10mW on VNNAON.</td></tr>
+<tr style="background:#fdf2f8"><td><b>14027573978</b></td><td>[NVL-H_PTP_Low_Power] CNVi ~7-8mW adder on VNNAON when WiFi and BT Radio is ON</td><td>open</td><td>cheemunt</td><td>P2-high</td><td>CONTRIBUTING — BT radio adds 7-8 mW to VNNAON in PkgC10.3.</td></tr>
+<tr><td><b>14027161377</b></td><td>[NVL-H_PTP_Low_Power] Power Delta per PkgC state when CNVi Enabled vs Disabled</td><td>open</td><td>kwoo1</td><td>P3-med</td><td>CONTRIBUTING — VCCPRIM_VNNAON increases 6-7 mW in every PkgC state when CNVi is enabled.</td></tr>
+</tbody></table>
+<div style="background:#eafaf1;padding:8px;margin:8px 0;font-size:12px;border-left:3px solid #27ae60">
+  <b>Root Cause:</b> Compound issue — elevated silicon leakage (15018538099) + RTC PLL not gating (14027432226) + clkreq signaling bugs (14027518830) + CNVi always-on adder (14027573978, 14027161377).
+  <br><b>Debug Actions:</b> (1) Apply PMC patch to force RTC PLL off and re-measure VNNAON delta. (2) Check clkreq status in IDON: are GBE/XHCI/CNVi clkreqs de-asserted? (3) Disable CNVi in BIOS and re-measure to isolate CNVi contribution.
+</div>
+
+<h4 style="color:#c0392b">5.1.2 P_VCCPRIM_IO (2.76× above pre-silicon)</h4>
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:12px;width:100%">
+<thead><tr style="background:#2c3e50;color:white"><th>HSD ID</th><th>Title</th><th>Status</th><th>Owner</th><th>Priority</th><th>Relevance</th></tr></thead>
+<tbody>
+<tr style="background:#fdf2f8"><td><b>14027432226</b></td><td>[NVL-HX_PTP_Low_Power] 15mW savings on VNNAON and VCCIO when RTC PLL forced off</td><td>open</td><td>jleow</td><td>P2-high</td><td>DIRECT — VCCIO is part of the 15mW saved by forcing RTC PLL off.</td></tr>
+<tr><td><b>14027526335</b></td><td>[NVL-S/HX/HUP][HUB]: v1p8_pmeter_current and vccio_pmeter_current fuses set to 0</td><td>open</td><td>tcase</td><td>P2-high</td><td><b>CRITICAL</b> — VCCIO power meter fuse is set to 0 on ALL NVL SKUs — on-die power estimation for VCCIO is WRONG. Projections based on pmeter data would be incorrect.</td></tr>
+</tbody></table>
+<div style="background:#fdedec;padding:8px;margin:8px 0;font-size:12px;border-left:3px solid #e74c3c">
+  <b>URGENT:</b> Override vccio_pmeter_current fuse via PythonSV to get accurate readings. Cross-check VCCIO against DAQ external measurements (pmeter is unreliable per HSD 14027526335).
+</div>
+
+<!-- ======= 5.2 CMS ======= -->
+<h3>5.2 CMS (25°C) — 136.83 mW vs 48 mW projected (2.85×)</h3>
+<p style="font-size:12px">Same root causes as IDON 5.1.1 (sightings <b>15018538099, 22021310430, 14027432226, 14027518830, 14027573978</b>). CMS has the worst ratio (2.85×) because it is the lightest workload — always-on/leakage components dominate the 48 mW pre-silicon target more than in heavier workloads. Absolute mW values on VNNAON may be similar to IDON but represent a larger fraction.</p>
+<div style="background:#eafaf1;padding:8px;margin:8px 0;font-size:12px;border-left:3px solid #27ae60">
+  <b>Additional Debug:</b> Characterise CMS workload CPU activity — is it truly idle or are there periodic wake events? Check PkgC residency during CMS — if not entering deep PkgC states, the gap will compound.
+</div>
+
+<!-- ======= 5.3 YouTube ======= -->
+<h3>5.3 YouTube @40°C — 1802.15 mW vs 1223 mW projected (1.47×)</h3>
+
+<h4 style="color:#c0392b">5.3.1 P_VCCCORE (10.4× — 46.6 mW vs 4.49 mW pre-silicon)</h4>
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:12px;width:100%">
+<thead><tr style="background:#2c3e50;color:white"><th>HSD ID</th><th>Title</th><th>Status</th><th>Owner</th><th>Priority</th><th>Relevance</th></tr></thead>
+<tbody>
+<tr style="background:#fdedec"><td><b>15019229805</b></td><td>[NVL_P_PTP_Low_Power] VCCCORE power observed is higher than projections in YouTube 4K Streaming</td><td>open</td><td>nhanif</td><td>P3-med</td><td><b>EXACT MATCH (NVL-P specific)</b> — Filed 2026-04-01. Post=76.49 mW vs Pre=4.49 mW. Root cause: NOT entering PkgC10.1 as expected (0% residency vs projected 11.39%). System sitting in PkgC0 (79.8%) and PkgC2 (11.54%) instead of deeper states.</td></tr>
+<tr><td><b>14027340183</b></td><td>[NVLS_i7_PTP_Low_Power] High MCP Power consumption on Short Idle</td><td>open</td><td>jleow</td><td>P2-high</td><td>RELATED — VCCCORE peaks of 30–50W during Modern Standby, traced to MsMpEng.exe (Windows Defender) waking the system.</td></tr>
+<tr style="background:#fdf2f8"><td><b>14027562206</b></td><td>[NVLHx_PTP_Low_Power] YouTube frames dropping</td><td>open</td><td>(unassigned)</td><td>P2-high</td><td>RELATED — YouTube 4K frames dropping on NVL-Hx even at fixed 1.5GHz, keeping cores active.</td></tr>
+</tbody></table>
+<div style="background:#fdedec;padding:8px;margin:8px 0;font-size:12px;border-left:3px solid #e74c3c">
+  <b>Root Cause:</b> PkgC10.1 residency failure — pre-silicon projected 11.39%, post-silicon shows 0% (HSD 15019229805). Cores remain in PkgC0/PkgC2 instead of deep sleep during inter-frame periods, keeping VCCCORE energised.
+  <br><b>Priority Debug:</b> (1) Run <code>print_s0ix_y_blocking_conditions</code> doctor script. (2) Check LTR values of all IPs during YouTube — one IP with short LTR blocks deep PkgC. (3) Check DRRS / display refresh rate preventing PkgC entry. (4) Run SocWatch to identify PkgC blocker IP. (5) Cross-reference HSD 14027552790 (CNVi LTR blocking PC6.1).
+</div>
+
+<h4 style="color:#c0392b">5.3.2 P_VCCSA (1.77× above pre-silicon)</h4>
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:12px;width:100%">
+<thead><tr style="background:#2c3e50;color:white"><th>HSD ID</th><th>Title</th><th>Status</th><th>Owner</th><th>Priority</th><th>Relevance</th></tr></thead>
+<tbody>
+<tr style="background:#fdf2f8"><td><b>14026486014</b></td><td>[NVLS_i7_PTP_Low_Power] VCCSA power higher than projections across PKG Cstates</td><td>open</td><td>ratnameh</td><td>P2-high</td><td>DIRECT — PC10.2: 35mW vs 11mW; PC10.1: 40mW vs 12mW; PC6.1: 67mW vs 50mW. Systematic VCCSA elevation across all PkgC states.</td></tr>
+<tr><td><b>22021638359</b></td><td>[NVLS_i7_PTP_Low_Power] Regression on VCCSA Rail ~50mW from pcode 24.1.8.2 vs 24.1.6.3</td><td>open</td><td>ratnameh</td><td>P2-high</td><td>DIRECT — VCCSA voltage jumped 0.86V→0.90V with pcode update. Reverting pcode to 24.1.6.3 fixed it.</td></tr>
+<tr style="background:#fdf2f8"><td><b>14027115826</b></td><td>[NVLHx_PTP_Low_Power] SA Voltage higher by ~40mV in deeper PKG Cstates vs PC0</td><td>open</td><td>sandeshs</td><td>P2-high</td><td>DIRECT — GT at1 operating at higher voltage is impacting SA: <code>calculators.at1.ip_voltage._data.at1 = 0.7417</code>.</td></tr>
+<tr><td><b>22021336751</b></td><td>[NVL][HUB][A0][SICC] Early VCCSA leakage values higher than pre-si expectations</td><td>open</td><td>vcyadav</td><td>P3-med</td><td>CONTRIBUTING — Sort data shows VCCSA leakage mean ~1.02A at 20°C, higher than pre-si models.</td></tr>
+<tr style="background:#fdf2f8"><td><b>14027499371</b></td><td>[NVL][B0][PM] No VCCSA CEP throttling observed during concurrent workload stress</td><td>open</td><td>fletcher</td><td>P2-high</td><td>CONTRIBUTING — VCCSA CEP enabled but throttle_percent stays 0% even under stress. CEP SA path not functional.</td></tr>
+</tbody></table>
+<div style="background:#eafaf1;padding:8px;margin:8px 0;font-size:12px;border-left:3px solid #27ae60">
+  <b>Root Cause:</b> Pcode regression raised VCCSA ~40-50mV (22021638359) + GT at1 elevated voltage pulling SA up in deep PkgC (14027115826) + silicon leakage higher than modelled (22021336751) + CEP SA not throttling (14027499371).
+  <br><b>Debug:</b> (1) Check pcode version vs 24.1.6.3 baseline. (2) Check GT at1 voltage during YouTube idle periods. (3) Verify VCCSA CEP functionality per HSD 14027499371.
+</div>
+
+<!-- ======= 5.4 Catapult ======= -->
+<h3>5.4 Catapult @40°C — 1521.29 mW vs 1120 mW projected (1.36×)</h3>
+<p style="font-size:12px">P_VCCSA is the primary contributor (1.51×). Same root causes as YouTube section 5.3.2: sightings <b>14026486014, 22021638359, 14027115826</b>. Catapult is a heavier workload so the VCCSA gap is proportionally smaller (1.51× vs 1.77×) because active power dominates over idle leakage.</p>
+<div style="background:#fef9e7;padding:8px;margin:8px 0;font-size:12px;border-left:3px solid #f39c12">
+  <b>Note:</b> No documented sighting found specifically for Catapult workload on NVL-P. <b>Recommend filing new sighting</b> if Catapult power gap persists after VCCSA pcode fix (HSD 22021638359) and GT at1 fix (HSD 14027115826) are applied.
+</div>
+
+<!-- ======= 5.5 PkgC cross-cutting ======= -->
+<h3>5.5 PkgC Residency Failures — Cross-Cutting (All Workloads)</h3>
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:12px;width:100%">
+<thead><tr style="background:#2c3e50;color:white"><th>HSD ID</th><th>Title</th><th>Status</th><th>Owner</th><th>Priority</th><th>Impact</th></tr></thead>
+<tbody>
+<tr style="background:#fdedec"><td><b>15019229805</b></td><td>[NVL_P] VCCCORE higher in YouTube — PkgC10.1 = 0%</td><td>open</td><td>nhanif</td><td>P3-med</td><td>NVL-P YouTube not entering PkgC10.1</td></tr>
+<tr><td><b>14027569060</b></td><td>Very low PkgC10.3 residency in display-on idle (NVL-S)</td><td>open</td><td>kaurprab</td><td>P2-high</td><td>PkgC10.3 near zero with specific GFX driver versions</td></tr>
+<tr style="background:#fdf2f8"><td><b>22021510793</b></td><td>PKGC10 residency only seen in first few minutes of Windows boot (NVL-S)</td><td>open</td><td>xdomi</td><td>P3-med</td><td>PkgC10 drops to zero after initial boot</td></tr>
+<tr><td><b>15019219316</b></td><td>[NVL-H] System unable to get stable PKGC10 residency</td><td>open</td><td>limchink</td><td>P2-high</td><td>231 cycles with no residency on NVL-H ES1</td></tr>
+<tr style="background:#fdf2f8"><td><b>14027552790</b></td><td>CNVi LTR post &lt; 110µs 100% halfway through idle test — blocks PC6.1</td><td>open</td><td>avadanay</td><td>P3-med</td><td>CNVi LTR value blocks deep PkgC, limits to PC2</td></tr>
+<tr><td><b>14027505475</b></td><td>System stuck in PkgC2 due to DMI in L1 + PCH SPA PHY not power gated (GBE cable)</td><td>open</td><td>kaurprab</td><td>P2-high</td><td>GBE cable prevents PCH PHY power gating → blocks PkgC6+</td></tr>
+<tr style="background:#fdf2f8"><td><b>14027505865</b></td><td>System stuck in PkgC2 due to PCH PXPE asking for memory resources</td><td>open</td><td>kaurprab</td><td>P3-med</td><td>PCH peripheral requesting memory → holds PC2</td></tr>
+</tbody></table>
+<div style="background:#eafaf1;padding:8px;margin:8px 0;font-size:12px;border-left:3px solid #27ae60">
+  <b>Known PkgC10 blockers:</b> CNVi LTR (14027552790), GBE/DMI/PCH PHY (14027505475), clkreqs active (14027518830), GFX driver version (14027569060). PkgC residency failure is the <b>single largest power multiplier</b> across all workloads.
+</div>
+
+<!-- ======= 5.6 Measurement infra ======= -->
+<h3>5.6 Measurement &amp; Infrastructure Issues</h3>
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:12px;width:100%">
+<thead><tr style="background:#2c3e50;color:white"><th>HSD ID</th><th>Title</th><th>Status</th><th>Owner</th><th>Priority</th><th>Impact</th></tr></thead>
+<tbody>
+<tr style="background:#fdedec"><td><b>14027526335</b></td><td>[NVL-S/HX/HUP][HUB]: v1p8_pmeter and vccio_pmeter_current fuses set to 0 on ALL NVL SKUs</td><td>open</td><td>tcase</td><td>P2-high</td><td>On-die power estimation for VCCIO and V1P8 is WRONG. Projections using pmeter data are invalid.</td></tr>
+<tr><td><b>14025872513</b></td><td>DAQ power on VCCCORE_PHx shows negative current values</td><td>open</td><td>dmbuitra</td><td>P2-high</td><td>Measurement infrastructure issue on NVL-S — negative current on VR phases.</td></tr>
+<tr style="background:#fdf2f8"><td><b>14026555064</b></td><td>Negative current on VCCCORE, VCC_LP_ECORE, and VCCSA when idle</td><td>open</td><td>(unassigned)</td><td>P2-high</td><td>Observed across multiple labs — may indicate VR measurement setup or DLVR behaviour.</td></tr>
+<tr><td><b>14026039206</b></td><td>High power with DAM Enabled IFWI vs DAM Disabled</td><td>open</td><td>(unassigned)</td><td>P2-high</td><td>DAM in IFWI adds measurable power. Ensure PTP measurements use DAM-disabled IFWI.</td></tr>
+</tbody></table>
+
+<!-- ======= 5.7 Priority actions ======= -->
+<h3>5.7 Priority Debug Actions</h3>
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:12px;width:100%">
+<thead><tr style="background:#1a252f;color:white"><th>Priority</th><th>Action</th><th>Blocks</th><th>Sighting(s)</th></tr></thead>
+<tbody>
+<tr style="background:#fdedec"><td><b>P0</b></td><td>Fix vccio_pmeter_current and v1p8_pmeter_current fuses → re-baseline projections</td><td>All VCCIO/V1P8 analysis validity</td><td>14027526335</td></tr>
+<tr style="background:#fdedec"><td><b>P0</b></td><td>Investigate PkgC10.1 = 0% on NVL-P YouTube → run doctor scripts + SocWatch + identify blocker IP</td><td>VCCCORE 10.4× gap</td><td>15019229805</td></tr>
+<tr style="background:#fef9e7"><td><b>P1</b></td><td>Check pcode version vs VCCSA baseline — revert if pcode regression (24.1.6.3 known good)</td><td>VCCSA 1.5–1.8× gap</td><td>22021638359</td></tr>
+<tr style="background:#fef9e7"><td><b>P1</b></td><td>Apply RTC PLL force-off PMC patch → measure VNNAON/VCCIO delta</td><td>VNNAON 2.0–2.2× gap</td><td>14027432226</td></tr>
+<tr style="background:#fef9e7"><td><b>P1</b></td><td>Disable CNVi in BIOS → measure VNNAON baseline without CNVi adder</td><td>VNNAON baseline isolation</td><td>14027161377, 14027573978</td></tr>
+<tr style="background:#eafaf1"><td><b>P2</b></td><td>Debug GT at1 voltage in deep PkgC states — why is GT pulling SA voltage up?</td><td>VCCSA in PkgC6+</td><td>14027115826</td></tr>
+<tr style="background:#eafaf1"><td><b>P2</b></td><td>Check clkreq status for GBE/XHCI in PkgC10.3 — should be inactive</td><td>VNNAON in deep PkgC</td><td>14027518830</td></tr>
+<tr style="background:#eafaf1"><td><b>P2</b></td><td>Ensure DAM-disabled IFWI used for all PTP measurements</td><td>Measurement accuracy</td><td>14026039206</td></tr>
+<tr><td><b>P3</b></td><td>File new sighting: NVL-P CMS 2.85× total power gap</td><td>Tracking / future triage</td><td>New — recommended title: <i>[NVL_P_PTP_Low_Power] CMS workload total SoC power 2.85x above pre-si projection at 25C</i></td></tr>
+<tr><td><b>P3</b></td><td>File new sighting: NVL-P Catapult power gap 1.36×</td><td>Tracking / future triage</td><td>New — recommended title: <i>[NVL_P_PTP_Low_Power] Catapult workload total SoC power 1.36x above pre-si projection at 40C</i></td></tr>
+<tr><td><b>P3</b></td><td>File new sighting: NVL-P IDON 2.10× total power gap</td><td>Tracking / future triage</td><td>New — recommended title: <i>[NVL_P_PTP_Low_Power] IDON idle display-on total SoC power 2.10x above pre-si projection at 25C</i></td></tr>
+</tbody></table>
+
+<!-- ======= 5.8 Summary table ======= -->
+<h3>5.8 Sightings Summary by Failing Rail</h3>
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:12px;width:100%">
+<thead><tr style="background:#2c3e50;color:white"><th>Rail / Workload</th><th># Relevant Sightings</th><th>Top HSD ID</th><th>Root Cause Category</th><th>Severity</th></tr></thead>
+<tbody>
+<tr style="background:#fdedec"><td><b>VNNAON (IDON/CMS)</b></td><td>6</td><td>15018538099</td><td>Silicon leakage + RTC PLL + clkreq + CNVi</td><td><span style="color:#e74c3c;font-weight:bold">High</span></td></tr>
+<tr style="background:#fdedec"><td><b>VCCPRIM_IO (IDON)</b></td><td>2</td><td>14027526335</td><td>pmeter fuse=0 (measurement invalid) + RTC PLL not gating</td><td><span style="color:#e74c3c;font-weight:bold">Critical</span></td></tr>
+<tr style="background:#fdedec"><td><b>VCCCORE (YouTube)</b></td><td>3</td><td>15019229805</td><td>PkgC10.1 = 0% residency — cores not sleeping</td><td><span style="color:#e74c3c;font-weight:bold">Critical (10.4×)</span></td></tr>
+<tr style="background:#fef9e7"><td><b>VCCSA (YouTube/Catapult)</b></td><td>6</td><td>14027115826</td><td>GT at1 voltage + pcode regression + leakage</td><td><span style="color:#f39c12;font-weight:bold">High</span></td></tr>
+<tr style="background:#fef9e7"><td><b>PkgC Residency (all)</b></td><td>9</td><td>14027569060</td><td>CNVi LTR, GBE, driver, PCH PHY blockers</td><td><span style="color:#e74c3c;font-weight:bold">Critical (cross-cutting)</span></td></tr>
+<tr style="background:#fef9e7"><td><b>Measurement Infra</b></td><td>4</td><td>14027526335</td><td>Fuse=0, negative current, DAM IFWI</td><td><span style="color:#f39c12;font-weight:bold">High (confounds analysis)</span></td></tr>
+</tbody></table>
+
+</div>
+
+</body>
+</html>

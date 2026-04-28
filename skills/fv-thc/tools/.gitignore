@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+*.pyo
+reports/
+.self_improvement_timestamps.json

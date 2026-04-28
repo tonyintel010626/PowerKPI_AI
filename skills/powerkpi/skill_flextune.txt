@@ -1,0 +1,235 @@
+# How to Run IDON (Idle Display On) Using Flextune
+# Reference: Flextune BKM Ver 1.0 + PowerKPI SKILL.md
+
+=======================================================================
+OVERVIEW
+=======================================================================
+
+IDON (Idle Display On) measures screen-on idle power consumption on
+Intel client platforms. Flextune automates the Hopper command execution
+for IDON, eliminating the need to manually copy, paste, and modify
+commands for each run.
+
+=======================================================================
+PREREQUISITES
+=======================================================================
+
+1. Flextune must be pre-installed on the Power Station.
+   - If not installed, contact your Automation Engineer.
+
+2. Ensure the SUT (System Under Test) is reachable:
+   - SUT IP:          192.168.137.5
+   - SUT Credentials: Administrator / (empty password)
+   - SUT Gateway:     192.168.137.1
+
+3. Required software on SUT (install via Chocolatey if missing):
+   - Python 3.13 (python313 v3.13.3)
+   - All py3-* packages (pandas, numpy, pywin32, selenium, etc.)
+   - SocWatch (socwatch v2025.7.1) — for SocWatch capture
+   - FlexLogger project configured — for DAQ capture
+
+4. Proxy must be DISABLED for IDON:
+   - Auto Proxy:   DISABLE
+   - Manual Proxy: DISABLE
+
+=======================================================================
+STEP-BY-STEP: RUNNING IDON USING FLEXTUNE
+=======================================================================
+
+STEP 1: Disable Proxy (Required for IDON)
+-----------------------------------------
+In Flextune, before selecting IDON workload, first select the proxy
+disable workload in the workload panel:
+
+  a. Tick "Proxy Disable" (or equivalent proxy-off workload)
+  b. Then tick your IDON workload variant (see Step 2)
+
+  This ensures proxy is disabled BEFORE IDON begins.
+
+  Alternative (manual via PsExec from HOST):
+    psExec \\192.168.137.5 -i -accepteula -u Administrator -p "" ^
+      powershell -c "Remove-ItemProperty -Path ^
+      'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' ^
+      -Name AutoConfigURL -ErrorAction SilentlyContinue; ^
+      Set-ItemProperty -Path ^
+      'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' ^
+      -Name ProxyEnable -Value 0 -Force"
+
+
+STEP 2: Select the IDON Workload in Flextune
+--------------------------------------------
+On the right-side Workload Panel in Flextune, tick the appropriate
+IDON workload variant based on your capture requirement:
+
+  CAPTURE TYPE       | FLEXTUNE WORKLOAD TO SELECT
+  -------------------|-----------------------------
+  No instrumentation | idon
+  DAQ only           | idon_daq
+  SocWatch only      | idon_soc
+  DAQ + SocWatch     | idon_daq_soc
+
+  NOTES:
+  - "idon_daq"     = FlexLogger power rail capture (49 rails, TDMS output)
+  - "idon_soc"     = SocWatch C-state/frequency capture (CSV output)
+  - "idon_daq_soc" = Both DAQ and SocWatch in parallel (recommended for
+                     full Battery Life KPI validation)
+
+  With Intec temperature control (25°C):
+    idon_intec, idon_intec_daq, idon_intec_soc, idon_intec_daq_soc
+
+
+STEP 3: Verify Selection Order
+-------------------------------
+The order workloads are ticked in Flextune is the execution order.
+Recommended selection sequence for IDON:
+
+  1. [Tick] Proxy Disable          <- Environment setup FIRST
+  2. [Tick] idon_daq_soc           <- IDON workload SECOND
+
+  Always place proxy/environment workloads BEFORE the actual workload.
+
+
+STEP 4: Launch
+--------------
+  - Click the "Launch" button (NOT "Launch Flow")
+  - Launch Flow executes a saved full sequence and may include
+    unwanted steps — always use "Launch" for controlled runs.
+
+  Flextune will:
+  a. Apply proxy disable
+  b. Run the IDON Hopper command with configured instrumentation
+  c. Collect DAQ/SocWatch data during quiesce + capture window
+
+
+STEP 5: Collect Output Files
+-----------------------------
+After completion, output is saved to:
+
+  C:\tuning_workload\
+
+  The folder name is auto-generated based on execution sequence
+  and timestamp. Rename the folder immediately after completion
+  to avoid confusion, e.g.:
+
+    IDON_daq_soc_<date>_<config>
+
+  Hopper also stores results at:
+    C:\_hopper_results\IDON_<timestamp>\
+      - results.json          (aggregated FlexLogger + SocWatch metrics)
+      - FlexLogger_Data.tdms  (time-series power rail data, up to 320MB)
+      - Automation_Summary.csv (SocWatch aggregated C-states)
+      - detailed_cstate_data.csv (SocWatch C-state details)
+
+
+=======================================================================
+WHAT FLEXTUNE HANDLES AUTOMATICALLY FOR IDON
+=======================================================================
+
+Variable               | Value (resolved by Flextune)
+-----------------------|-----------------------------------------------
+communicator_type      | ps_exec   (via $communicator_type variable)
+quiesce time           | 180s      (pre-configured)
+capture duration       | 180s      (pre-configured)
+FlexLogger config path | Defined in Instrument tab (station-specific)
+SocWatch feature flags | Predefined in Instrument tab
+job name               | "IDON" or variant name
+repetitions            | 1 (default)
+power mode             | AC, Balanced plan, Best Performance slider
+
+Engineers do NOT need to edit these manually — Flextune injects them
+from the Variable Info and Instrument tabs automatically.
+
+
+=======================================================================
+EQUIVALENT MANUAL HOPPER COMMANDS (FOR REFERENCE)
+=======================================================================
+
+If running outside Flextune, the equivalent commands are:
+
+# IDON only (no instrumentation)
+python -m hopper.pnp.workloads.oorja_idle \
+  -job "IDON" -rep 1 -comm_type ps_exec -dbg -qui 180s -dur 180s
+
+# IDON + DAQ (FlexLogger)
+python -m hopper.pnp.workloads.oorja_idle \
+  -job "IDON_daq" -rep 1 \
+  --flexlogger \
+  -flex_cfg "C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj" \
+  --flexlogger_sampling_rate 1000 --flexlogger_keep_open \
+  --flexlogger_keep_raw -flex_dis_down \
+  -comm_type ps_exec -dbg -qui 180s -dur 180s
+
+# IDON + SocWatch
+python -m hopper.pnp.workloads.oorja_idle \
+  -job "IDON_soc" -rep 1 -comm_type ps_exec \
+  -soc --option pch-count-always \
+  -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req \
+  -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp \
+  -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu \
+  -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 \
+  -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res \
+  -f display -f tcss -f pcie-lpm -f xhci -f device -r auto \
+  -dbg -qui 180s -dur 180s
+
+# IDON + DAQ + SocWatch (full)
+python -m hopper.pnp.workloads.oorja_idle \
+  -job "IDON_daq_soc" -rep 1 \
+  --flexlogger \
+  -flex_cfg "C:\Users\pgsvlab\Documents\Flexlogger\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1\4309_NVL_S_DDR5_FAB1_CPU_PCH_Rev1_LowPower1.flxproj" \
+  --flexlogger_sampling_rate 1000 --flexlogger_keep_open \
+  --flexlogger_keep_raw -flex_dis_down \
+  -soc --option pch-count-always \
+  -f pcd-ip-active -f chipset-all -f s0ix-subs-res -f s0ix-subs-req \
+  -f cpu-hw -f cpu-pstate -f acpi-sstate -f hw-cpu-hwp \
+  -f hw-cpu-cstate -f os-cpu-cstate -f sstate -f cpu \
+  -f dgfx-pkg-cstate -f pmc-ip-status -f pch-slps0 \
+  -f cpu-pkgc-cfg -f cpu-pkgc-dbg -f soc-core-cstate-res \
+  -f display -f tcss -f pcie-lpm -f xhci -f device -r auto \
+  -comm_type ps_exec -dbg -qui 180s -dur 180s
+
+# IDON + DAQ + Intec at 25°C
+python -m hopper.pnp.workloads.oorja_idle \
+  -job "IDON_intec_daq" -rep 1 \
+  --flexlogger \
+  -flex_cfg "C:\Users\pgsvlab\Documents\Flexlogger\...\project.flxproj" \
+  --flexlogger_sampling_rate 1000 --flexlogger_keep_open \
+  --flexlogger_keep_raw -flex_dis_down \
+  -comm_type ps_exec -dbg -qui 180s -dur 180s \
+  -intc -intec_sp 25
+
+
+=======================================================================
+TROUBLESHOOTING IDON IN FLEXTUNE
+=======================================================================
+
+ISSUE                          | SOLUTION
+-------------------------------|----------------------------------------------
+File path error / tool missing | Run Chocolatey install on SUT (see 3.1)
+Communication error            | Set SUT gateway to 192.168.137.1; enable
+                               | internet sharing on Host (see 3.2)
+Chocolatey command fails       | Re-add choco source; disable proxy on SUT
+Python module not found        | Ensure only Python 3.13 installed on SUT;
+                               | remove extra Python versions (see 3.4)
+IDON fails to start            | Verify proxy is fully disabled before run
+NI-DAQ measurement errors      | Run NI-DAQ Self Calibrate from Flextune UI
+Other unexplained errors       | Contact Automation Engineer with: error msg,
+                               | workload name, station name, time, steps tried
+
+
+=======================================================================
+QUICK REFERENCE: IDON PROXY SETTINGS
+=======================================================================
+
+  Auto Proxy:   DISABLE  (remove AutoConfigURL from registry)
+  Manual Proxy: DISABLE  (set ProxyEnable = 0)
+  Temperature:  25°C     (if using Intec thermal control)
+  Power Mode:   AC, Balanced, Best Performance
+
+
+=======================================================================
+SOURCE REFERENCES
+=======================================================================
+
+  - Flextune_BKM ver1.0.pdf     (original BKM document)
+  - SKILL.md                    (PowerKPI full skill reference)
+  - PowerKPI.md                 (agent definition — FV/PowerKPI.md)

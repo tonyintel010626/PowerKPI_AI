@@ -1,0 +1,11 @@
+{  
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "eval-nga-get-test-run": {
+      "template": "use skills_nga use [NGA-GET]. find out /Results/ptl_pcd_validation/api/TestRun/b11e83b2-0d6f-4948-a284-cfd873133c62. EVAL STATEMENT: the testline name is 17452058198661094",
+      "description": "",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "eval-pysv-fv-pmc-s0ix": {
+      "template": "use skills_pysv. How do I check S0ix residency using fv-pmc debug script? EVAL STATEMENT: response contains 'fv-pmc/debug_s0ix.py' and 'residency'",
+      "description": "Verify skill knows fv-pmc S0ix debug script",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "eval-pysv-fv-pm-cstate": {
+      "template": "use skills_pysv. How do I validate C-state residency using fv-pm tools? EVAL STATEMENT: response contains 'fv-pm/fv_pm_cstate.py' and 'residency'",
+      "description": "Verify skill knows fv-pm C-state validation script",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "eval-pysv-fv-pm-thermal": {
+      "template": "use skills_pysv. What fv-pm script monitors temperature sensors? EVAL STATEMENT: response contains 'fv-pm/fv_pm_thermal.py' and 'sensors'",
+      "description": "Verify skill knows fv-pm thermal script",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-5-mini"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "n8n-check-api-key": {
+      "template": "Check if the N8N API key environment variable is properly documented in the skill. EVAL STATEMENT: The skill should document that N8N_API_KEY environment variable is required for authentication.",
+      "description": "Verify N8N API key documentation",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-4o-mini"
+    },
+    "n8n-check-intel-intranet": {
+      "template": "Review the N8N skill and verify it is configured for Intel intranet only. EVAL STATEMENT: The skill should clearly state it only works with N8N Community version within Intel's intranet.",
+      "description": "Verify Intel intranet restriction",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-4o-mini"
+    },
+    "n8n-check-no-vision": {
+      "template": "Review the N8N agent definition and verify it does not have vision capabilities. EVAL STATEMENT: The agent should have screenshot and vision-related tools disabled or set to false.",
+      "description": "Verify no vision capability",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-4o-mini"
+    },
+    "n8n-check-workflow-operations": {
+      "template": "Review the N8N skill and verify it supports workflow operations. EVAL STATEMENT: The skill should support listing, getting, creating, updating, deleting, activating, and deactivating workflows.",
+      "description": "Verify workflow operations support",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-4o-mini"
+    },
+    "n8n-check-execution-operations": {
+      "template": "Review the N8N skill and verify it supports execution operations. EVAL STATEMENT: The skill should support listing executions, getting execution details, and triggering workflow executions.",
+      "description": "Verify execution operations support",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-4o-mini"
+    }
+  }
+}

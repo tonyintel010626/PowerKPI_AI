@@ -1,0 +1,4380 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Test Result Service API",
+    "description": "<p><a href=\"https://wiki.ith.intel.com/spaces/viewspace.action?key=nga\">NGA Wiki</a></p>",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/Results"
+    }
+  ],
+  "paths": {
+    "/api/Info/Version": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "operationId": "GetVersion",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/{id}": {
+      "get": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "GetTestRun",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestRunResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestRunResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestRunResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/QueryByTestRunIds": {
+      "post": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "QueryByTestRunIds",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultExt"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultExt"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultExt"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/QueryByStationIds": {
+      "post": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "QueryByStationIds",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1000
+            }
+          },
+          {
+            "name": "continuationToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestRunResultPartialContentResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestRunResultPartialContentResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestRunResultPartialContentResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/QueryLatestTestRuns": {
+      "post": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "QueryLatestTestRuns",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryLatestTestRunRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryLatestTestRunRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryLatestTestRunRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryLatestTestRunRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultExt"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultExt"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultExt"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/{id}/ReportSeedProgress": {
+      "post": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "ReportSeedProgress",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeedProgress"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeedProgress"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeedProgress"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeedProgress"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/{id}/ReportGenerationProgress": {
+      "post": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "ReportGenerationProgress",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeedProgress"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeedProgress"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeedProgress"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeedProgress"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/{id}/CurrentStage": {
+      "get": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "GetTestRunCurrentStage",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentStage"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentStage"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentStage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/GetBySuiteRerunId": {
+      "get": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "GetBySuiteRerunId",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "suiteRerunId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResult"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResult"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResult"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/QueryByTestLineIds": {
+      "post": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "QueryByTestLineIds",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResult"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResult"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResult"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/{projectName}/api/TestRun/QueryByTestLineIdsWithPaging": {
+      "post": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "QueryByTestLineIdsWithPaging",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1000
+            }
+          },
+          {
+            "name": "continuationToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestRunResultPartialContentResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestRunResultPartialContentResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestRunResultPartialContentResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/ChangeTestRunsResult": {
+      "post": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "ChangeTestRunsResult",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeTestRunsResultRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeTestRunsResultRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeTestRunsResultRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeTestRunsResultRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultBulkOperationResult"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultBulkOperationResult"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultBulkOperationResult"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/ChangeTestRunsTriage": {
+      "post": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "ChangeTestRunsTriage",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeTestRunsTriageRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeTestRunsTriageRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeTestRunsTriageRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeTestRunsTriageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultBulkOperationResult"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultBulkOperationResult"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultBulkOperationResult"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/EditTestRuns": {
+      "post": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "EditTestRuns",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditTestRunsRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditTestRunsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditTestRunsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditTestRunsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultBulkOperationResult"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultBulkOperationResult"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunResultBulkOperationResult"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/OverrideTestRunsInventoryItems": {
+      "post": {
+        "tags": [
+          "TestRun"
+        ],
+        "operationId": "OverrideTestRunsInventoryItems",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OverrideInventoryRequest"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OverrideInventoryRequest"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OverrideInventoryRequest"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OverrideInventoryRequest"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InventoryBulkOperationResult"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InventoryBulkOperationResult"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InventoryBulkOperationResult"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/TestRunMessage": {
+      "post": {
+        "tags": [
+          "TestRunMessages"
+        ],
+        "operationId": "QueryTestRunMessage",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryMessagesRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryMessagesRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryMessagesRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryMessagesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunMessage"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunMessage"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunMessage"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/LastTestRunMessage": {
+      "post": {
+        "tags": [
+          "TestRunMessages"
+        ],
+        "operationId": "QueryLastTestRunMessage",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunMessage"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunMessage"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestRunMessage"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestRun/{id}/ReportCustomMessage": {
+      "post": {
+        "tags": [
+          "TestRunMessages"
+        ],
+        "operationId": "ReportCustomMessage",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomTestRunMessageRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomTestRunMessageRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomTestRunMessageRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomTestRunMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestSuite/{suiteId}/RunningTests": {
+      "get": {
+        "tags": [
+          "TestSuite"
+        ],
+        "operationId": "GetRunningTests",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "suiteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestLineResult"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestLineResult"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestLineResult"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{projectName}/api/TestSuite/{suiteId}/AllTests": {
+      "get": {
+        "tags": [
+          "TestSuite"
+        ],
+        "operationId": "GetAllTests",
+        "parameters": [
+          {
+            "name": "projectName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "suiteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestLineResult"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestLineResult"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TestLineResult"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Action": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Command": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubstitutedCommand": {
+            "type": "string",
+            "nullable": true
+          },
+          "WaitForTargetRebootOccurred": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "SystemRole": {
+            "$ref": "#/components/schemas/SystemRole"
+          },
+          "Timeout": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "GracefulAbortTimeoutInSeconds": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "TimeToOfflineSystemInMinutes": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AggregateSeedProgressByStationIdsRequest": {
+        "type": "object",
+        "properties": {
+          "HoursAgo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "StationIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Association": {
+        "required": [
+          "AssociatedEntityId",
+          "Name",
+          "Type"
+        ],
+        "type": "object",
+        "properties": {
+          "AssociatedEntityId": {
+            "type": "string"
+          },
+          "Name": {
+            "type": "string"
+          },
+          "Type": {
+            "$ref": "#/components/schemas/AssociationType"
+          },
+          "Message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssociationType": {
+        "enum": [
+          "Testrun",
+          "Failure",
+          "Other"
+        ],
+        "type": "string"
+      },
+      "ChangeTestRunsResultRequest": {
+        "type": "object",
+        "properties": {
+          "TestRunIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          },
+          "IsPassed": {
+            "type": "boolean"
+          },
+          "UpdatedByOverride": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChangeTestRunsTriageRequest": {
+        "type": "object",
+        "properties": {
+          "TestRunIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          },
+          "IsTriage": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CommandExecutionData": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "TestRunId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "StepId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "ActionId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "StartTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "EndTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "StageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "State": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubState": {
+            "type": "string",
+            "nullable": true
+          },
+          "RetryCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "IterationCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "CommandType": {
+            "$ref": "#/components/schemas/CommandType"
+          },
+          "SystemName": {
+            "type": "string",
+            "nullable": true
+          },
+          "SystemRole": {
+            "$ref": "#/components/schemas/SystemRole"
+          },
+          "EventType": {
+            "$ref": "#/components/schemas/EventType"
+          },
+          "StepNameCausedAction": {
+            "type": "string",
+            "nullable": true
+          },
+          "CommandTimeoutSec": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CommandExecutionState": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "TimeStamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "SystemName": {
+            "type": "string",
+            "nullable": true
+          },
+          "StartTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "EndTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "StationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "StageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "State": {
+            "type": "string",
+            "nullable": true
+          },
+          "IsCompleted": {
+            "type": "boolean"
+          },
+          "SubState": {
+            "type": "string",
+            "nullable": true
+          },
+          "CommandLastError": {
+            "type": "string",
+            "nullable": true
+          },
+          "CommandReturnCode": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "CommandType": {
+            "$ref": "#/components/schemas/CommandType"
+          },
+          "RetryCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "IterationCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SystemRole": {
+            "$ref": "#/components/schemas/SystemRole"
+          },
+          "EventType": {
+            "$ref": "#/components/schemas/EventType"
+          },
+          "CommandTimeoutSec": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "StepNameCausedAction": {
+            "type": "string",
+            "nullable": true
+          },
+          "StepIndex": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "PreparationHasFailed": {
+            "type": "boolean"
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CommandType": {
+        "enum": [
+          "Step",
+          "Action"
+        ],
+        "type": "string"
+      },
+      "CurrentStage": {
+        "type": "object",
+        "properties": {
+          "StageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomTestRunMessageRequest": {
+        "type": "object",
+        "properties": {
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "StageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "SystemName": {
+            "type": "string",
+            "nullable": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "StationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "Message": {
+            "maxLength": 2000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "Level": {
+            "$ref": "#/components/schemas/LogLevel"
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DefaultFlowEntityName": {
+        "enum": [
+          "None",
+          "Config",
+          "TestSuite",
+          "TestGroup",
+          "ProjectPlanData"
+        ],
+        "type": "string"
+      },
+      "DefaultFlowPreTestFailedStep": {
+        "type": "object",
+        "properties": {
+          "StepId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "CommandLastError": {
+            "type": "string",
+            "nullable": true
+          },
+          "RetryCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditTestRunsInternalRequest": {
+        "type": "object",
+        "properties": {
+          "Ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "RerunName": {
+            "maxLength": 256,
+            "pattern": "^[a-zA-Z0-9-_,.]*$",
+            "type": "string",
+            "nullable": true
+          },
+          "SuiteRerunInstanceId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "RemoveSuiteRerunInstanceId": {
+            "type": "boolean"
+          },
+          "IsTriage": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "RerunReasonId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditTestRunsRequest": {
+        "type": "object",
+        "properties": {
+          "TestRunIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          },
+          "UserNotes": {
+            "maxLength": 1000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "SubCategoryIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "ValidationGroupId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "ProductRelease": {
+            "maxLength": 1000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "OverrideNotes": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "OverrideTags": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "OverrideSubCategories": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "RemoveValidationGroup": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "ValLogAxonId": {
+            "type": "string",
+            "nullable": true
+          },
+          "CleanupPath": {
+            "maxLength": 512,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "ExecutionInfo": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "OverrideExecutionInfo": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "UDMTestId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "RerunReasonId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventType": {
+        "enum": [
+          "TargetHang",
+          "TargetStepTimeout",
+          "HostStepTimeout",
+          "TargetRebootTimeout",
+          "DiscontinuedFailed",
+          "UnexpectedReboot"
+        ],
+        "type": "string"
+      },
+      "EventWithAction": {
+        "type": "object",
+        "properties": {
+          "EventType": {
+            "$ref": "#/components/schemas/EventType"
+          },
+          "PlanAction": {
+            "$ref": "#/components/schemas/Action"
+          },
+          "Stage": {
+            "$ref": "#/components/schemas/TestStepType"
+          },
+          "DefaultPlanAction": {
+            "$ref": "#/components/schemas/Action"
+          },
+          "DefaultSuiteId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "DefaultStage": {
+            "$ref": "#/components/schemas/TestStepType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventWithFullAction": {
+        "type": "object",
+        "properties": {
+          "EventType": {
+            "$ref": "#/components/schemas/EventType"
+          },
+          "PlanAction": {
+            "$ref": "#/components/schemas/Action"
+          },
+          "Stage": {
+            "$ref": "#/components/schemas/TestStepType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExecuteManuallyRequest": {
+        "required": [
+          "Action",
+          "TestRun"
+        ],
+        "type": "object",
+        "properties": {
+          "TestRun": {
+            "$ref": "#/components/schemas/TestRunDetailsForManualExecution"
+          },
+          "Action": {
+            "$ref": "#/components/schemas/ManualExecutionAction"
+          },
+          "StartTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "EndTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExecutionLogLevel": {
+        "enum": [
+          "Trace",
+          "Debug",
+          "Information",
+          "Warning",
+          "Error",
+          "Critical",
+          "None"
+        ],
+        "type": "string"
+      },
+      "FlowType": {
+        "enum": [
+          "User",
+          "DefaultFlow",
+          "ModularFlow"
+        ],
+        "type": "string"
+      },
+      "FullTestRunResult": {
+        "type": "object",
+        "properties": {
+          "TestRunResult": {
+            "$ref": "#/components/schemas/TestRunResult"
+          },
+          "ExecutionSnapshot": {
+            "$ref": "#/components/schemas/TestRunExecutionSnapshot"
+          },
+          "Inventory": {
+            "$ref": "#/components/schemas/Inventory"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetLastMessagesRequest": {
+        "type": "object",
+        "properties": {
+          "TestRunId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "StationId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Inventory": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "InventoryItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InventoryItemDto"
+            },
+            "nullable": true
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InventoryBulkOperationResult": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Result": {
+            "$ref": "#/components/schemas/Inventory"
+          },
+          "NonSuccessMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "Success": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InventoryItemDto": {
+        "type": "object",
+        "properties": {
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Key": {
+            "type": "string",
+            "nullable": true
+          },
+          "Value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "KeyValueDto": {
+        "type": "object",
+        "properties": {
+          "Key": {
+            "type": "string",
+            "nullable": true
+          },
+          "Value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LogLevel": {
+        "enum": [
+          "Trace",
+          "Debug",
+          "Information",
+          "Warning",
+          "Error",
+          "Critical",
+          "None"
+        ],
+        "type": "string"
+      },
+      "ManualExecutionAction": {
+        "enum": [
+          "Pass",
+          "Fail",
+          "InProgress"
+        ],
+        "type": "string"
+      },
+      "ManualExecutionRequest": {
+        "required": [
+          "Action",
+          "TestRuns"
+        ],
+        "type": "object",
+        "properties": {
+          "TestRuns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestRunDetailsForManualExecution"
+            }
+          },
+          "Action": {
+            "$ref": "#/components/schemas/ManualExecutionAction"
+          },
+          "StartTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "EndTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OsType": {
+        "enum": [
+          "Win",
+          "Linux",
+          "Svos",
+          "Solaris",
+          "EFI"
+        ],
+        "type": "string"
+      },
+      "OverrideInventoryRequest": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "InventoryItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InventoryItemDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PassFailCount": {
+        "type": "object",
+        "properties": {
+          "PassCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "FailCount": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "QueryLatestTestRunRequest": {
+        "type": "object",
+        "properties": {
+          "TestLineIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          },
+          "IsTriage": {
+            "type": "boolean"
+          },
+          "CanceledIncluded": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QueryMessagesRequest": {
+        "type": "object",
+        "properties": {
+          "Ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QueryMessagesRequestTimeRange": {
+        "type": "object",
+        "properties": {
+          "StationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ExecutionLogsFrom": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ExecutionLogsTo": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "QueryTestRunRequest": {
+        "type": "object",
+        "properties": {
+          "TestLineId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "IsTriage": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RealtimeLogItem": {
+        "type": "object",
+        "properties": {
+          "Message": {
+            "type": "string",
+            "nullable": true
+          },
+          "Level": {
+            "$ref": "#/components/schemas/ExecutionLogLevel"
+          },
+          "Date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Source": {
+            "type": "string",
+            "nullable": true
+          },
+          "TestRunId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RealtimeLogItemPartialContentResult": {
+        "type": "object",
+        "properties": {
+          "ContinuationToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "PageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "IsLastPage": {
+            "type": "boolean"
+          },
+          "PagesCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "RecordsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RealtimeLogItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RealtimeRunningTestInfo": {
+        "type": "object",
+        "properties": {
+          "TestRunId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "TestLineId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "TestLineName": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubState": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProjectName": {
+            "type": "string",
+            "nullable": true
+          },
+          "StationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "CurrentSteps": {
+            "type": "string",
+            "nullable": true
+          },
+          "SoftwareConfig": {
+            "type": "string",
+            "nullable": true
+          },
+          "Suite": {
+            "type": "string",
+            "nullable": true
+          },
+          "Group": {
+            "type": "string",
+            "nullable": true
+          },
+          "ValidationGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "RunningPercentage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Stage": {
+            "type": "string",
+            "nullable": true
+          },
+          "Goal": {
+            "type": "string",
+            "nullable": true
+          },
+          "LastLogMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "CleanupPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "State": {
+            "type": "string",
+            "nullable": true
+          },
+          "IsCompleted": {
+            "type": "boolean"
+          },
+          "StepStartTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "StepEndTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "TestStartTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "TestEndTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RebootPolicy": {
+        "enum": [
+          "Required",
+          "NotAllowed",
+          "DontCare"
+        ],
+        "type": "string"
+      },
+      "ReplaceCleanupPathSubString": {
+        "required": [
+          "FromEndTime",
+          "ToEndTime"
+        ],
+        "type": "object",
+        "properties": {
+          "OldSubString": {
+            "type": "string",
+            "nullable": true
+          },
+          "NewSubString": {
+            "type": "string",
+            "nullable": true
+          },
+          "FromEndTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ToEndTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RequiredSystemElement": {
+        "type": "object",
+        "properties": {
+          "Operator": {
+            "$ref": "#/components/schemas/SystemElementOperator"
+          },
+          "Key": {
+            "type": "string",
+            "nullable": true
+          },
+          "Value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RunResult": {
+        "type": "object",
+        "properties": {
+          "ResultCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SeedProgress": {
+        "type": "object",
+        "properties": {
+          "PassCount": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int64"
+          },
+          "FailCount": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int64"
+          },
+          "IsCompleted": {
+            "type": "boolean"
+          },
+          "UpdatedTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StageDuration": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "$ref": "#/components/schemas/TestStepType"
+          },
+          "StartTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "EndTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Duration": {
+            "type": "string",
+            "nullable": true
+          },
+          "DurationInSeconds": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "State": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StageLoop": {
+        "type": "object",
+        "properties": {
+          "StageName": {
+            "$ref": "#/components/schemas/TestStepType"
+          },
+          "IterationsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "FinishIterationBreakLoopOnStepFailure": {
+            "type": "boolean"
+          },
+          "RunStepsParallel": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StartRealtimeLogRequest": {
+        "type": "object",
+        "properties": {
+          "TestRunId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ProjectName": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StationSystemElementsSnapshot": {
+        "type": "object",
+        "properties": {
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "Elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KeyValueDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StepCommandType": {
+        "enum": [
+          "Text",
+          "Python"
+        ],
+        "type": "string"
+      },
+      "StepExecutionOverride": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Enable": {
+            "type": "boolean"
+          },
+          "Command": {
+            "type": "string",
+            "nullable": true
+          },
+          "StepCommandType": {
+            "$ref": "#/components/schemas/StepCommandType"
+          },
+          "TestParameters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestParameter"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StepExecutionState": {
+        "type": "object",
+        "properties": {
+          "TimeStamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "SystemName": {
+            "type": "string",
+            "nullable": true
+          },
+          "StationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "StageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "StepName": {
+            "type": "string",
+            "nullable": true,
+            "deprecated": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "State": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubState": {
+            "type": "string",
+            "nullable": true
+          },
+          "StatusCode": {
+            "type": "integer",
+            "format": "int32",
+            "deprecated": true
+          },
+          "CommandLastError": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SystemElementOperator": {
+        "enum": [
+          "Equal",
+          "Greater",
+          "GreaterOrEquals",
+          "Less",
+          "LessOrEquals",
+          "NotEqual",
+          "In",
+          "NotIn"
+        ],
+        "type": "string"
+      },
+      "SystemRole": {
+        "enum": [
+          "Host",
+          "Target",
+          "Client"
+        ],
+        "type": "string"
+      },
+      "TestLineResult": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "SeedProgress": {
+            "$ref": "#/components/schemas/SeedProgress"
+          },
+          "GenerationProgress": {
+            "$ref": "#/components/schemas/SeedProgress"
+          },
+          "IsRunning": {
+            "type": "boolean"
+          },
+          "Goal": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestLineType": {
+        "enum": [
+          "Automation",
+          "Lite"
+        ],
+        "type": "string"
+      },
+      "TestParameter": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestResultNotes": {
+        "type": "object",
+        "properties": {
+          "LastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "LastUpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestRunDetailsForManualExecution": {
+        "type": "object",
+        "properties": {
+          "TestRunId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "DefaultFlowType": {
+            "$ref": "#/components/schemas/DefaultFlowEntityName"
+          },
+          "TestLineId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "TestGroupId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ValidationGroupId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "TestSuiteId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "RerunIndex": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Steps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestStep"
+            },
+            "nullable": true
+          },
+          "StationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "StationConfigId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "RerunName": {
+            "type": "string",
+            "nullable": true
+          },
+          "TestLineGoal": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "CleanupPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "IsTriage": {
+            "type": "boolean"
+          },
+          "TestRetriesOnFailureCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "EventsActions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventWithFullAction"
+            },
+            "nullable": true
+          },
+          "EventsActionsStageOverrides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventWithFullAction"
+            },
+            "nullable": true
+          },
+          "StageLoops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageLoop"
+            },
+            "nullable": true
+          },
+          "RunsFromPriorityQueue": {
+            "type": "boolean"
+          },
+          "SuiteRerunInstanceId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "DiscontinueExecutionOnFailure": {
+            "type": "boolean"
+          },
+          "SingleLoopsLogFolder": {
+            "type": "boolean"
+          },
+          "TimeoutGracePeriodInMinutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ValidationLogPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "Source": {
+            "$ref": "#/components/schemas/TestRunSource"
+          },
+          "ProductRelease": {
+            "type": "string",
+            "nullable": true
+          },
+          "Association": {
+            "$ref": "#/components/schemas/Association"
+          },
+          "StepExecutionOverride": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StepExecutionOverride"
+            },
+            "nullable": true
+          },
+          "NoRerunOnAutoAbort": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "NoDisableOnAutoAbort": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "Parameters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestParameter"
+            },
+            "nullable": true
+          },
+          "IgnoreDefaultFlow": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "TestLineType": {
+            "$ref": "#/components/schemas/TestLineType"
+          },
+          "VType": {
+            "$ref": "#/components/schemas/VType"
+          },
+          "ModularFlowId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "ModularFlowEnabled": {
+            "type": "boolean"
+          },
+          "UnconstrainedExecution": {
+            "type": "boolean"
+          },
+          "TestStageEstimatedTime": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "RunTillEstimatedTime": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "FailuresThreshold": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "HasRequiredStation": {
+            "type": "boolean"
+          },
+          "StreamTestLogs": {
+            "type": "boolean"
+          },
+          "RerunReasonId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "CollateralNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestRunExecutionSnapshot": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Steps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestStep"
+            },
+            "nullable": true
+          },
+          "Stages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageDuration"
+            },
+            "nullable": true
+          },
+          "EventsActions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventWithFullAction"
+            },
+            "nullable": true
+          },
+          "EventsActionsStageOverrides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventWithFullAction"
+            },
+            "nullable": true
+          },
+          "EventsWithActionsAndDefaults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventWithAction"
+            },
+            "nullable": true
+          },
+          "StationSystemElementsSnapshot": {
+            "$ref": "#/components/schemas/StationSystemElementsSnapshot"
+          },
+          "TimeoutGracePeriodInMinutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "StreamTestLogs": {
+            "type": "boolean"
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestRunMessage": {
+        "type": "object",
+        "properties": {
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "StepId": {
+            "type": "string",
+            "nullable": true
+          },
+          "StepIndex": {
+            "type": "string",
+            "nullable": true
+          },
+          "MessageSource": {
+            "type": "string",
+            "nullable": true
+          },
+          "StageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "SystemName": {
+            "type": "string",
+            "nullable": true
+          },
+          "TestRunId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "TimeStamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "StationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "Message": {
+            "maxLength": 2000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "Level": {
+            "$ref": "#/components/schemas/LogLevel"
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestRunMessageCache": {
+        "type": "object",
+        "properties": {
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "StepId": {
+            "type": "string",
+            "nullable": true
+          },
+          "StepIndex": {
+            "type": "string",
+            "nullable": true
+          },
+          "MessageSource": {
+            "type": "string",
+            "nullable": true
+          },
+          "StageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "SystemName": {
+            "type": "string",
+            "nullable": true
+          },
+          "TestRunId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "TimeStamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "StationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "Message": {
+            "maxLength": 2000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "Level": {
+            "$ref": "#/components/schemas/LogLevel"
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestRunMessageRequest": {
+        "type": "object",
+        "properties": {
+          "TimeStamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "StationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "Message": {
+            "maxLength": 2000,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "Level": {
+            "$ref": "#/components/schemas/LogLevel"
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestRunResult": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "DefaultFlowType": {
+            "$ref": "#/components/schemas/DefaultFlowEntityName"
+          },
+          "TestLineId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "TestLineRevision": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "StartTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "EndTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "StationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "StationRevision": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "CleanupPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "SystemElementRevision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "TestSuiteId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ValidationGroupId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Result": {
+            "$ref": "#/components/schemas/RunResult"
+          },
+          "State": {
+            "$ref": "#/components/schemas/TestRunResultState"
+          },
+          "DefaultFlowRetryCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "StateDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "SeedProgress": {
+            "$ref": "#/components/schemas/SeedProgress"
+          },
+          "GenerationProgress": {
+            "$ref": "#/components/schemas/SeedProgress"
+          },
+          "TestLineName": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubCategoryIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          },
+          "IsTriage": {
+            "type": "boolean"
+          },
+          "RerunIndex": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "RerunName": {
+            "type": "string",
+            "nullable": true
+          },
+          "RunsFromPriorityQueue": {
+            "type": "boolean"
+          },
+          "TestGroupId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "StationConfigId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "SoftwareConfig": {
+            "type": "string",
+            "nullable": true
+          },
+          "Priority": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "OsType": {
+            "$ref": "#/components/schemas/OsType"
+          },
+          "Goal": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "AllowAutomationFlg": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "Parameters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestParameter"
+            },
+            "nullable": true
+          },
+          "RequiredSystemElements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RequiredSystemElement"
+            },
+            "nullable": true
+          },
+          "TestRetriesOnFailureCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "StageLoops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageLoop"
+            },
+            "nullable": true
+          },
+          "TestStageEstimatedTime": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "UseTestStageEstimatedTime": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "TestStageRunUntilDone": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "DiscontinueExecutionOnFailure": {
+            "type": "boolean"
+          },
+          "SingleLoopsLogFolder": {
+            "type": "boolean"
+          },
+          "SuiteRerunInstanceId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "ValidationLogPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "Source": {
+            "$ref": "#/components/schemas/TestRunSource"
+          },
+          "Notes": {
+            "$ref": "#/components/schemas/TestResultNotes"
+          },
+          "IsSetupFlow": {
+            "type": "boolean"
+          },
+          "ValLogAxonId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProductRelease": {
+            "type": "string",
+            "nullable": true
+          },
+          "Association": {
+            "$ref": "#/components/schemas/Association"
+          },
+          "ExecutionInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KeyValueDto"
+            },
+            "nullable": true
+          },
+          "DefaultFlowPreTestFailedSteps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DefaultFlowPreTestFailedStep"
+            },
+            "nullable": true
+          },
+          "StepExecutionOverride": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StepExecutionOverride"
+            },
+            "nullable": true
+          },
+          "AutoDisablingStepId": {
+            "type": "string",
+            "nullable": true
+          },
+          "NoRerunOnAutoAbort": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "NoDisableOnAutoAbort": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "FirstFailedStepErrorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "UDMTestId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "IgnoreDefaultFlow": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "TestLineType": {
+            "$ref": "#/components/schemas/TestLineType"
+          },
+          "VType": {
+            "$ref": "#/components/schemas/VType"
+          },
+          "ModularFlowId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "ModularFlowEnabled": {
+            "type": "boolean"
+          },
+          "UnconstrainedExecution": {
+            "type": "boolean"
+          },
+          "NetBatchJobId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "RunTillEstimatedTime": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "FailuresThreshold": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "HasRequiredStation": {
+            "type": "boolean"
+          },
+          "StreamTestLogs": {
+            "type": "boolean"
+          },
+          "RerunReasonId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "CollateralNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestRunResultBulkOperationResult": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Result": {
+            "$ref": "#/components/schemas/TestRunResult"
+          },
+          "NonSuccessMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "Success": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestRunResultExt": {
+        "type": "object",
+        "properties": {
+          "CommandsInProgress": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommandExecutionData"
+            },
+            "nullable": true
+          },
+          "CurrentStage": {
+            "$ref": "#/components/schemas/CurrentStage"
+          },
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "DefaultFlowType": {
+            "$ref": "#/components/schemas/DefaultFlowEntityName"
+          },
+          "TestLineId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "TestLineRevision": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "StartTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "EndTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "StationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "StationRevision": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "CleanupPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "SystemElementRevision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "TestSuiteId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ValidationGroupId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Result": {
+            "$ref": "#/components/schemas/RunResult"
+          },
+          "State": {
+            "$ref": "#/components/schemas/TestRunResultState"
+          },
+          "DefaultFlowRetryCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "StateDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "SeedProgress": {
+            "$ref": "#/components/schemas/SeedProgress"
+          },
+          "GenerationProgress": {
+            "$ref": "#/components/schemas/SeedProgress"
+          },
+          "TestLineName": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubCategoryIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          },
+          "IsTriage": {
+            "type": "boolean"
+          },
+          "RerunIndex": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "RerunName": {
+            "type": "string",
+            "nullable": true
+          },
+          "RunsFromPriorityQueue": {
+            "type": "boolean"
+          },
+          "TestGroupId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "StationConfigId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "SoftwareConfig": {
+            "type": "string",
+            "nullable": true
+          },
+          "Priority": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "OsType": {
+            "$ref": "#/components/schemas/OsType"
+          },
+          "Goal": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "AllowAutomationFlg": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "Parameters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestParameter"
+            },
+            "nullable": true
+          },
+          "RequiredSystemElements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RequiredSystemElement"
+            },
+            "nullable": true
+          },
+          "TestRetriesOnFailureCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "StageLoops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageLoop"
+            },
+            "nullable": true
+          },
+          "TestStageEstimatedTime": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "UseTestStageEstimatedTime": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "TestStageRunUntilDone": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "DiscontinueExecutionOnFailure": {
+            "type": "boolean"
+          },
+          "SingleLoopsLogFolder": {
+            "type": "boolean"
+          },
+          "SuiteRerunInstanceId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "ValidationLogPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "Source": {
+            "$ref": "#/components/schemas/TestRunSource"
+          },
+          "Notes": {
+            "$ref": "#/components/schemas/TestResultNotes"
+          },
+          "IsSetupFlow": {
+            "type": "boolean"
+          },
+          "ValLogAxonId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProductRelease": {
+            "type": "string",
+            "nullable": true
+          },
+          "Association": {
+            "$ref": "#/components/schemas/Association"
+          },
+          "ExecutionInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KeyValueDto"
+            },
+            "nullable": true
+          },
+          "DefaultFlowPreTestFailedSteps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DefaultFlowPreTestFailedStep"
+            },
+            "nullable": true
+          },
+          "StepExecutionOverride": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StepExecutionOverride"
+            },
+            "nullable": true
+          },
+          "AutoDisablingStepId": {
+            "type": "string",
+            "nullable": true
+          },
+          "NoRerunOnAutoAbort": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "NoDisableOnAutoAbort": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "FirstFailedStepErrorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "UDMTestId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "IgnoreDefaultFlow": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "TestLineType": {
+            "$ref": "#/components/schemas/TestLineType"
+          },
+          "VType": {
+            "$ref": "#/components/schemas/VType"
+          },
+          "ModularFlowId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "ModularFlowEnabled": {
+            "type": "boolean"
+          },
+          "UnconstrainedExecution": {
+            "type": "boolean"
+          },
+          "NetBatchJobId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "RunTillEstimatedTime": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "FailuresThreshold": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "HasRequiredStation": {
+            "type": "boolean"
+          },
+          "StreamTestLogs": {
+            "type": "boolean"
+          },
+          "RerunReasonId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "CollateralNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestRunResultPartialContentResult": {
+        "type": "object",
+        "properties": {
+          "ContinuationToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "PageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "IsLastPage": {
+            "type": "boolean"
+          },
+          "PagesCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "RecordsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestRunResult"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestRunResultState": {
+        "enum": [
+          "InProgress",
+          "Passed",
+          "Failed",
+          "Aborted",
+          "Error",
+          "Canceled",
+          "Aborting",
+          "Failing"
+        ],
+        "type": "string"
+      },
+      "TestRunSource": {
+        "enum": [
+          "User",
+          "AbortRequest",
+          "SightingRules",
+          "SuiteRerun",
+          "PriorityQueue",
+          "FanOut",
+          "DefaultRerunIndex0",
+          "IdleFlow",
+          "SetupFlow",
+          "ContinuousTesting"
+        ],
+        "type": "string"
+      },
+      "TestStep": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "State": {
+            "type": "string",
+            "nullable": true
+          },
+          "StartTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "EndTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Command": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubstitutedCommand": {
+            "type": "string",
+            "nullable": true
+          },
+          "Type": {
+            "$ref": "#/components/schemas/TestStepType"
+          },
+          "TargetRebootPolicy": {
+            "$ref": "#/components/schemas/RebootPolicy"
+          },
+          "RebootTimeout": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "IsUserStep": {
+            "type": "boolean"
+          },
+          "RetryOnFailure": {
+            "type": "boolean"
+          },
+          "Duration": {
+            "type": "string",
+            "nullable": true
+          },
+          "DurationInSeconds": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Owner": {
+            "type": "string",
+            "nullable": true
+          },
+          "Locked": {
+            "type": "boolean"
+          },
+          "StepCommandType": {
+            "$ref": "#/components/schemas/StepCommandType"
+          },
+          "FlowType": {
+            "$ref": "#/components/schemas/FlowType"
+          },
+          "CollectStepLogs": {
+            "type": "boolean",
+            "default": false
+          },
+          "RetryOnFailureCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "TimeoutGracePeriodInMinutes": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "DisableStepStreamLogs": {
+            "type": "boolean"
+          },
+          "SystemRole": {
+            "$ref": "#/components/schemas/SystemRole"
+          },
+          "Timeout": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "GracefulAbortTimeoutInSeconds": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "TimeToOfflineSystemInMinutes": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "SubmittedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubmittedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Revision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestStepType": {
+        "enum": [
+          "Unassigned",
+          "PreBoot",
+          "RebootStation",
+          "PreTest",
+          "Test",
+          "PostTest",
+          "Cleanup",
+          "PostFailure"
+        ],
+        "type": "string"
+      },
+      "UpdateTestRunsNameRequest": {
+        "type": "object",
+        "properties": {
+          "Ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "RerunName": {
+            "maxLength": 256,
+            "pattern": "^[a-zA-Z0-9-_,.]*$",
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VType": {
+        "enum": [
+          "Hw",
+          "Simics",
+          "SimCloud",
+          "HSLE",
+          "SLE"
+        ],
+        "type": "string"
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://login.microsoftonline.com/46c98d88-e344-4ed4-8496-4ed7712e255d/oauth2/authorize",
+            "scopes": { }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "oauth2": [ ]
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "_comment": "THC Agent Self-Improvement Configuration",
+  "_owner": "Chin, William Willy (willychi)",
+  "_version": "1.1",
+  "paths": {
+    "skill_base": ".opencode/skill/fv-thc",
+    "agent_def": ".opencode/agent/FV/FV-THC.md",
+    "docs_dir": ".opencode/skill/fv-thc/docs",
+    "eval_dir": ".opencode/skill/fv-thc/eval",
+    "tools_dir": ".opencode/skill/fv-thc/tools",
+    "reports_dir": ".opencode/skill/fv-thc/reports"
+  },
+  "skills": [
+    "registers",
+    "hidspi",
+    "hidi2c",
+    "dma",
+    "power",
+    "driver",
+    "platform",
+    "debug",
+    "wot",
+    "simics"
+  ],
+  "docs": [
+    "thc_has_4x_extraction.md",
+    "thc_bwg_extraction.md",
+    "thc_hidspi_hidi2c_kernel_study.md",
+    "thc_known_issues.md",
+    "thc_test_coverage_matrix.md",
+    "thc_cheat_sheets.md",
+    "thc_test_gap_analysis.md",
+    "thc_windows_driver_diff.md",
+    "thc_agent_workflows.md",
+    "thc_vgpio_wot_architecture.md",
+    "thc_driver_vs_swas_audit_report.md",
+    "quickspi_swas_v1_extraction.md",
+    "quicki2c_swas_v1_extraction.md"
+  ],
+  "owner": {
+    "name": "Chin, William Willy",
+    "idsid": "willychi",
+    "email": "william.willy.chin@intel.com"
+  },
+  "sources": {
+    "linux_kernel": {
+      "local_paths": [
+        "C:/git/linux-thc",
+        "C:/git/linux",
+        "C:/git/torvalds-linux"
+      ],
+      "remote_url": "https://github.com/torvalds/linux",
+      "path_filter": "drivers/hid/intel-thc-hid/",
+      "branches": [
+        "master"
+      ],
+      "last_audited_versions": [
+        "v6.17",
+        "v6.18",
+        "v6.19",
+        "v6.20"
+      ]
+    },
+    "windows_hidspi": {
+      "local_paths": [
+        "C:/git/drivers.platform.ipts.hspi-driver",
+        "githspi-driver"
+      ],
+      "path_filter": "THCBase/IntelTHCBase/",
+      "branch": "main"
+    },
+    "windows_hidi2c": {
+      "local_paths": [
+        "C:/git/drivers.platform.ipts.hid-i2c-touch",
+        "githid-i2c-touch"
+      ],
+      "path_filter": "THCBase/IntelTHCBase/",
+      "branch": "main"
+    },
+    "has_document": {
+      "local_path": ".opencode/skill/fv-thc/docs/thc_has_4x_extraction.md",
+      "source_url": "https://docs.intel.com/documents/iparch/thc/THC_IP/4.x/IP%20Specs/HAS/SIP_THC_4x_HAS/SIP_THC_4x_HAS.html",
+      "last_known_date": "2025-09-02"
+    },
+    "bwg_document": {
+      "local_path": ".opencode/skill/fv-thc/docs/thc_bwg_extraction.md",
+      "source_doc": "Chap69_BIOS_WG_THC.docx",
+      "last_known_date": "2024-09-24"
+    },
+    "check_interval_hours": 24
+  },
+  "self_learn": {
+    "nga": {
+      "enabled": false,
+      "_comment": "THC domain does not use NGA currently. Set enabled=true when NGA integration is ready.",
+      "base_url": "https://nga.intel.com",
+      "project_name": "THC",
+      "suite_filters": [
+        "THC_*",
+        "thc_*"
+      ],
+      "lookback_days": 7
+    },
+    "hsdes": {
+      "tenants": [
+        "sighting_central.sighting",
+        "heia_soc.sighting"
+      ],
+      "query_filters": {
+        "component": [
+          "THC",
+          "Touch Host Controller",
+          "HIDSPI",
+          "HIDI2C"
+        ],
+        "status": [
+          "open",
+          "new",
+          "investigating"
+        ]
+      },
+      "lookback_days": 30
+    },
+    "feedback_file": ".opencode/skill/fv-thc/tools/feedback_inbox.json"
+  },
+  "self_check": {
+    "required_owner_tag": "willychi",
+    "expected_skill_count": 10,
+    "cross_ref_rules": {
+      "wot_expected_in": [
+        "hidspi",
+        "hidi2c",
+        "power",
+        "driver",
+        "platform",
+        "debug"
+      ],
+      "wot_excluded_from": [
+        "registers",
+        "dma"
+      ]
+    }
+  },
+  "self_verify": {
+    "eval_tests_file": "thc_skill_eval_tests.md",
+    "pass_threshold_pct": 95.0,
+    "results_dir": ".opencode/skill/fv-thc/eval"
+  },
+  "self_wiki": {
+    "enabled": true,
+    "wiki_user": "willychi",
+    "securewiki_script": ".opencode/skill/securewiki/securewiki.py",
+    "cache_dir": ".opencode/skill/fv-thc/reports/wiki_cache",
+    "cache_ttl_hours": 24,
+    "pages": [
+      {
+        "id": "4200761602",
+        "title": "WCL THC BKM",
+        "space": "unknown",
+        "priority": "high",
+        "description": "WCL platform THC best-known-methods and workarounds",
+        "target_skills": ["platform", "debug", "hidspi", "hidi2c"]
+      },
+      {
+        "id": "3466824139",
+        "title": "THC SPI",
+        "space": "unknown",
+        "priority": "high",
+        "description": "THC SPI configuration, known issues, debug procedures",
+        "target_skills": ["hidspi", "registers", "debug"]
+      },
+      {
+        "id": "4606212223",
+        "title": "THC WCL Issues",
+        "space": "unknown",
+        "priority": "high",
+        "description": "Known THC issues on WCL platform",
+        "target_skills": ["debug", "platform"]
+      },
+      {
+        "id": "1355098344",
+        "title": "Post Si BKM THC",
+        "space": "unknown",
+        "priority": "high",
+        "description": "Post-silicon bring-up BKMs for THC validation",
+        "target_skills": ["debug", "platform", "registers", "power"]
+      },
+      {
+        "id": "4501129290",
+        "title": "BOM52 I2C Touch Panel",
+        "space": "unknown",
+        "priority": "medium",
+        "description": "BOM52 I2C touch panel configuration and validation",
+        "target_skills": ["hidi2c", "platform"]
+      }
+    ],
+    "keyword_categories": {
+      "device_ids": ["0x98D0", "0x98D1", "0xA8D0", "0xA8D1", "0xE4D0", "0xE4D1", "0x5710", "0x5711", "0x7F50"],
+      "registers": ["THC_M_PRT_CONTROL", "SPI_RD_MPS", "IC_CON", "LTR_CTRL", "DEVINT_CFG"],
+      "protocols": ["HIDSPI", "HIDI2C", "QuickSPI", "QuickI2C", "HID over SPI", "HID over I2C"],
+      "power": ["D0i2", "D3", "CGPG", "LTR", "S0ix", "WoT", "Wake-on-Touch", "PMCLite"],
+      "platforms": ["PTL", "WCL", "NVL", "LNL", "ARL", "MTL", "RZL", "TTL"],
+      "vendors": ["WACOM", "ELAN", "ALPS", "Goodix", "Synaptics"],
+      "sightings": ["HSDES", "sighting", "errata", "workaround", "RTL bug"]
+    }
+  },
+  "self_improve": {
+    "auto_apply": false,
+    "require_human_approval": true,
+    "max_proposals_per_run": 20,
+    "proposal_file": ".opencode/skill/fv-thc/reports/improvement_proposals.json",
+    "changelog_file": ".opencode/skill/fv-thc/reports/improvement_changelog.md"
+  },
+  "_support": "For any issues, contact Chin, William Willy (willychi) at william.willy.chin@intel.com. Please collect the complete session transcript (AI log dump) before reporting."
+}

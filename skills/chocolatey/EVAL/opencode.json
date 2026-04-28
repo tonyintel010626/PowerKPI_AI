@@ -1,0 +1,41 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "skill_loads_with_source_info": {
+      "template": "use skills_chocolatey. Where is the source for Intel chocolatey packages? EVAL STATEMENT: The response should mention the Intel artifactory URL 'ubit-artifactory-or.intel.com'.",
+      "description": "Verify the skill loads and contains the Intel chocolatey source URL",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/claude-sonnet-4.6"
+    },
+    "knows_proxy_disable_steps": {
+      "template": "use skills_chocolatey. How do I disable proxy on the SUT before running chocolatey? EVAL STATEMENT: The response should describe using PsExec with a PowerShell command to set ProxyEnable to 0 in the Windows registry.",
+      "description": "Verify the skill documents the proxy disable steps for SUT",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/claude-sonnet-4.6"
+    },
+    "knows_choco_install_syntax": {
+      "template": "use skills_chocolatey. How do I install a package with a specific version using chocolatey? EVAL STATEMENT: The response should show the 'choco install <pkg> --version <version> --force -y' syntax.",
+      "description": "Verify the skill provides the correct choco install syntax with version pinning",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/claude-sonnet-4.6"
+    },
+    "knows_choco_source_setup": {
+      "template": "use skills_chocolatey. How do I add the Intel occ-choco source on the SUT? EVAL STATEMENT: The response should include the 'choco source add' command with the occ-nuget-repo URL.",
+      "description": "Verify the skill documents setting up the Intel choco source",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/claude-sonnet-4.6"
+    },
+    "knows_chocolatey_install_on_sut": {
+      "template": "use skills_chocolatey. How do I install chocolatey itself if it is not present on the SUT? EVAL STATEMENT: The response should mention using PowerShell with the corporate_install.ps1 script from github.intel.com.",
+      "description": "Verify the skill explains how to bootstrap chocolatey on the SUT",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/claude-sonnet-4.6"
+    },
+    "knows_log_retrieval": {
+      "template": "use skills_chocolatey. How do I retrieve the chocolatey installation log from the SUT? EVAL STATEMENT: The response should mention copying chocolatey.log from the SUT using Copy-Item or a similar command.",
+      "description": "Verify the skill documents how to fetch the chocolatey log from the SUT",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/claude-sonnet-4.6"
+    }
+  }
+}

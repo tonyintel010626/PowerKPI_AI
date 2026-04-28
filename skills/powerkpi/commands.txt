@@ -1,0 +1,10 @@
+# Step 1: Install dependencies (from the cwpromax folder)
+cd C\PowerKPI_AI\cwpromax
+bun install --ignore-scripts
+# Step 2: Build
+cd packages\opencode
+bun run build
+# Step 3: Deploy the exe
+Copy-Item "dist\cw-pro-max-windows-x64\bin\opencode.exe" "C:\ProgramData\chocolatey\bin\cwpromax.exe" -Force
+# Step 4: Launch
+cwpromaxs

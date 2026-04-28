@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/opencode/main/packages/opencode/eval/schema.json",
+  "command": {
+    "uart-monitor-check-dual-backend": {
+      "template": "EVAL STATEMENT: The uart-monitor skill documents support for both RealTerm COM/ActiveX automation and PySerial as capture backends. Read the SKILL.md at .opencode/skill/uart-monitor/SKILL.md and verify it describes at least two backends: RealTerm (COM or CLI) and PySerial. Confirm the --backend flag is documented. Return PASS if both backends are documented, FAIL otherwise.",
+      "description": "Verify SKILL.md documents dual backend support (RealTerm + PySerial)",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-4o-mini"
+    },
+    "uart-monitor-check-port-config": {
+      "template": "EVAL STATEMENT: The uart-monitor skill should document UART port configuration options including baud rate, flow control, and port selection. Read the SKILL.md at .opencode/skill/uart-monitor/SKILL.md and verify it documents --port, --baud, and --flow parameters. Return PASS if all three are documented, FAIL otherwise.",
+      "description": "Verify SKILL.md documents port configuration options (port, baud, flow)",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-4o-mini"
+    },
+    "uart-monitor-check-error-patterns": {
+      "template": "EVAL STATEMENT: The uart-monitor skill should document BIOS error pattern detection capabilities including ASSERT failures, PEI/DXE errors, and memory training issues. Read the SKILL.md at .opencode/skill/uart-monitor/SKILL.md and verify it describes error pattern categories and severity levels. Return PASS if error patterns and severity levels are documented, FAIL otherwise.",
+      "description": "Verify SKILL.md documents BIOS error pattern detection and severity levels",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-4o-mini"
+    },
+    "uart-monitor-check-list-ports": {
+      "template": "EVAL STATEMENT: The uart-monitor capture script should be able to list available COM ports. Run the command: python .opencode/skill/uart-monitor/bios_uart_capture.py --list-ports --json and verify the output is valid JSON containing a 'ports' array. Each port entry should have at minimum a 'device' field. Return PASS if the command succeeds and outputs valid JSON with ports, FAIL otherwise.",
+      "description": "Functional test: verify --list-ports returns valid JSON with COM port info",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-4o-mini"
+    },
+    "uart-monitor-check-analyze-sample": {
+      "template": "EVAL STATEMENT: The uart-monitor log analyzer should correctly analyze a BIOS boot log. Run the command: python .opencode/skill/uart-monitor/log_analyzer.py --input .opencode/skill/uart-monitor/tests/sample_logs/normal_boot.log --json and verify the output is valid JSON with: (1) boot_status equal to 'BOOT_SUCCESS', (2) a boot_phases array with at least 4 phases, (3) total_lines greater than 0. Return PASS if all three conditions are met, FAIL otherwise.",
+      "description": "Functional test: verify log analyzer produces correct JSON analysis of sample boot log",
+      "agent": "EVAL-SKILL",
+      "model": "github-copilot/gpt-4o-mini"
+    }
+  }
+}

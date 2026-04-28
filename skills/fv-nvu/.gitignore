@@ -1,0 +1,24 @@
+# NVU Skill Tree — Generated Artifacts
+# These are created at runtime by self-improvement tools and should NOT be committed.
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Self-improve generated artifacts
+reports/
+CHANGELOG.md
+nvu_proposals_*.json
+
+# Temporary validation outputs
+validation_report_*.json
+coverage_audit_report.json
+
+# Editor/IDE artifacts
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

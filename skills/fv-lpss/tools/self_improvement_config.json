@@ -1,0 +1,123 @@
+{
+  "_comment": "FV-LPSS Self-Improvement Configuration — modeled after FV-THC gold standard",
+  "_owner": "Kong Jia Wen (kjwen)",
+  "_version": "1.0.0",
+
+  "paths": {
+    "skill_base": ".opencode/skill/fv-lpss",
+    "agent_def": ".opencode/agent/FV/FV-LPSS.md",
+    "docs_dir": ".opencode/skill/fv-lpss/docs",
+    "eval_dir": ".opencode/skill/fv-lpss/eval",
+    "tools_dir": ".opencode/skill/fv-lpss/tools",
+    "reports_dir": ".opencode/skill/fv-lpss/tools/reports"
+  },
+
+  "skills": [
+    "config-checkout",
+    "power-state",
+    "failure-analysis",
+    "driver",
+    "debug",
+    "register-checkout",
+    "pmode-check",
+    "ip-config",
+    "clock-gating",
+    "d3-state-check"
+  ],
+
+  "docs": [
+    "lpss_known_issues.md",
+    "lpss_reference_sheets.md",
+    "lpss_test_coverage_matrix.md",
+    "lpss_agent_workflows.md",
+    "i2c/DW_apb_i2c_validation_reference.md",
+    "i3c/DWC_mipi_i3c_validation_reference.md",
+    "has_digest.md",
+    "has_i3c_hci_reference.md"
+  ],
+
+  "owner": {
+    "name": "Kong Jia Wen",
+    "idsid": "kjwen",
+    "email": "jia.wen.kong@intel.com"
+  },
+
+  "sources": {
+    "linux_kernel": {
+      "local_paths": [
+        "drivers/i2c/busses/i2c-designware-pcidrv.c",
+        "drivers/i2c/busses/i2c-designware-core.h",
+        "drivers/i2c/busses/i2c-designware-master.c",
+        "drivers/i2c/busses/i2c-designware-common.c",
+        "drivers/i3c/master/dw-i3c-master.c",
+        "drivers/spi/spi-dw-pci.c",
+        "drivers/spi/spi-dw-core.c",
+        "drivers/tty/serial/8250/8250_lpss.c",
+        "drivers/tty/serial/8250/8250_dw.c"
+      ],
+      "remote_url": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git",
+      "path_filter": "drivers/{i2c,i3c,spi,tty/serial}/**",
+      "branches": ["master", "next"],
+      "last_audited_versions": {}
+    },
+    "windows_driver": {
+      "local_paths": [],
+      "path_filter": "Intel SerialIO drivers (I2C/SPI/UART)",
+      "branch": "main"
+    },
+    "has_document": {
+      "local_path": ".opencode/skill/fv-lpss/docs/has_digest.md",
+      "source_url": "https://chat.co-design.intel.com/chat",
+      "source_doc": "LPSS_HAS.html (IP v5.2, rev 1.02, April 2025)",
+      "last_known_date": "2025-04-14"
+    },
+    "check_interval_hours": 168
+  },
+
+  "self_learn": {
+    "nga": {
+      "enabled": true,
+      "base_url": "https://nga.intel.com",
+      "project_name": "NVL_CLIENT_FV",
+      "suite_filters": ["LPSS_*", "lpss_*", "SerialIO_*", "I2C_*", "I3C_*", "SPI_*", "UART_*"],
+      "lookback_days": 30
+    },
+    "hsdes": {
+      "enabled": true,
+      "tenants": ["sighting", "bug"],
+      "query_filters": {
+        "component": ["LPSS", "I2C", "I3C", "SPI", "UART", "SerialIO", "Serial IO"],
+        "status": ["open", "in_progress", "analyzed", "resolved"],
+        "platform": ["NVL", "PTL", "Novalake", "Panther Lake"]
+      },
+      "lookback_days": 90
+    },
+    "feedback_file": ".opencode/skill/fv-lpss/tools/reports/learning_feedback.json"
+  },
+
+  "self_check": {
+    "required_owner_tag": "kjwen",
+    "expected_skill_count": 10,
+    "cross_ref_rules": [
+      {"from": "config-checkout", "must_ref": ["power-state"]},
+      {"from": "power-state", "must_ref": ["config-checkout"]},
+      {"from": "failure-analysis", "must_ref": ["config-checkout", "power-state"]},
+      {"from": "debug", "must_ref": ["config-checkout", "power-state", "failure-analysis"]},
+      {"from": "driver", "must_ref": ["config-checkout", "debug"]}
+    ]
+  },
+
+  "self_verify": {
+    "eval_tests_file": ".opencode/skill/fv-lpss/eval/lpss_skill_eval_tests.md",
+    "pass_threshold_pct": 90.0,
+    "results_dir": ".opencode/skill/fv-lpss/tools/reports"
+  },
+
+  "self_improve": {
+    "auto_apply": false,
+    "require_human_approval": true,
+    "max_proposals_per_run": 20,
+    "proposal_file": ".opencode/skill/fv-lpss/tools/reports/improvement_proposals.json",
+    "changelog_file": ".opencode/skill/fv-lpss/tools/reports/changelog.md"
+  }
+}

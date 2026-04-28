@@ -1,0 +1,202 @@
+{
+  "_comment": "FV-AUDIO Self-Improvement Framework Configuration",
+  "_owner": "huiyingt (Tan Hui Ying)",
+  "_version": "1.0",
+
+  "paths": {
+    "skill_base": ".opencode/skill/fv-audio",
+    "agent_def": ".opencode/agent/FV/FV-AUDIO.md",
+    "docs_dir": "docs",
+    "eval_dir": "eval",
+    "tools_dir": "tools",
+    "reports_dir": "reports"
+  },
+
+  "skills": [
+    "hda",
+    "soundwire",
+    "dsp",
+    "dmic",
+    "display-audio",
+    "bt-offload",
+    "uaol",
+    "wov",
+    "aioc",
+    "jack-detect",
+    "power",
+    "interrupts",
+    "clocking",
+    "config-checkout",
+    "failure-analysis",
+    "debug",
+    "platform"
+  ],
+
+  "docs": [
+    "audio_validation_workflows.md",
+    "audio_reference_sheets.md",
+    "audio_known_issues.md",
+    "audio_windows_driver_diff.md",
+    "audio_test_gap_analysis.md",
+    "audio_test_coverage_matrix.md",
+    "audio_driver_source_study.md",
+    "audio_cheat_sheets.md",
+    "audio_agent_workflows.md",
+    "audio_ace_has_extraction.md"
+  ],
+
+  "owner": {
+    "name": "Tan Hui Ying",
+    "idsid": "huiyingt",
+    "email": "hui.ying.tan@intel.com"
+  },
+
+  "sources": {
+    "linux_sof": {
+      "local_paths": [
+        "drivers/sound/soc/intel",
+        "drivers/sound/soc/sof"
+      ],
+      "remote_url": "https://github.com/thesofproject/linux",
+      "path_filter": "sound/soc/intel/**",
+      "branches": ["main", "topic/sof-dev"],
+      "last_audited_versions": []
+    },
+    "linux_hda": {
+      "local_paths": [
+        "drivers/sound/pci/hda",
+        "drivers/sound/hda"
+      ],
+      "remote_url": "https://github.com/torvalds/linux",
+      "path_filter": "sound/pci/hda/**",
+      "branches": ["master"],
+      "last_audited_versions": []
+    },
+    "linux_soundwire": {
+      "local_paths": [
+        "drivers/soundwire"
+      ],
+      "remote_url": "https://github.com/torvalds/linux",
+      "path_filter": "drivers/soundwire/**",
+      "branches": ["master"],
+      "last_audited_versions": []
+    },
+    "ace_spec": {
+      "local_path": null,
+      "source_doc": "ACE 4.x Audio/Voice DSP EDS",
+      "last_known_date": null
+    },
+    "soundwire_spec": {
+      "local_path": null,
+      "source_doc": "MIPI SoundWire Specification 1.2.1",
+      "last_known_date": null
+    },
+    "check_interval_hours": 24
+  },
+
+  "self_learn": {
+    "nga": {
+      "enabled": true,
+      "base_url": "https://nga.intel.com",
+      "project_name": "NVL",
+      "suite_filters": ["Audio", "ACE", "HDA", "SoundWire", "DMIC", "UAOL"],
+      "lookback_days": 14
+    },
+    "hsdes": {
+      "tenants": ["heia_soc.sighting", "heia_soc.bug"],
+      "query_filters": {
+        "component": ["audio", "ace", "hda", "soundwire", "dmic", "dsp", "uaol", "codec"],
+        "status": ["open", "in_progress", "resolved"]
+      },
+      "lookback_days": 30
+    },
+    "feedback_file": "reports/audio_feedback.json"
+  },
+
+  "self_check": {
+    "required_owner_tag": "huiyingt",
+    "expected_skill_count": 17,
+    "cross_ref_rules": {
+      "uaol_expected_in": ["power", "config-checkout", "failure-analysis"],
+      "uaol_excluded_from": ["dmic", "bt-offload"],
+      "wov_expected_in": ["dmic", "power", "clocking"],
+      "wov_excluded_from": ["display-audio", "uaol"]
+    }
+  },
+
+  "self_verify": {
+    "eval_tests_file": "eval/audio_eval_tests.json",
+    "pass_threshold_pct": 95.0,
+    "results_dir": "reports/eval_results"
+  },
+
+  "self_wiki": {
+    "enabled": true,
+    "wiki_user": "huiyingt",
+    "securewiki_script": ".opencode/skill/securewiki/securewiki.py",
+    "cache_dir": "reports/wiki_cache",
+    "cache_ttl_hours": 24,
+    "pages": [
+      {"pageId": "4153877501", "title": "NVL ACE(Audio) Debug Handbook(WIP)"},
+      {"pageId": "4314869826", "title": "BKM for UAOL for NVL"},
+      {"pageId": "4242636811", "title": "[NVL]Audio Xtensa"},
+      {"pageId": "4278948453", "title": "NVL-S (DT) Audio Offload Enabling (A2DP/HfP/LE Audio)"},
+      {"pageId": "4425936546", "title": "NVL-Hx ALC256 HDA Enablement"},
+      {"pageId": "4296597663", "title": "BKM to enable Audio in Coupled Mode"},
+      {"pageId": "4366111045", "title": "Why ACE in D0 when idle with iDisplay Audio"},
+      {"pageId": "3814591980", "title": "Audio Links Enablement on PTL Platform for Mock"},
+      {"pageId": "3484618181", "title": "[PTL]Audio FW log"},
+      {"pageId": "3516740381", "title": "[PTL]Audio Xtensa"},
+      {"pageId": "3697487008", "title": "[PTL] Running Audio Test Suite in Standalone mode"},
+      {"pageId": "3051461460", "title": "LNL ACE 2.0 Audio issues"},
+      {"pageId": "2967541778", "title": "LNL Audio Enablement BKM"},
+      {"pageId": "3226995229", "title": "LNL_UAOL_Debug"},
+      {"pageId": "2942039705", "title": "MTL ACE AUDIO Debug BKM"},
+      {"pageId": "2638580577", "title": "Audio debug-traces -MTL"},
+      {"pageId": "2025842781", "title": "MTL Audio(ACE)- FV"},
+      {"pageId": "2667484597", "title": "MTL-P [ACE@Audio] UAOL playback traffic issue"},
+      {"pageId": "2774956238", "title": "MTL-P [ACE@Audio] HDA SDI-1 GPIO BIOS setting"},
+      {"pageId": "2798130103", "title": "MTL-P [ACE@Audio] Decoupled HD-A S0i2.1 cycling issue"},
+      {"pageId": "4045291092", "title": "WCL Audio Debug Readiness"},
+      {"pageId": "1956229022", "title": "Guide for audio triage and debug"},
+      {"pageId": "2059042778", "title": "Audio BKMs- all location links"},
+      {"pageId": "2578525495", "title": "Audio Debug Data"},
+      {"pageId": "2638580588", "title": "Audio debug tools"},
+      {"pageId": "1294973430", "title": "Audio BKMs for PM cycling"},
+      {"pageId": "1294973433", "title": "Audio Visa signal for debug as per scenario"},
+      {"pageId": "1562719873", "title": "Audio Debug Script - audio_debug.py"},
+      {"pageId": "1631765385", "title": "Audio Automation BKM"},
+      {"pageId": "2602210265", "title": "BKM for update audio driver"},
+      {"pageId": "1234970941", "title": "POR Audio Links And Codecs"},
+      {"pageId": "1555308664", "title": "Enabling HDA external codec"},
+      {"pageId": "3226056525", "title": "BKM to Capture HDA Link Protocol with Oscilloscope"},
+      {"pageId": "1318262061", "title": "SSP Streaming +DMIC +Soundwire_silicon"},
+      {"pageId": "3590610883", "title": "Soundwire Mockup Codec Enablement"},
+      {"pageId": "3340831978", "title": "MLTH DMIC audio Issue Reproduction BKM"},
+      {"pageId": "4182673124", "title": "UAOL(USB Audio Offload)"},
+      {"pageId": "4250695984", "title": "HDA - ALC245 HD-A codec and DMIC via PCH"},
+      {"pageId": "3638631342", "title": "Audio ACE 3.x"},
+      {"pageId": "3517825397", "title": "SVOS ACE (Audio) Production Driver Enablement"},
+      {"pageId": "1283279549", "title": "Audio Xtensa BKMs"}
+    ],
+    "keyword_categories": {
+      "device_ids": ["0xA0C8", "0x51C8", "0x54C8", "0x7AD0", "0x7E28"],
+      "registers": ["GCAP", "GCTL", "GSTS", "WAKEEN", "STATESTS", "INTCTL", "INTSTS"],
+      "protocols": ["HDA", "SoundWire", "DMIC", "I2S", "SSP", "HDMI", "DisplayPort"],
+      "power": ["D0i3", "D3hot", "D3cold", "SRAM-PG", "CGCTL", "LCTL", "S0ix"],
+      "platforms": ["NVL", "PTL", "LNL", "MTL", "ARL", "RPL"],
+      "vendors": ["Realtek", "Cirrus", "MIPI", "Intel"],
+      "sightings": []
+    }
+  },
+
+  "self_improve": {
+    "auto_apply": false,
+    "require_human_approval": true,
+    "max_proposals_per_run": 20,
+    "proposal_file": "reports/improvement_proposals.json",
+    "changelog_file": "reports/improvement_changelog.md"
+  },
+
+  "_support": "For issues with the FV-AUDIO self-improvement framework, contact huiyingt or file in the fv-audio repo."
+}

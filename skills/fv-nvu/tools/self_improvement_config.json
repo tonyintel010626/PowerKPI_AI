@@ -1,0 +1,112 @@
+{
+  "_comment": "NVU Agent Self-Improvement Configuration",
+  "_domain_lead": "Lee, Bee Koon (blee9)",
+  "_maintainers": "Chin, William Willy (willychi), Leem, Yi Jie (yleem)",
+  "_version": "1.0",
+  "paths": {
+    "skill_base": ".opencode/skill/fv-nvu",
+    "agent_def": ".opencode/agent/FV/FV-NVU.md",
+    "docs_dir": ".opencode/skill/fv-nvu/docs",
+    "eval_dir": ".opencode/skill/fv-nvu/eval",
+    "tools_dir": ".opencode/skill/fv-nvu/tools",
+    "reports_dir": ".opencode/skill/fv-nvu/reports"
+  },
+  "skills": [
+    "bios",
+    "camera",
+    "debug",
+    "dma",
+    "driver",
+    "firmware",
+    "inference",
+    "platform",
+    "power",
+    "registers",
+    "simics"
+  ],
+  "docs": [
+    "validate_e2e.py",
+    "e2e_validation_report.json",
+    "has_manifest.json"
+  ],
+  "owner": {
+    "name": "Chin, William Willy",
+    "idsid": "willychi",
+    "email": "william.willy.chin@intel.com"
+  },
+  "sources": {
+    "has_document": {
+      "local_path": "C:/git/NVU/HAS/SIP-NVU1.0-HAS.txt",
+      "source_doc": "SIP-NVU1.0-HAS (NVU Hardware Architecture Specification v1.0)",
+      "last_known_date": "2026-03-17"
+    },
+    "integration_has": {
+      "local_path": "C:/git/NVU/HAS/SIP-NVU1.0-Integration-HAS.txt",
+      "source_doc": "SIP-NVU1.0-Integration-HAS",
+      "last_known_date": "2026-03-18"
+    },
+    "e2e_has": {
+      "local_path": "C:/git/NVU/HAS/SIP-NVU1.0-E2E-HAS.txt",
+      "source_doc": "SIP-NVU1.0-E2E-HAS",
+      "last_known_date": "2026-03-17"
+    },
+    "excel_data": {
+      "local_path": "C:/git/NVU/HAS/NVU_IP_HAS_excel.xlsx",
+      "sheets": ["References", "PM", "SRA", "EAIG", "Telemetry", "Latency", "Peer_IPC", "FUSE_SS", "Sheet2"],
+      "last_known_date": "2026-03-24"
+    },
+    "check_interval_hours": 24
+  },
+  "self_learn": {
+    "nga": {
+      "enabled": false,
+      "_comment": "NVU domain NGA integration TBD. Set enabled=true when NGA project is configured.",
+      "base_url": "https://nga.intel.com",
+      "project_name": "NVU",
+      "suite_filters": ["NVU_*", "nvu_*"],
+      "lookback_days": 7
+    },
+    "hsdes": {
+      "tenants": [
+        "sighting_central.sighting",
+        "heia_soc.sighting"
+      ],
+      "query_filters": {
+        "component": ["NVU", "Neural Vision Unit", "NPU", "NPX6", "VPX2"],
+        "status": ["open", "new", "investigating"]
+      },
+      "lookback_days": 30
+    },
+    "feedback_file": ".opencode/skill/fv-nvu/tools/feedback_inbox.json"
+  },
+  "self_check": {
+    "required_owner_tag": "willychi",
+    "expected_count": 11,
+    "expected_skill_count": 11,
+    "exclude_files": ["e2e_validation_report.json", "has_manifest.json"],
+    "stale_patterns": [
+      {"pattern": "<!-- TODO -->", "description": "Unfilled TODO placeholder", "severity": "medium"},
+      {"pattern": "TBD -- not in HAS", "description": "Unresolvable TBD from HAS v1.0", "severity": "low"},
+      {"pattern": "TBD -- pending", "description": "Pending data placeholder", "severity": "medium"},
+      {"pattern": "PLACEHOLDER", "description": "Uppercase placeholder marker", "severity": "high"}
+    ],
+    "cross_ref_rules": {
+      "camera_expected_in": ["driver", "platform", "power", "debug"],
+      "firmware_expected_in": ["driver", "power", "debug", "platform"],
+      "inference_expected_in": ["dma", "power", "driver", "firmware"]
+    }
+  },
+  "self_verify": {
+    "eval_tests_file": "nvu_skill_eval_tests.md",
+    "pass_threshold_pct": 95.0,
+    "results_dir": ".opencode/skill/fv-nvu/eval"
+  },
+  "self_improve": {
+    "auto_apply": false,
+    "require_human_approval": true,
+    "max_proposals_per_run": 20,
+    "proposal_file": ".opencode/skill/fv-nvu/reports/improvement_proposals.json",
+    "changelog_file": ".opencode/skill/fv-nvu/reports/improvement_changelog.md"
+  },
+  "_support": "For any issues, contact Chin, William Willy (willychi) at william.willy.chin@intel.com. Please collect the complete session transcript (AI log dump) before reporting."
+}

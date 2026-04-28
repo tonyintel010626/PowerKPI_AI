@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Temp files from blind-spot checks
+_bs_cache.json
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,61 @@
+{
+  "manifest_version": "1.0",
+  "description": "NVU HAS document manifest — tracks all reference documents used for skill tree extraction",
+  "last_updated": "2026-03-28",
+  "documents": [
+    {
+      "id": "SIP-NVU1.0-HAS",
+      "title": "SIP-NVU1.0 Hardware Architecture Specification",
+      "version": "1.0",
+      "source_path": "C:/git/NVU/HAS/SIP-NVU1.0-HAS.txt",
+      "extraction_date": "2026-03-17",
+      "pages": 293,
+      "status": "extracted",
+      "skills_updated": ["registers", "inference", "dma", "power", "driver", "platform", "debug", "camera", "firmware"]
+    },
+    {
+      "id": "SIP-NVU1.0-Integration-HAS",
+      "title": "SIP-NVU1.0 Integration HAS",
+      "version": "1.0",
+      "source_path": "C:/git/NVU/HAS/SIP-NVU1.0-Integration-HAS.txt",
+      "extraction_date": "2026-03-18",
+      "status": "extracted",
+      "skills_updated": ["platform", "camera"]
+    },
+    {
+      "id": "SIP-NVU1.0-E2E-HAS",
+      "title": "SIP-NVU1.0 End-to-End HAS",
+      "version": "1.0",
+      "source_path": "C:/git/NVU/HAS/SIP-NVU1.0-E2E-HAS.txt",
+      "extraction_date": "2026-03-18",
+      "status": "extracted",
+      "skills_updated": ["camera", "platform"]
+    },
+    {
+      "id": "NVU-BIOS-Requirements",
+      "title": "NVU Requirements to BIOS (WW13.3 2026)",
+      "version": "WW13.3",
+      "source_path": "C:/git/NVU/HAS/NVU-Requirements-to-BIOS_WW13.3-2026_extracted.txt",
+      "extraction_date": "2026-03-28",
+      "pages_approx": 40,
+      "status": "extracted",
+      "skills_updated": ["bios"]
+    },
+    {
+      "id": "NVU-IP-HAS-Excel",
+      "title": "NVU IP HAS Excel Data",
+      "version": "1.0",
+      "source_path": "C:/git/NVU/HAS/NVU_IP_HAS_excel.xlsx",
+      "sheets": ["Register_Map", "Interrupts", "DMA_Channels", "Clock_Domains", "Power_States", "GPIO_Pins", "IPC_Commands", "Error_Codes", "Fuse_Map"],
+      "extraction_date": "2026-03-17",
+      "status": "extracted",
+      "skills_updated": ["registers", "dma", "power"]
+    }
+  ],
+  "cross_check_summary": {
+    "total_checks": 3272,
+    "confirmed": 3272,
+    "mismatch": 0,
+    "tool": "validate_e2e.py"
+  }
+}

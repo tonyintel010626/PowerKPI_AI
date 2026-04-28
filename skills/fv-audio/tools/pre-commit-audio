@@ -1,0 +1,42 @@
+#!/bin/sh
+# pre-commit-audio — Quality gate for FV-AUDIO skill and agent changes
+# Modeled after pre-commit-thc.  Install:
+#   cp .opencode/skill/fv-audio/tools/pre-commit-audio .git/hooks/pre-commit
+#   chmod +x .git/hooks/pre-commit
+#
+# Set AUDIO_FULL_GATE=1 in your environment to run the full check+verify
+# suite instead of the default quick structural check.
+
+TOOLS_DIR=$(git rev-parse --show-toplevel)/.opencode/skill/fv-audio/tools
+
+# Only run when FV-AUDIO files are staged
+STAGED=$(git diff --cached --name-only \
+    -- .opencode/skill/fv-audio/ \
+       .opencode/agent/FV/FV-AUDIO.md)
+
+[ -z "$STAGED" ] && exit 0
+
+# Choose quick (default) vs full gate
+if [ "${AUDIO_FULL_GATE}" = "1" ]; then
+    MODE=""
+else
+    MODE="--quick"
+fi
+
+echo ">> FV-AUDIO pre-commit quality gate (mode: ${MODE:-full})..."
+python "$TOOLS_DIR/audio_quality_gate.py" $MODE
+STATUS=$?
+
+if [ $STATUS -ne 0 ]; then
+    echo ""
+    echo "=========================================================="
+    echo "  FV-AUDIO quality gate FAILED — commit blocked."
+    echo "  Fix the issues above, then re-stage and retry."
+    echo "  To bypass (not recommended): git commit --no-verify"
+    echo "  For full diagnostics: AUDIO_FULL_GATE=1 git commit ..."
+    echo "=========================================================="
+    exit 1
+fi
+
+echo ">> FV-AUDIO quality gate PASSED."
+exit 0

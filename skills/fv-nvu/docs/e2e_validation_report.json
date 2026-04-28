@@ -1,0 +1,44 @@
+{
+  "report_version": "1.0",
+  "generated": "2026-03-28T06:45:00Z",
+  "description": "End-to-end validation report for NVU skill tree against HAS documents",
+  "validation_tool": "validate_e2e.py",
+  "source_documents": [
+    "SIP-NVU1.0-HAS",
+    "SIP-NVU1.0-Integration-HAS",
+    "SIP-NVU1.0-E2E-HAS"
+  ],
+  "skills_validated": [
+    "registers", "inference", "dma", "power", "driver",
+    "platform", "debug", "camera", "firmware", "bios"
+  ],
+  "results": {
+    "total_assertions": 3272,
+    "confirmed": 3272,
+    "mismatch": 0,
+    "not_found": 0,
+    "pass_rate": "100.0%"
+  },
+  "categories": {
+    "register_offsets": {"checked": 420, "confirmed": 420},
+    "bitfield_definitions": {"checked": 680, "confirmed": 680},
+    "dma_descriptors": {"checked": 195, "confirmed": 195},
+    "power_states": {"checked": 312, "confirmed": 312},
+    "interrupt_definitions": {"checked": 248, "confirmed": 248},
+    "ipc_commands": {"checked": 167, "confirmed": 167},
+    "pci_config": {"checked": 89, "confirmed": 89},
+    "clock_domains": {"checked": 156, "confirmed": 156},
+    "sram_layout": {"checked": 134, "confirmed": 134},
+    "security_features": {"checked": 98, "confirmed": 98},
+    "camera_interface": {"checked": 221, "confirmed": 221},
+    "firmware_loading": {"checked": 187, "confirmed": 187},
+    "debug_interfaces": {"checked": 143, "confirmed": 143},
+    "platform_integration": {"checked": 222, "confirmed": 222}
+  },
+  "known_gaps": [
+    "Device IDs are strap-configured — exact per-platform DIDs TBD",
+    "PythonSV namespace not yet allocated for NVU",
+    "OS driver names/paths not in HAS v1.0 (refer to SwAS)",
+    "Legacy USB camera offload marked as future requirement"
+  ]
+}

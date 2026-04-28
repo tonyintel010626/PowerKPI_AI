@@ -1,0 +1,1180 @@
+FLEXTUNE BKM 
+Ver1.0 
+
+1 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+TABLE OF CONTENTS 
+
+1 
+
+3 
+
+3 
+
+3 
+
+3 
+
+4 
+
+8 
+
+12 
+
+16 
+
+16 
+
+19 
+
+19 
+
+20 
+
+22 
+
+23 
+
+24 
+
+PAGE 
+
+TABLE OF CONTENTS 
+
+CHAPTER 1 : 
+
+intro to flextune 
+
+1.1  What is Flextune? 
+
+Why Flextune is Used 
+
+Key Objectives of Flextune 
+
+How to Use Flextune 
+
+Variable Info, Instrument and Nidaq Self Calibrate 
+
+1.2 
+
+List of workloads 
+
+CHAPTER 2 :  Workload running 
+
+2.1 
+
+Launching a workload 
+
+CHAPTER 3 :  Known bugs and possible solutions 
+
+3.1 
+
+3.2 
+
+3.3 
+
+3.4 
+
+3.5 
+
+File path error 
+
+Communication related error 
+
+Chocolatey related error 
+
+Python-related error 
+
+Others error 
+
+2 
+
+ 
+ 
+ 
+ 
+ 
+CHAPTER 1 : 
+
+INTRO TO FLEXTUNE 
+
+1.1  What is Flextune? 
+
+Flextune is an automation utility designed to simplify workload execution by leveraging 
+Hopper commands in a controlled and standardized way. 
+
+Instead of manually copying, pasting, and modifying Hopper commands for each 
+workload, Flextune centralizes and automates this process, significantly reducing 
+operational overhead. 
+
+Why Flextune is Used 
+
+Traditionally, running workloads requires: 
+
+  Manual pasting of Hopper commands/ Using Pacs 
+  Repeated variable changes for different workloads 
+  High risk of human error during execution 
+
+Flextune eliminates these inefficiencies by handling command execution and variable 
+management automatically. 
+
+(cid:33158)(cid:57393) Key Benefit: Engineers no longer need to interact directly with Hopper commands 
+for routine workload execution. 
+
+Key Objectives of Flextune 
+
+  Automate Hopper command execution 
+  Eliminate repetitive manual power capture 
+  Standardize workload execution across Power Stations 
+ 
+  Allow engineers to focus on debugging and analysis instead of operations 
+
+Improve efficiency in data capturing 
+
+3 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+How to Use Flextune 
+
+Prerequisites 
+
+  Flextune is pre-installed on every Power Station 
+  No manual setup is required before launching 
+ 
+
+If it’s not installed, please contact the automation guy in your team 
+
+Launching Flextune 
+
+Follow the steps below to start Flextune: 
+
+ Step 1: Locate the Shortcut 
+
+Go to the Desktop 
+Locate the shortcut named: 
+➡ start_tunning....shortcut 
+
+### Step 2: Start Flextune 
+
+Double-click the shortcut 
+Flextune will launch automatically 
+
+(cid:44264)(cid:44265)(cid:44266)(cid:44267)(cid:44268) Tip: Always use the desktop shortcut to ensure the correct environment and 
+configuration are loaded. 
+
+4 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Step 3: Open the Tuning Job Interface 
+
+  Once Flextune is launched: 
+
+  Click on the tab labeled: 
+
+➡ Launching Tuning Job 
+
+5 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Flextune Interface Overview 
+1. Variable Configuration 
+
+The Variable Configuration section is used to define and control workload parameters 
+that Flextune passes to the Hopper command during execution. 
+
+This section determines what workload runs and how it runs. 
+
+(cid:57523)(cid:57524)(cid:57525) Direct modification of the configuration file is NOT recommended 
+
+  Do not manually edit the config file outside Flextune 
+ 
+
+Incorrect changes may result in: 
+  Flextune launch failure 
+  Workload execution errors 
+Incorrect data capture 
+ 
+
+Adding or Modifying Workloads  
+If additional workloads are required: 
+
+1.  Use the Edit option within the Flextune UI 
+2.  Add new workload entries inside the existing configuration file 
+3.  Save changes and verify they appear correctly in the UI 
+
+(cid:33158)(cid:57393) Always use the built-in Edit function to avoid configuration corruption. 
+
+6 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+What Can Be Configured 
+Within Variable Configuration, you can view and manage: 
+
+  Hopper command 
+  Workload name 
+  Loop count 
+  Target selection 
+
+  SoC or DAQ 
+
+When You Are Not Sure  
+If you are: 
+
+  Unsure how to add a new workload 
+  Unsure how to define Hopper command variables 
+
+(cid:33158)(cid:57891) Contact the Automation Engineer in your team before making changes. 
+
+7 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Variable Info, Instrument and Nidaq Self Calibrate 
+
+The  Variable  Info,  Instrument,  and  NI‑DAQ  Self  Calibrate  buttons  provide  advanced 
+
+configuration  and control  for  how  Flextune  executes  Hopper  commands  and  manages 
+
+instruments. 
+
+(cid:44264)(cid:44265)(cid:44266)(cid:44267)(cid:44268) For experienced users: 
+
+You may notice that the commands shown in the Excel/config file differ from what is 
+
+normally executed directly in CMD. 
+
+This is intentional. 
+
+8 
+
+ 
+ 
+ 
+Key Differences Explained 
+
+1. FlexLogger Configuration Handling 
+
+What is different: 
+
+  The FlexLogger configuration file and command are not directly embedded in 
+
+the workload command list. 
+
+Why this is done: 
+
+  FlexLogger configuration changes between projects 
+
+  Configuration may be updated based on specific requirements 
+
+How Flextune handles this: 
+
+  The FlexLogger path and command are defined in the Instrument tab 
+
+  You can update the path once, without modifying each individual workload 
+
+command 
+
+2. SoCWatch Triggering Method 
+
+What is different: 
+
+  Flextune does not trigger the standard SoCWatch .bat file inside the SUT 
+
+using psexec as in manual execution. 
+
+How it works in Flextune: 
+
+  All required capture IPs are predefined in the Instrument tab 
+
+  Flextune triggers SoCWatch using this predefined configuration 
+
+Why this is useful: 
+
+  Enables custom capture scenarios 
+
+  Especially helpful for specific workload requests, such as those from Pre-Silicon 
+
+teams 
+
+9 
+
+ 
+ 
+ 
+ 
+ 
+4.  Use of Variables in Commands ($ Syntax) 
+
+You may notice that some commands contain a dollar sign ($), for example: 
+
+-comm_type $communicator_type 
+
+What this means: 
+
+  The $ symbol indicates a variable placeholder 
+
+  The actual value is defined in the Variable Info tab 
+
+Example: 
+
+  Variable defined: 
+
+ 
+
+communicator_type = ps_exec 
+
+  When Flextune launches the command, it becomes: 
+
+ 
+
+-comm_type ps_exec 
+
+Why this is important: 
+
+  Communicator type may change between: 
+
+ 
+
+efi 
+
+  ps_exec 
+
+  xml 
+
+  Variables allow this change without editing every command 
+
+10 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Important Warning – Project Directory 
+
+  The project directory variable is pre-configured based on the station product: 
+
+  NVLS 
+  NVLP 
+
+(cid:57523)(cid:57524)(cid:57525) Do NOT modify the project directory 
+
+  Changing this may lead to: 
+Incorrect file paths 
+ 
+Instrument launch failure 
+ 
+  Flextune execution errors 
+
+NI-DAQ Self Calibrate 
+
+Purpose 
+The NI-DAQ Self Calibrate function is a shortcut to allow NI-DAQ devices to perform 
+self-calibration automatically. 
+
+Why It Exists 
+
+  Eliminates the need to: 
+
+  Manually click DEV A → DEV E 
+  Calibrate devices one by one 
+
+ Do You Need to Run It? 
+
+  Hopper commands already perform calibration checks during execution 
+ 
+
+If there are no visible power measurement errors, this step can be skipped 
+
+11 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1.2  List of workloads 
+
+Workload Panel Overview 
+
+On the right side of the Flextune UI, you will see a list of available workloads. 
+
+Each workload represents a predefined Hopper command set, configured for specific tuning and 
+data‑capture purposes. 
+
+Users are only required to select workloads. No manual command editing is needed. 
+
+12 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Commonly Used Workloads 
+
+1. win_opt 
+
+Definition: 
+
+This workload is used for Windows optimization. 
+
+It is typically executed before or as part of power-related tuning runs. 
+
+2.Proxy Enable / Disable Workloads 
+
+Flextune provides both Auto and Manual proxy configurations. 
+
+3.Auto Proxy Enable 
+
+Uses auto-detect settings in Windows proxy configuration. 
+
+No manual input is required. 
+
+4.Manual Proxy Enable 
+
+Uses a fixed proxy configuration. 
+
+Example: 
+
+http://proxy.png.intel.com 
+
+This is the preferred proxy setup for power runs. 
+
+13 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Workload Capture Types 
+
+There are three workload types, based on the capture method. 
+
+1.workload_daq 
+
+Normal power capture using FlexLogger. 
+
+2.workload_soc 
+
+SoCWatch capture only. 
+
+No power (DAQ) data is collected. 
+
+3.workload_daq_soc 
+
+Parallel capture of both power (FlexLogger) and SoCWatch data. 
+
+Used when both power and SoC information are required. 
+
+Workflow Selection and Execution Priority 
+
+Flextune executes workloads in the exact order they are selected in the workload list. 
+
+The execution priority is determined by the selection sequence, not by workload name or type. 
+
+Example 
+
+If the following workloads are selected in this order: 
+
+ 
+
+cms_daq 
+
+  busy_idle_daq 
+
+  window_opt 
+
+Flextune will execute them in the following sequence: 
+
+1.  cms_daq 
+
+2.  busy_idle_daq 
+
+3.  window_opt 
+
+14 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Important Execution Rule 
+
+If you need to enable or disable proxy settings before running a workload, you must select the 
+
+proxy workload first, before selecting the actual workload. 
+
+For example: 
+
+  Select Manual Proxy Enable 
+
+  Then select the target workload 
+
+This ensures that the proxy configuration is applied before workload execution begins. 
+
+Best Practices 
+
+Always verify the selection order before starting execution. 
+
+Select environment-setup workloads (such as proxy enable or disable) before performance or 
+
+power workloads. 
+
+15 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CHAPTER 2 :  WORKLOAD RUNNING 
+
+2.1  Launching a workload 
+
+Workload Running 
+
+After  completing  all  setup  steps  and  confirming  the  selected  workloads,  you  can  proceed  to 
+
+launch the workload execution. 
+
+Steps to Launch a Workload 
+
+1.  Select 
+
+the  workloads  by 
+
+ticking 
+
+them in  the  required  execution  sequence. 
+
+The order in which workloads are selected determines the execution order. 
+
+2.  Click the Launch button to start workload execution. 
+
+Important Note on Launch Options 
+
+The Launch Flow button is not encouraged for normal operation. 
+
+  Launch Flow will execute the entire predefined flow that was previously saved. 
+
+  This may include workloads or steps that are not required for the current run. 
+
+For controlled and specific execution: 
+
+  Always select workloads manually 
+
+  Use the Launch button instead of Launch Flow 
+
+16 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Finding and Managing Output Files 
+
+After workload execution is completed, the output files are automatically generated and saved 
+
+by Flextune. 
+
+Output File Location 
+
+All output files are located at the following directory: 
+
+C:\tuning_workload 
+
+Each execution generates an output folder or file that contains all workloads selected and run in 
+
+that session. 
+
+17 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Output File Naming Logic 
+
+The output file or folder name is automatically created based on: 
+
+  Execution sequence 
+
+  Time of execution 
+
+Because the naming is time- and sequence-based, the file name may not clearly reflect the 
+
+workload content. 
+
+Important Recommendation 
+
+It is strongly recommended to rename the output file or folder immediately after workload 
+
+completion to avoid confusion during later analysis. 
+
+All workloads selected in a single run will be saved together in the same output folder. 
+
+Example Scenario 
+
+A user has two data-capture tasks on the same day. 
+
+Morning run: 
+
+  Workloads executed: Netflix and IDON 
+
+  Result: One output folder containing both Netflix and IDON data 
+
+Afternoon run: 
+
+  Workloads executed: YouTube and Catapult browsing 
+
+  Result: One output folder containing both YouTube and Catapult browsing data 
+
+In this case, two separate output folders will be created: 
+
+  One for the morning run (Netflix + IDON) 
+
+  One for the afternoon run (YouTube + Catapult browsing) 
+
+Renaming the folders after each run helps clearly distinguish between different scenarios. 
+
+18 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CHAPTER 3 :  KNOWN BUGS AND POSSIBLE SOLUTIONS 
+
+3.1  File path error 
+
+Issue Description 
+
+Due to historical manual data collection practices, different stations may have: 
+
+  Different file paths 
+  Missing required tools or dependencies 
+
+This can lead to Flextune execution errors. 
+
+Recommended Solution 
+
+Use Chocolatey to standardize tool installation across all stations. 
+Chocolatey allows required tools and dependencies to be installed consistently using 
+predefined commands. 
+
+Action Required 
+At the SUT, open Command Prompt and run the required Chocolatey commands. 
+Command Prompt location: 
+
+SUT 
+Run the following commands: 
+
+choco source add -n=occ-choco -s "https://ubit-artifactory-
+or.intel.com/artifactory/api/nuget/occ-nuget-repo" --priority=1 
+choco install python313 --version 3.13.3 --force -y 
+choco install py3-future --version 1.0.0 --force -y 
+choco install py3-lxml --version 5.3.0 --force -y 
+choco install py3-numpy --version 2.2.2 --force -y 
+choco install py3-pandas --version 2.2.3 --force -y 
+choco install py3-prettytable --version 3.14.0 --force -y 
+choco install py3-psutil --version 6.1.1 --force -y 
+choco install py3-pywin32 --version 308.0.0 --force -y 
+choco install py3-pywinauto --version 0.6.9 --force -y 
+choco install py3-selenium --version 4.28.1 --force -y 
+choco install py3-setuptools --version 75.8.0 --force -y 
+choco install py3-six --version 1.17.0 --force -y 
+choco install py3-typing-extensions --version 4.12.2 --force -y 
+choco install py3-urllib3 --version 2.3.0 --force -y 
+choco install py3-wheel --version 0.45.1 --force -y 
+choco install py3-wmi --version 1.5.1 --force -y 
+choco install py3-xmlcli --version 2.2.2 --force -y 
+choco install python310-defusedxml --version 0.7.1 --force -y 
+choco install python310-websocket_client --version 1.8.0.20241129 --force -y 
+
+19 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.2  Communication related error 
+
+Issue Description 
+Communicator errors may occur even when: 
+
+  Wi-Fi is connected 
+  VNC connection is available 
+
+This is often related to incorrect gateway or network sharing configuration. 
+
+Solution Steps 
+
+At the SUT: 
+
+1.  Open Settings 
+2.  Go to Network and Internet 
+3.  Select Ethernet 
+4.  Click Edit 
+5.  Set Gateway to: 
+192.168.137.1 
+
+20 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+At the Host: 
+
+1.  Open Control Panel 
+2.  Go to Network and Internet 
+3.  Open Network and Sharing Center 
+4.  Select the host internet connection (usually Ethernet 2) 
+5.  Click Properties 
+6.  Go to the Sharing tab 
+7.  Ensure the following option is checked: 
+
+“Allow other network users to connect through this computer’s internet 
+connection” 
+
+21 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.3  Chocolatey related error 
+
+Issue Description 
+Chocolatey command execution fails and returns an error message, as shown in the 
+reference image. 
+
+Solution 
+Re-run the following command: 
+
+choco source add -n=occ-choco -s "https://ubit-artifactory-
+or.intel.com/artifactory/api/nuget/occ-nuget-repo" --priority=1 
+
+Ensure proxy is disabled on the SUT before re-running the command. 
+
+22 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.4  Python-related error 
+
+Issue Description 
+After running a full Chocolatey installation, Flextune still reports: 
+
+  Python module not found 
+  Python-related execution errors 
+
+This is usually caused by multiple Python versions installed on the SUT. 
+
+Solution Steps 
+
+1.  At the SUT, open “Add or remove programs” 
+2.  Search for “Python” 
+3.  Ensure only one Python version is installed 
+4.  If multiple versions are found: 
+  Uninstall one of them 
+
+Standard Python Version 
+By default, Flextune uses: 
+Python 3.13 
+
+23 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.5  Others error 
+
+If the solutions described above do not resolve the issue, do not continue 
+
+troubleshooting independently. 
+
+Required Action 
+
+Contact the Automation Engineer in your team and provide the following information: 
+
+  Error message or screenshot 
+
+  Workload name 
+
+  Station name 
+
+  Time of occurrence 
+
+  Any actions already attempted 
+
+This will help speed up root-cause analysis and prevent further system 
+
+misconfiguration. 
+
+24 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
