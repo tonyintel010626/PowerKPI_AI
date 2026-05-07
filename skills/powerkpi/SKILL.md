@@ -644,19 +644,22 @@ Use this section for post-run compilation and insight generation.
   - Define how many repeated runs are required for each selected task.
 3. **Compile Multi-Run Data**
   - After all runs are completed, compile all selected run summaries.
-  - Generate output in both **HTML** and **CSV** formats for all runs.
+  - **Mandatory:** every workload run set must generate both **HTML** and **CSV** outputs.
+  - Do not mark a run set complete unless both files are generated successfully.
 4. **Generate Insights**
-  - Generate insights in the **HTML** report based on:
-    - Pre-silicon reference data
+  - **Mandatory:** generate insights in the **HTML** report for every workload run set based on:
+    - Pre-silicon reference data and projection delta comparison
     - Related HSDES (user wording: HSED) files/findings
+    - Explicit next-step recommendations for debug follow-up
 
 ### Output Expectations
-- Consolidated CSV file containing run-to-run metrics for the selected tasks.
-- HTML report containing:
+- Consolidated CSV file containing run-to-run metrics for the selected tasks (**required**).
+- HTML report containing (**required**):
   - Per-run summary
   - Cross-run comparison
   - Delta vs pre-silicon projection
-  - Related HSDES context and recommended next actions
+  - Related HSDES context
+  - Explicit recommended next actions
 
 ---
 
@@ -1572,7 +1575,7 @@ python -m hopper.pnp.workloads.S5 -job "S5_daq_intec" -rep 1 --flexlogger -flex_
 2. **Apply Optional Presteps (if requested)** — Reboot, Windows optimization, virtualization, hardware acceleration
 3. **Verify Prerequisites** — Hopper packages installed on HOST; Chocolatey packages on SUT
 4. **Run Workload** — Execute appropriate workload command with desired instrumentation
-5. **Compile and Analyze Results** — Use the **Compiling Data Section** flow to combine run summaries and generate HTML + CSV outputs from `C:\_hopper_results\`
+5. **Compile and Analyze Results** — Use the **Compiling Data Section** flow to combine run summaries from `C:\_hopper_results\`; for every workload, HTML + CSV outputs are mandatory and HTML must include pre-silicon comparison, related HSDES context, and explicit next steps
 6. **Reset Proxy (if needed)** — Configure proxy settings for next workload if different
 
 ---

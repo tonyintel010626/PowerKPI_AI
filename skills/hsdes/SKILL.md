@@ -410,3 +410,140 @@ The EQL query language has several undocumented restrictions:
 
 - `sighting-info` - Specialized sighting queries
 - `nga/failure` - NGA failure tracking integration
+
+---
+
+## HSD Updates
+
+This section is for the **swimlane lead** to oversee and track updates across all relevant HSD sightings for the PowerKPI team.
+
+### PowerKPI Team Members
+
+| Username |
+|----------|
+| zphan |
+| nhanif |
+| nbmohdzaki |
+| jleow |
+| ratnameh |
+
+---
+
+### Sightings Update Workflow
+
+When a **sightings update** is requested, retrieve all sightings where any of the PowerKPI team members appear as `owner`, `updated_by`, or `submitted_by`.
+
+#### Step 1 — Query Sightings for All Members
+
+```python
+from pysvtools import hsdes
+import json
+from mcp_co_design import codesign  # codesign skill for data sorting
+
+hsdes.config('heia_soc.sighting')
+
+MEMBERS = ['zphan', 'nhanif', 'nbmohdzaki', 'jleow', 'ratnameh']
+
+fields = ','.join([
+    'id',
+    'title',
+    'owner',
+    'submitted_by',
+    'updated_by',
+    'updated_date',
+    'status',
+    'description',
+    'comments'
+])
+
+all_sightings = []
+
+for member in MEMBERS:
+    query = (
+        f"owner = '{member}' OR "
+        f"updated_by = '{member}' OR "
+        f"submitted_by = '{member}'"
+    )
+    results = hsdes.search(query, showFields=fields)
+    all_sightings.extend(results)
+
+# Deduplicate by ID
+seen_ids = set()
+unique_sightings = []
+for s in all_sightings:
+    sid = s.get('id')
+    if sid and sid not in seen_ids:
+        seen_ids.add(sid)
+        unique_sightings.append(s)
+
+print(f"Total unique sightings found: {len(unique_sightings)}")
+print(json.dumps(unique_sightings, indent=2))
+```
+
+#### Step 2 — Sort and Summarize with Codesign Skill
+
+After retrieving the raw sightings, use the **codesign skill** to sort and organize the data:
+
+```python
+# Use codesign skill to sort sightings by latest updated_date (most recent first)
+# and generate a progress summary for each record
+
+# Sort by updated_date descending
+sorted_sightings = sorted(
+    unique_sightings,
+    key=lambda x: x.get('updated_date', ''),
+    reverse=True
+)
+
+# Display formatted summary table
+print(f"\n{'='*90}")
+print(f"{'ID':<18} {'Title':<35} {'Updated Date':<22} {'Updated By':<15}")
+print(f"{'='*90}")
+
+for s in sorted_sightings:
+    sid        = s.get('id', 'N/A')
+    title      = (s.get('title') or 'N/A')[:33]
+    updated_on = s.get('updated_date', 'N/A')
+    updated_by = s.get('updated_by', 'N/A')
+    print(f"{sid:<18} {title:<35} {updated_on:<22} {updated_by:<15}")
+
+print(f"{'='*90}\n")
+
+# Per-record progress summary
+print("=== Progress Summaries ===\n")
+for s in sorted_sightings:
+    summary_text = (s.get('comments') or s.get('description') or 'No summary available.')
+    # Truncate long summaries for readability
+    if len(summary_text) > 300:
+        summary_text = summary_text[:297] + '...'
+    print(f"[{s.get('id')}] {s.get('title')}")
+    print(f"  Status      : {s.get('status', 'N/A')}")
+    print(f"  Owner       : {s.get('owner', 'N/A')}")
+    print(f"  Updated By  : {s.get('updated_by', 'N/A')}")
+    print(f"  Updated Date: {s.get('updated_date', 'N/A')}")
+    print(f"  Progress    : {summary_text}")
+    print()
+```
+
+---
+
+### Output Data Fields
+
+Each sighting reported in the update must include the following:
+
+| Field | Description |
+|-------|-------------|
+| `id` | HSD sighting ID |
+| `title` (Issue Name) | Short name/title of the sighting |
+| `updated_date` | Latest update date |
+| `updated_by` | Username who last updated the record |
+| Progress Summary | Extracted from `comments` or `description` — summarized current status |
+
+---
+
+### Notes
+
+- Results are deduplicated — a sighting owned **and** updated by the same member appears only once.
+- Sort order is **latest updated first** to surface the most active sightings.
+- Use the codesign skill (`mcp_co-design`) for any further data grouping, filtering, or export if needed.
+- If `comments` field is unavailable in a tenant, fall back to `description` for the progress summary.

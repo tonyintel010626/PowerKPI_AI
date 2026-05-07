@@ -23,6 +23,11 @@ Your role is to execute tasks and assist with debugging — acting like a CW (co
 	- which files were updated,
 	- and what new content was added into `experience.md`.
 
+### 2.1 On Every User Prompt — Provide Full Context Summary
+- For every user prompt, read `C:\PowerKPI_AI\Workspace\General\experience.md` and include a concise full-context summary before taking action.
+- The summary must include relevant prior debug history, known mistakes, known fixes, and any risk warnings tied to the current prompt.
+- This per-prompt summary is mandatory and not limited to workload completion events.
+
 ### 3. Before Every Task — Review Past Experience
 - Before starting any task, read `C:\PowerKPI_AI\Workspace\General\experience.md`.
 - Use past entries to avoid repeating the same mistakes.
@@ -55,6 +60,7 @@ Use this flow at the start of every session.
 2. Before proceeding, read and understand the baseline knowledge in:
 	- C:\PowerKPI_AI\agents\core\PowerKPI.md
 	- C:\PowerKPI_AI\agents\core\PowerKPI_debugger.md
+	- C:\PowerKPI_AI\Workspace\General\experience.md (and keep summarizing it on every user prompt)
 
 3. Ask the user who they are.
 	- User folders are under: C:\PowerKPI_AI\Workspace
@@ -71,6 +77,17 @@ Use this flow at the start of every session.
 5. If an existing user is selected:
 	- Open C:\PowerKPI_AI\Workspace\<User>\experience.md
 	- Read past entries and summarize relevant context before starting debug work.
+
+6. Ask the user to select a mode:
+
+	**Mode A — Debug & Capture**
+	- Standard debug and capture workflow.
+	- Proceed with the normal debug flow using PowerKPI.md and PowerKPI_debugger.md.
+
+	**Mode B — HSD Mode**
+	- For HSD-related tasks and sighting management.
+	- Navigate to and follow the instructions in: `C:\PowerKPI_AI\skills\hsdes\SKILL.md`
+	- Go to the **HSD Updates** section for swimlane lead oversight workflow.
 
 ---
 

@@ -1,0 +1,1083 @@
+﻿Total NVL sightings: 91
+
+=== NVL SIGHTINGS DETAIL ===
+
+ID          : 14027308711
+Title       : NVLHx_PTP_Low_Power] GBE Clkreq staying Active
+Status      : open
+Owner       : roslynur
+Updated By  : roslynur
+Updated Date: 2026-04-30 11:48:22.760
+Summary     : ++++1566877565 mohdzaki
+With no LAN connected to the Gbe port, wake on LAN disabled via BIOS and all startup apps have been disabled, I'm still seeing the gbe clkreq Active. *P2p connection via router Next step: To capture ETL log┬á ETL log From:┬áRosly, Nur Afiqah Farhah <nur.afiqah.farhah.rosly@intel.com> Sent:┬áTuesday, March 10, 2026 2:47 PM To:┬áMohd Zaki, Nadhirah <nadhirah.mohd.zaki@intel.co...
+----------------------------------------------------------------------------------------------------
+ID          : 14027775390
+Title       : [NVLHx_PTP_Low_Power] On NVL DRR feature not enabled by default impacting Power for BL KPI
+Status      : open
+Owner       : 
+Updated By  : ratnameh
+Updated Date: 2026-04-30 02:32:25.210
+Summary     : <p>On NVL DRR feature needs to be enabled since it benifits BL KPI&nbsp;</p><p><br /></p><p>Below data is for Teams and YT showing power benifits of Enabling DRR&nbsp;</p><p>Other KPI's showing benifits as well with enabling DRR&nbsp;</p><p><br /></p><p><br /></p><p><img src="https://hsdes.intel.com/rest/binary/14027775388" style="width: 1167px;" tabindex="-1" /></p><p><br /></p><p><img src="ht...
+----------------------------------------------------------------------------------------------------
+ID          : 14027727765
+Title       : [NVL-HX_PTP_Low_Power] VDDQ Voltage not going down with WW16p5 IFWI
+Status      : open
+Owner       : 
+Updated By  : ratnameh
+Updated Date: 2026-04-30 01:03:49.950
+Summary     : ++++14615361079 ratnameh
+Nik also confirmed with WW16.5 IFWI VDDQ voltage is not going down even though this setting is enabled in BIOS.┬á We tried fixing SAGV frequencies all WP To 3200 Gear 4 , VDDQ voltage didnt go down.┬á
+++++1566976756 tansooxi
+Found VDDQ at GV0 not restored after performing a cold reset (power cycle) and warm reset, when Fast Boot is enabled (Default setting) A workaround i...
+----------------------------------------------------------------------------------------------------
+ID          : 14027775399
+Title       : [NVLHx_PTP_Low_Power] On NVL 3.2M camera enabling needed for Teams and Team MEP compared to default 8M
+Status      : open
+Owner       : 
+Updated By  : ratnameh
+Updated Date: 2026-04-29 11:58:42.577
+Summary     : <div>Both PTL and NVL H/P will be using 8M camera in Teams &amp; Teams+MEP downscaled to 3.2M, this required driver support in PTL, need to enable the same for NVL SKUs&nbsp;</div><div>Running at 8M instead of 3.2M will cost ~70mw in Teams, if current Teams measurements with 8M</div>
+----------------------------------------------------------------------------------------------------
+ID          : 14027308736
+Title       : NVLHx_PTP_Low_Power] XHCI CLkreqs Observed to be Active
+Status      : open
+Owner       : foongwei
+Updated By  : foongwei
+Updated Date: 2026-04-28 16:21:16.273
+Summary     : ++++1566872403 foongwei
+Foong, Wei Jian Last updated on:┬áMonday, March 9, 202610:34:22 AM(36 minutes ago) id:┬á┬á1566872275Edit Please help to check eUSB2 phy state:┬ápcd.usb2phys.showsearch('eusb_state_','f')
+++++14615175344 ratnameh
+In [10]: pcd.usb2phys.showsearch('eusb_state_','f') dwc_eusb2_phy_4p_ns_top.dwc_eusb2_phy_4p_ns.cr_xcvr0_dig_ctl_eusb_state_jmp_dbg_in.eusb_state_jmp_dbg_en = 0x0 dw...
+----------------------------------------------------------------------------------------------------
+ID          : 15019278744
+Title       : [NVLHx_PTP_Low_Power] HD Audio disabled in bios blocking S0ix
+Status      : rejected
+Owner       : huiyingt
+Updated By  : zphan
+Updated Date: 2026-04-28 13:41:01.587
+Summary     : ++++1566927422 zphan
+Update: clockreq status for┬á Default settings┬á (HD Audio Enabled and SUT in MCS) HD Audio Disabled and SUT in MCS
+
+++++1566927423 zphan
+Unable to capture SoCWatch data on PCD active telemetry. The counters are not being read correctly and are reporting all zeros. This issue is observed when the HD Audio option is disabled in BIOS. With HD Audio disabled, SoCWatch fails to c...
+----------------------------------------------------------------------------------------------------
+ID          : 14026021102
+Title       : [No HW Fix FW WA][NVLS_i7_PTP_Low_Power] HW Counters not on retention when system enters Die C6
+Status      : complete
+Owner       : bkveera
+Updated By  : bajadeja
+Updated Date: 2026-04-28 05:30:02.380
+Summary     : ++++14614687168 bang6
+<p class="MsoNormal">These IO registers are in INF_ST domain, so the data should
+be retained. Here is a snapshot of FSDB showing the data is retained when
+INF_VNN Powergood is 0.<o:p></o:p></p>
+
+<p class="MsoNormal">Please help to update the sighting on which IO is having the
+issue.<o:p></o:p></p>
+
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+
+<p class="MsoNormal"><!--[if gt...
+----------------------------------------------------------------------------------------------------
+ID          : 22022389227
+Title       : [NVLHx_PTP_Low_Power] No power savings by enabling PHclk/Qclk spine gating
+Status      : open
+Owner       : 
+Updated By  : ratnameh
+Updated Date: 2026-04-27 05:50:27.500
+Summary     : ++++1363637657 hanidavi
+Hi, 1) Tested qclk spine gating enabled/disabled via PythonSV, using -┬á hub.mem.ddrphy.ddrphy_ddrcomp.ddrphy_ddrcomp.ddrpll_cr_txclockglobal_0_0_0_mchbar.enqclkgating Toggled enqclkgating, the system has only Wakeup0 enabled. Seeing 133mW for VccSA=0.79V. ┬á ┬á DDRPLL_CR_TXCLOCKGLOBAL_0_0_0_MCHBAR.enqclkgating ┬á 40C 25C ┬á Enabled Disabled Delta Enabled Disabled Delta P_VCC...
+----------------------------------------------------------------------------------------------------
+ID          : 14027752081
+Title       : NVLHx_PTP_Low_Power] Voltage on LP ECore vccatom not turning off for BL KPI
+Status      : open
+Owner       : 
+Updated By  : ratnameh
+Updated Date: 2026-04-25 13:14:26.460
+Summary     : <p>For NVL Hx BL KPI Voltage on LP E Core vccatom is not turning off , <span style="background-color: rgb(255, 255, 0);">pre-silicon assumes voltage on vccatom as 0</span> for BL KPI&nbsp;</p><p>Observed with IFWI WW17.5 SEP 0 USB2DBC Dis DAM En&nbsp;</p><p><br /></p><p>YT:&nbsp;</p><table width="279" style="width: 209pt; font-size: medium;"><colgroup><col width="211" style="width: 158pt;" /><c...
+----------------------------------------------------------------------------------------------------
+ID          : 14027340183
+Title       : [NVLS_i7_PTP_Low_Power] High MCP Power consumption on Short Idle
+Status      : open
+Owner       : jleow
+Updated By  : asanta2x
+Updated Date: 2026-04-25 06:22:17.717
+Summary     : ++++14615220631 jleow
+Triaged to IFWI. Confirmed Short Idle power recovered to 1.2W range when current IFWI is swapped with previous Dashboard IFWI (NVL_SR21_B0A0-ODCA_CPRF_SEP0_01F40518_2026WW06.4.01_PCode-24.3.10.0.bin). Need to isolate which IFWI component is causing regression in current IFWI (NVL_SR21_B0B0-ODCA_CPRF_SEP0_01F40518_2026WW09.2.04.bin).
+
+++++14615269701 jleow
+Observed up to 80...
+----------------------------------------------------------------------------------------------------
+ID          : 15019183783
+Title       : [NVL-S/HX_PTP_Low_Power] PCD-S and PCD-H FUSE/OSSEFUSE LDO in SENSE mode during MCS/S5 causes 10mW power adders [MCP C0 Fix]
+Status      : root_caused
+Owner       : ratnameh
+Updated By  : keegancr
+Updated Date: 2026-04-24 05:28:38.950
+Summary     : ++++14615226332 jleow
+PCD-S silicon measurement is in the ballpark of PCD-H.
+
+++++14615226352 ratnameh
+NVL S ┬á
+----------------------------------------------------------------------------------------------------
+ID          : 14027562280
+Title       : NVLHx_PTP_Low_Power] SaVoltage Spikes observed when running BL KPI
+Status      : open
+Owner       : ratnameh
+Updated By  : ratnameh
+Updated Date: 2026-04-21 10:35:25.750
+Summary     : ++++14615284158 ratnameh
+Next Steps:┬á Working to fix media freq and npu freq to see if voltage spikes drops .┬á
+
+++++14615284252 ratnameh
+PTL observed following (Right side blue trace) for YT based on trace sharbel provided┬á
+
+++++14615284283 ratnameh
+With Cstates disabled from BIOS voltage spikes are observed , Fixed hub frequency also to 1.5ghz -> voltage spikes are still observed┬á
+
+++++1461528...
+----------------------------------------------------------------------------------------------------
+ID          : 14027407749
+Title       : NVLHx_PTP_Low_Power] Observing Power consumption on GT rail with Catpult Browsing  where as expectation is just 16mw
+Status      : open
+Owner       : nkasmuri
+Updated By  : mohdzaki
+Updated Date: 2026-04-20 15:10:23.610
+Summary     : ++++14615273854 ratnameh
+++++1566915414 mohdzaki
+Have synced with Najihah, will provide 1 NVL Hx system+NIDAQ from PTP team to test on PG side.┬á
+
+++++1566923190 mohdzaki 
+Hi┬á@Ketineni, Hrushi K, According to Martini, the pre-sil P_VCCGT number for Netflix and Youtube4K are reported as 0. However, our current measurement is higher than these pre-sil projection. See table 1 below. 1. Should we ex...
+----------------------------------------------------------------------------------------------------
+ID          : 14027595966
+Title       : [NVL-HX_PTP_Low_Power] Observed IREM emission in parufsphy, parusb3phy, parpxpbmpphy when NVL PCD-H is in S0ix state
+Status      : rejected
+Owner       : ratnameh
+Updated By  : cchiam
+Updated Date: 2026-04-19 15:46:25.730
+Summary     : ++++14615301463 jleow
+From: Jiang, Jack Yueming <jack.yueming.jiang@intel.com> Sent: Wednesday, April 1, 2026 11:51 AM To: Mehta, Ratna <ratna.mehta@intel.com> Cc: Leow, Jit Shoee <jit.shoee.leow@intel.com>; Leow, Yee Siang <yee.siang.leow@intel.com> Subject: RE: NVL Hx PCD irem showing PHY emissions ┬á If you disable PG (set PGA register phycommonreg7.upcs_deep_pm_req =0 or use softstrap pg_mod...
+----------------------------------------------------------------------------------------------------
+ID          : 14027453668
+Title       : NVL-HX_PTP_Low_Power] MCS Infinite S0i2.2 not observed impacting MCS power
+Status      : rejected
+Owner       : kgoh8
+Updated By  : cchiam
+Updated Date: 2026-04-19 15:37:57.143
+Summary     : ++++14615236085 ratnameh
+WW 12 IFWI NVL Hx this issue is not seen. Need to check on multiple systems.┬á S0i2.2 is also achieved
+
+++++14615261239 ratnameh
+This needs to be debugged from ISH standpoint. On 2 systems we disabled ISH and all the noise was gone and MCS was achieved properly┬á┬á
+++++1566897105 kgoh8
+adding ISH expert ┬á@Leem, Yi Jie┬á
+
+++++1566924686 hooimiin
+The noise is not seen on HX B...
+----------------------------------------------------------------------------------------------------
+ID          : 14026605202
+Title       : [NVLS_i7_PTP_Low_Power] Power increase observed on PCH_P_VCCPGPPEFHK_3P3_1P8 by 3mw in MCS
+Status      : open
+Owner       : ratnameh
+Updated By  : fmendeza
+Updated Date: 2026-04-16 00:30:12.617
+Summary     : ++++14614893827 ratnameh
+Worked with Jonathan and Jesse on this. They recommended to try below. Will try and update the status here.┬á
+
+++++14614908352 ratnameh
+Tried following rework and didnt help improve power. So far Ps_ON disable only helps for power┬á
+
+++++14615006462 ratnameh
+Debug ongoing : Jonathan/ Jesse helping on this. Attempted to keep Sa_13 in GPIO mode but system is re-starting as ...
+----------------------------------------------------------------------------------------------------
+ID          : 15019229805
+Title       : [NVL_P_PTP_Low_Power] VCCORE power observed is higher than projections in Youtube 4K Streaming
+Status      : rejected
+Owner       : nhanif
+Updated By  : cchiam
+Updated Date: 2026-04-15 22:42:59.850
+Summary     : ++++1566905548 nhanif
+High P_VCCORE also was observed in Catapult Browsing. Post┬áΓÇï(mW) PreΓÇï (mW) (Post/Pre)ΓÇï P_VCCCORE┬á 97.64 28.87 3.38 Observed PC2 at 9.68% vs 0%. Low PC6.1 entry with 4.98% vs 16.85%. Low PC10.2 entry 0.5% vs 35.69%. Catapult Browsing @40CΓÇï ΓÇï Post┬áΓÇï(%) PreΓÇï (%) PkgC0 42.64 46.91 PkgC2 9.68 0 PkgC6.1 4.98 16.85 PkgC6.2 0.25 0.3 PkgC10.1 13.55 0.25 PkgC10.2 0.5 35.69 PkgC10.3 ...
+----------------------------------------------------------------------------------------------------
+ID          : 14027595368
+Title       : [NVL-H_PTP_Low_Power] OV08X40 camera failed to work on NVL-H system
+Status      : complete
+Owner       : nsulaima
+Updated By  : mohdzaki
+Updated Date: 2026-04-15 13:07:46.700
+Summary     : ++++1566914154 wchoe2
+┬á@Sulaiman, Nur Hidayah┬ácan you help to look into this please?
+
+++++1566918682 cchiam
+Summary (Key Discussion Points) Primary issue: Customer/PnP observed blank/grey screen and yellow bang in Device Manager when bringing up IPU camera on NVLΓÇæH / NVLΓÇæHx platforms, tracked under HSD 14027595368 Camera configuration misalignment: There is misalignment between PnP / customer c...
+----------------------------------------------------------------------------------------------------
+ID          : 22022038440
+Title       : NVLHx_PTP_Low_Power] Youtube workload scheduling observed across all the cores
+Status      : complete
+Owner       : ratnameh
+Updated By  : cchiam
+Updated Date: 2026-04-15 08:06:33.270
+Summary     : ++++22611729956 ratnameh
+Today working with Chris and Barak : PPM baseline comes from ARL Hx. For DC BPE as per PPM Dump CPMinScore is programmed to 4 and hetero increase threshold is 130 Barak gave the BKM to program CPMinScore to 15 and also change hetero inc/dec threshold to 200 to see if workload can be contained on Hub Atoms for DC BPE config┬á PPM Dump captured in IDON state: "\\amr.corp.i...
+----------------------------------------------------------------------------------------------------
+ID          : 14026486014
+Title       : [NVLS_i7_PTP_Low_Power] VCCSA power is higher compared to projections across PKG Cstates
+Status      : open
+Owner       : ratnameh
+Updated By  : jleow
+Updated Date: 2026-04-14 13:38:21.320
+Summary     : ++++14614839003 ratnameh
+Debug ongoing. will update all the experiments done so far┬á
+++++22611613724 ratnameh
+Checked all SA PG Status , PLL Status, Last Wake status through Tap registers -> Nothing is standing out yet.┬á With latest IFWI Floor power is achieved across PKG Cstates┬á There is huge current swing on VCSSA which is observed even when we halt system at FSM BOOT_FSM_IS_DOWN , capturing...
+----------------------------------------------------------------------------------------------------
+ID          : 14027308704
+Title       : NVLHx_PTP_Low_Power] CSME Clkreqs staying Active which was not observed on NVL S
+Status      : rejected
+Owner       : tfriedm1
+Updated By  : ravigiri
+Updated Date: 2026-04-14 01:57:09.543
+Summary     : ++++1566921495 cchiam
+Does this issues still reproducible?
+++++14615325846 jleow 
+*_clkreq_1 is no longer active in newer BKC. *_clkreq_4 is still active. This HSD can be merged to┬á14027064859┬á[NVL-H_PTP_Low_Power] CLKREQ "csmeb_csmeb_cm_roslow_clkreq_4" active when system is in S0i2.1 state.
+----------------------------------------------------------------------------------------------------
+ID          : 14027518830
+Title       : [NVL-HX_PTP_Low_Power] PC10.3 AON power impacted due to clkreqs staying Active
+Status      : rejected
+Owner       : kgoh8
+Updated By  : jleow
+Updated Date: 2026-04-14 01:41:42.323
+Summary     : <p>In 10.3 below clkreqs are observed to be active mainly impacting vnnaon power by ~10mw . Some of the clkreqs like GBE parXHCI are not expected to be active in 10.3 with S0ix disabled&nbsp;</p><p><br /></p><p><img src="https://hsdes.intel.com/rest/binary/14027518829" style="width: 100%;" tabindex="-1" data-processed="true" /><br /></p>
+----------------------------------------------------------------------------------------------------
+ID          : 14027537195
+Title       : NVLHx_PTP_Low_Power] PC0 residencies are higher for BL KPI
+Status      : open
+Owner       : limchink
+Updated By  : ratnameh
+Updated Date: 2026-04-13 23:43:56.253
+Summary     : ++++14615274949 ratnameh
+Socwatch attached. Working with Mike further on this┬á
+
+++++14615275044 ratnameh
+For netflix ACPI isPackage C-State (OS) Summary: Residency (Percentage and Time) C-State CPU/Package_0 Residency (%) ------- --------------------------- ACPI C0 53.78 ACPI C1 0.96 ACPI C2 2.07 ACPI C3 43.19 So need to debug from pcode as well as OS side.┬á
+++++1566921510 cchiam
+Can we have IF...
+----------------------------------------------------------------------------------------------------
+ID          : 14027432226
+Title       : [NVL-HX_PTP_Low_Power] Observed 15mW savings on MCP VNNAON and VCCIO when RTC PLL is forced off
+Status      : open
+Owner       : jleow
+Updated By  : cchiam
+Updated Date: 2026-04-13 23:25:29.340
+Summary     : ++++14615226656 jleow
+Setting up TLA to probe visa.
+++++1566921504 cchiam
+Any update the TLA capture analyze?
+----------------------------------------------------------------------------------------------------
+ID          : 14027115826
+Title       : NVLHx_PTP_Low_Power] SA Voltage higher by ~40mv in Deeper PKG Cstates compared to PC0
+Status      : open
+Owner       : sandeshs
+Updated By  : cchiam
+Updated Date: 2026-04-13 23:13:11.987
+Summary     : ++++14615101880 ratnameh
+Sandesh is looking further w.r.t what all changes w.r.t GFX went in which is leading to this behavior.┬á
+++++1566887330 cchiam
+ANy update on this ?
+++++14615224627 ratnameh
+We will resume debug on this. Will ask pooja to work with sandesh to make progress on this debug┬á
+++++22611821163 poojagop
+Updating with latest results
+++++1566921492 cchiam
+Do we have the last IFWI t...
+----------------------------------------------------------------------------------------------------
+ID          : 22022068789
+Title       : [NVL-HX_PTP_Low_Power] Idle Display On MCP power with WiFi connected to Access Point is significantly higher than when WiFi is not connected to Access Point
+Status      : rejected
+Owner       : cheemunt
+Updated By  : ravigiri
+Updated Date: 2026-04-13 14:12:37.130
+Summary     : ++++22611751644 jleow
+Captured a few ETLs for further analysis: \\amr.corp.intel.com\ec\proj\sv\Debug\PowerOn\NVL_Hx\Early_Drop\IFWI_NVL_Hx_A1A0_PP_Release_2026WW02.5.01\RVP4
+++++1566837058 cheemunt
+Hi ┬á@Leow, Jit Shoee┬á, ┬á Can you provide the table on the range for MCP Power expected for the WiFi Connected and disconnected? Also the SoCWatch for CNVi telemetry, and the PLL power as similar as ...
+----------------------------------------------------------------------------------------------------
+ID          : 22021542277
+Title       : [NVLS_i7_PTP_Low_Power] OS not loading with ES1 unit (With Cdie D2D freq 4Ghz)
+Status      : complete
+Owner       : vchalla
+Updated By  : kooi16
+Updated Date: 2026-04-13 05:32:23.687
+Summary     : ++++22611451108 lmnguye5
+I'm seeing the same issue on the latest IFWI 36.2.01. on L28Z and L1BA but not on L18V units. Loc N.
+++++14614586361 vchalla
+┬á@Mehta, Ratna┬á ┬á@Nguyen, Loc M┬á Can i have one platform with this ? What is the failing signature ?
+
+++++14614588743 llazard
+also seen on other ES1 part: | Field┬á┬á┬á | Value┬á┬á┬á┬á┬á┬á┬á┬á | |----------|---------------| | Project┬á | nvlsi7┬á┬á┬á┬á┬á┬á┬á | | VID...
+----------------------------------------------------------------------------------------------------
+ID          : 14027479425
+Title       : [NVL-HX_PTP_Low_Power] Measured MCP power is 3x higher than pre-silicon projection in Busy Idle workload
+Status      : rejected
+Owner       : jleow
+Updated By  : ravigiri
+Updated Date: 2026-04-03 06:37:40.467
+Summary     : ++++14615247906 jleow
+MCP Power dropped significantly after switching New Outlook to Classic Outlook.
+----------------------------------------------------------------------------------------------------
+ID          : 14027308676
+Title       : NVLHx_PTP_Low_Power] Regression introduced starting WW 4.2.2 IFWI impacting PKG Cstate / MCS Power
+Status      : rejected
+Owner       : tfriedm1
+Updated By  : ravigiri
+Updated Date: 2026-04-03 05:44:17.137
+Summary     : ++++1566872275 foongwei
+Please help to check eUSB2 phy state:┬ápcd.usb2phys.showsearch('eusb_state_','f')
+++++14615173934 ratnameh
+Part of the regression is introduced from CSME 1032.┬á WW4.1.1 IFWI regression was not seen and it has CSMW 1023┬á WW 4.1.1 IFWI + CSME 1032 -> Power increased┬á
+
+++++14615175345 ratnameh
+In [10]: pcd.usb2phys.showsearch('eusb_state_','f') dwc_eusb2_phy_4p_ns_top.dwc_eu...
+----------------------------------------------------------------------------------------------------
+ID          : 14026614464
+Title       : NVLS_i7_PTP_Low_Power] o_isclk_ref_ldo_valid is High in S5 state and MCS state
+Status      : root_caused
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-04-03 00:51:47.747
+Summary     : ++++14614898342 ratnameh
+Ashwin is looking into this from PMC side and parth from isclk side┬á Power impact with Force Off ref ldo -> WIP Need to re-check power┬á
+
+++++14614913523 jjlee3
+ISCLK will not return force on ack for PHY OC if in non-OC config (which is OEM CI configurable). Need to ensure CI will keep the PHY OC PLL forced off in these scenarios.┬á Test CI provided Ratna to try.┬á
+
+++++14...
+----------------------------------------------------------------------------------------------------
+ID          : 14027562206
+Title       : NVLHx_PTP_Low_Power] Youtube frames dropping
+Status      : open
+Owner       : 
+Updated By  : ratnameh
+Updated Date: 2026-04-02 04:02:30.447
+Summary     : ++++14615284132 ratnameh
+Currently filing this for vt.platform. If this needs to be changed let us know┬á Prathvi is helping us here.┬á "\\amr\ec\proj\sv\FV\Users\ratnameh\Ratna\NVLHx_BLKPI\mytrace_YT_framesdropped.etl" He recommended to try programming CPmincores to 14 but the programming is not going through. Working with him offline on this┬á
+----------------------------------------------------------------------------------------------------
+ID          : 14025920586
+Title       : [NVLS_i7_PTP_Low_Power] DMI and PXP PHY clkreq are active in Sx state [No Si Fix]
+Status      : complete
+Owner       : jleow
+Updated By  : jleow
+Updated Date: 2026-03-27 04:43:26.887
+Summary     : ++++14614635161 yho6
+need to check of the LDO widget clock gating enable is programmed.┬á It should be set to 1 for widget to drop its clkreq┬á 19 RW 0 CFG_DYNAMIC_CLK_GATING_DISABLE_B 0 - Widget clock will not be gated. Widget clock req will always be asserted. 1 - Widget clock will be dynamically gated.The wire into the widget cannot be double-synced.
+
+++++14614635645 ratnameh
+┬á@Ho, Darren Yick...
+----------------------------------------------------------------------------------------------------
+ID          : 14027059271
+Title       : NVLHx_PTP_Low_Power] Regression of ~6mw observed in MCS from WW 2p5IFWI to WW5p5IFWI
+Status      : rejected
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-03-26 01:52:50.187
+Summary     : ++++14615101895 ratnameh
+Kevin is working to reproduce this on 2nd NVL Hx system┬á
+
+++++14615236088 ratnameh
+With latest IFWI not observing this , need to verify on other systems┬á
+
+++++14615260982 ratnameh
+This can be closed. After fixing usb2phy clkreq issue and Port 8 dis power came down┬á
+----------------------------------------------------------------------------------------------------
+ID          : 14026417773
+Title       : [NVLS_i7_PTP_Low_Power] MCP V1p8A rail is measuring higher than projection in MCS and Sx state
+Status      : root_caused
+Owner       : jleow
+Updated By  : ravigiri
+Updated Date: 2026-03-25 03:02:23.337
+Summary     : ++++14614837771 jleow
+Latest finding: Observed MCP V1p8A dropped from 59mW to 23mW between the following IFWI: NVL_SR21_A0A0-ODCA_CPRF_SEP0_01F40518_2025WW45.4.01 ==>┬áNVL_SR21_A0A0-ODCA_CPRF_SEP0_01F40518_2025WW46.4.01. List of changes between these two IFWIs are listed below + attachment(NVL-S EFWI CCB 2025_47_1.msg). Current gap: In MCS, MCP V1p8 measuring 59mW┬á23mW vs 7mW projection ==> 16mW...
+----------------------------------------------------------------------------------------------------
+ID          : 22021884910
+Title       : [NVL-HX_PTP_Low_Power] Observed WIFI disconnection from Access Point
+Status      : complete
+Owner       : cheemunt
+Updated By  : ravigiri
+Updated Date: 2026-03-25 02:06:28.610
+Summary     : ++++1566725680 cheemunt
+System Config :- PG16WVAW6704 (A1, S0ix, CONS) IFWI Silicon NVL_HR41_A1A0-ODCA_CPRF_SED0_015F0418_2025WW47.4.01_v100_b2490_ec10_7012_S0ix_Ibecc_en_Crashlog_dis IFWI IOE NVL_HR11_HXA2-PCDP_CPRF_NNNN_005F0008_2025WW47.4.01_PMC1027.bin Module WhP2533.9 QS (99CH6Z) Image ICS_RELEASE_1821_26200.7019.rx64.ent_FRE_IA-64_NVL-HX-CONS-25.48.2.287-25H2_WIM1.wim (43388) WiFi Driver ...
+----------------------------------------------------------------------------------------------------
+ID          : 14026473385
+Title       : [NVLS_i7_PTP_Low_Power] FUSE DRNG is not getting power gated in PKG CState 10.3, 10.2, 10.1
+Status      : complete
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-03-21 03:08:47.357
+Summary     : ++++14614832647 ratnameh
+Abhijit is helping on this issue.┬á
+++++22611587779 amaleth 
+The below signals imply that gated_fet_ack_b is 1 which means that the FSM might be stuck waiting on the ack. The ack value is supposed to match the fet_en_b value during powerup and powerdown. hub.taps.cltap.ijtag_0x30.par_punit.punit.punit_inf_st_top_punit_inf_st_ijtag.ip_fet_en_b_ijtag_status.fuse_drng = 0x0...
+----------------------------------------------------------------------------------------------------
+ID          : 14026985280
+Title       : NVL-HX_PTP_Low_Power] USB2PHY clkreqs observed active in MCS preventing S0i2.2 entry
+Status      : complete
+Owner       : foongwei
+Updated By  : ratnameh
+Updated Date: 2026-03-20 14:25:49.517
+Summary     : ++++1566835436 foongwei
+Hi┬á@Shah, Rishi Chetan, I got to know from Eric that you are the PGA owner. ┬á PNP Team reported issue on NVLHX where they observed the eusb2pga clk_req below staying ACTIVE in Modern Connected Standby (MCS) that raises power consumption concern. HSD: https://hsdes.intel.com/appstore/article-one/#/14026985280 ┬á how do we know if those clkreq are expected to be ACTIVE in M...
+----------------------------------------------------------------------------------------------------
+ID          : 14027115602
+Title       : NVLHx_PTP_Low_Power] IOC IP in Retention mode in PKGC6.1 6.2 , Expected to be Off
+Status      : rejected
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-03-20 13:51:19.570
+Summary     : ++++14615101865 ratnameh 
+Disabling partial sleep for IOC SA PG FSM status shows to be in Retention mode┬á hub.fuses.load_fuse_ram() hub.fuses.punit.punit_fw_fuses_disable_ioc_partial_sleep = 0x1 hub.fuses.punit.punit_fw_fuses_disable_iocce_partial_sleep = 0x1 hub.fuses.punit.punit_fw_fuses_disable_ivtu_partial_sleep = 0x1 hub.fuses.flush_fuse_ram() Working with Abhijit further on this┬á
+++++1566...
+----------------------------------------------------------------------------------------------------
+ID          : 14027059381
+Title       : NVLHx_PTP_Low_Power] GPIO COM4 Emissions high in MCS
+Status      : rejected
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-03-20 13:51:09.570
+Summary     : ++++14615160508 kwoo1
+Within the gpio com4 group the vccprim_1p8 power savings came from these set of GPIOs. o pcd.gpio.com4.sb.gpio_mem_4.pad_cfg_dw0_xxgpp_s_0┬á o pcd.gpio.com4.sb.gpio_mem_4.pad_cfg_dw0_xxgpp_s_1┬á o pcd.gpio.com4.sb.gpio_mem_4.pad_cfg_dw0_xxgpp_s_2┬á o pcd.gpio.com4.sb.gpio_mem_4.pad_cfg_dw0_xxgpp_s_3┬á Here is table a with the vccprim_1p8 power measurements after tri-stating di...
+----------------------------------------------------------------------------------------------------
+ID          : 14026487503
+Title       : [NVLS_i7_PTP_Low_Power] VNNAON power is higher compared to projections across PKG Cstates
+Status      : rejected
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-03-20 13:50:55.487
+Summary     : ++++14614840191 ratnameh
+Debug Ongoing. As of now trying to isolate with board team w.r.t floor power going high after S-05 rework and socwatch capture WIP to review with Justin. Will update soon all the experiments done so far.
+++++22611613725 ratnameh
+Capturing socwatch for PCD IP Active but data doesnt seem to be accurate so trying to capture with latest SOCC FW.┬á
+++++14614880251 jleow
+ww50....
+----------------------------------------------------------------------------------------------------
+ID          : 22021870457
+Title       : [NVLS_i7_PTP_Low_Power] VCCIO power is higher compared to projections across PKG Cstates
+Status      : rejected
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-03-20 13:36:55.233
+Summary     : ++++22611613727 ratnameh
+Have taken DTS register dumps with registers provided by DTS design team in PKG Cstate and review ongoing to check whether it is expected or not.┬á
+++++14614881156 ratnameh
+Mike Mallen helped with a patch with dfx knobs to control gating / Shutdown of CRO/ XTAL in 6.2 state based on the data it is indicating PCD XTAL consuming power.┬á Working further to confirm power is ...
+----------------------------------------------------------------------------------------------------
+ID          : 14025819106
+Title       : [NVLS_i7_PTP_Low_Power] PCH measured floor power is higher than projection in Sx state
+Status      : complete
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-03-20 08:22:42.887
+Summary     : ++++14614563875 ratnameh
+sub-forum is not entered yet.┬á WIP to isolate further which domain is leading to high power.┬á Next steps: Tristate GPIO , re-take clkreq status in Sx state for further isolation.┬á
+
+++++14614589462 hpshah1
+Since this is not a pre-sighting please post the Rail level power and Residency data to this HSD and update any further progress┬á
+
+++++14614623894 hpshah1
+Can we get l...
+----------------------------------------------------------------------------------------------------
+ID          : 22021638359
+Title       : [NVLS_i7_PTP_Low_Power] Regression on VCCSA Rail ~50mw observed on pcode 24.1.8.2 compared to 24.1.6.3
+Status      : open
+Owner       : ratnameh
+Updated By  : ratnameh
+Updated Date: 2026-03-20 06:03:43.297
+Summary     : ++++14614700404 ratnameh
+Based on initial debug Travis mentioned that atom freq is impacting voltage. Still WIP to check voltage of each SA Ip's impacting voltage. Regression introduced in 24.1.8.2 , 24.1.7.2 looked fine┬á
+++++22611526719 ratnameh
+Suspect on change that went in the release w.r.t interprolation. Rohit built the patch but that didnt help with VCCSA Voltage. He is re-checking his b...
+----------------------------------------------------------------------------------------------------
+ID          : 14027029262
+Title       : NVLHx_PTP_Low_Power] With Audio Disable not able to achieve S0ix.y
+Status      : rejected
+Owner       : sbalasun
+Updated By  : cchiam
+Updated Date: 2026-03-18 08:59:36.657
+Summary     : ++++22611756453 kgoh8
+┬á ┬á ┬á Regards ┬á SUNNY GOH ┬á
+++++1566862316 cchiam
+any update on this?
+
+++++1566887039 cchiam
+No update from 2 weeks, please contact if the issues still needed or re-open a new one┬á
+----------------------------------------------------------------------------------------------------
+ID          : 22021547012
+Title       : [NVLS_i7_PTP_Low_Power] Idle Display ON PkgC10.1 Residency is lower than 80% due to incorrect Display LTR value
+Status      : complete
+Owner       : ratnameh
+Updated By  : jjlee3
+Updated Date: 2026-03-16 22:23:21.177
+Summary     : ++++14614601190 ratnameh
+Working with Xhino , recommendation is to capture WPA trace to understand which thread/ process is busy keeping hub atom Active┬á
+
+++++14614624093 ratnameh
+Attaching ETL.┬á
+
+++++14614624745 hpshah1
+Lets double check our setup.┬á based on the first trace i think looks like there is a Vendor ID/ Device ID with Ethernet connection using 100% of the time. can we try experiment...
+----------------------------------------------------------------------------------------------------
+ID          : 22022029707
+Title       : NVLS_i7_PTP_Low_Power] Forcing OFF RTC PLL is showing 3mw savings on VCCIO and as per pre-silicon RTC PLL comsumption should be few microwatts only
+Status      : root_caused
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-03-16 05:54:32.770
+Summary     : ++++22611723719 ratnameh
+Next Steps:┬á Scan dump on NVL S and NVL Hx in MCS┬á Using PMC patch which forces RTC PLL off, do register overrides to keep BG Ref valid high┬á Power assessment using PMC patch from KC which will help keep RTC PLL Forced On in MCS┬á
+
+++++22611723898 ratnameh
+Liying had a sync with satya and Ram, summary: NVL S MCS BG cannot turn off and it is actually sourced from RTC PLL....
+----------------------------------------------------------------------------------------------------
+ID          : 15019163143
+Title       : [NVLP_PTP_Low_Power] USB Clkreq staying Active
+Status      : rejected
+Owner       : nhanif
+Updated By  : ravigiri
+Updated Date: 2026-03-15 15:12:05.750
+Summary     : ++++22611806849 ravigiri
+Merged to NVL-Hx HSD:┬áhttps://hsdes.intel.com/appstore/article-one/#/article/14027308736. Please add all affected products over there, we do not need new sighting per product.┬á
+----------------------------------------------------------------------------------------------------
+ID          : 15019162804
+Title       : [NVLP_PTP_Low_Power] GBE Clkreq staying Active
+Status      : rejected
+Owner       : nhanif
+Updated By  : ravigiri
+Updated Date: 2026-03-15 15:07:25.317
+Summary     : ++++22611806845 ravigiri
+Merged to┬áhttps://hsdes.intel.com/appstore/article-one/#/article/14027308711. All affected products can be added in the original HSD.┬á
+----------------------------------------------------------------------------------------------------
+ID          : 15019107051
+Title       : NVLHxB0_PTP_Low_Power] Error while running Netflix using Microsoft Edge + Wifi Connection
+Status      : open
+Owner       : nkasmuri
+Updated By  : jleow
+Updated Date: 2026-03-14 01:50:46.293
+Summary     : ++++1566862747 amrann
+Unable to repro with dynamic unit. Netflix able to run using Microsoft Edge.┬á System config :┬á Unit QDF : L2LA IFWI :┬áNVL_HR45_B0A0-ODCA_CPRF_SED0_01DF0418_2026WW09.1.01_Dynamic.bin WIM :┬áNVL-HX-CONS-26.06.5.139
+++++14615138923 opfelici
+Also seeing the same issue in the FM and GDC system.┬á I have tried several accounts (7 total accounts) and 3 different systems and all see...
+----------------------------------------------------------------------------------------------------
+ID          : 14027115423
+Title       : NVLHx_PTP_Low_Power] HUB_LC12 HUB_LC16 PLL found active across PKG Cstates.
+Status      : rejected
+Owner       : laushuny
+Updated By  : ratnameh
+Updated Date: 2026-03-13 23:55:28.170
+Summary     : ++++14615101836 ratnameh
+I did have a conversation with both Michael and didnt come to conclusion. Need help from memory team what changes went through which is keeping these 2 PLL's ON and if there is a way to force OFF using which we can assess power impact┬á
+
+++++14615194056 ratnameh
+On NVL Hx with WW 4.1.1 IFWI we do not see this PLL to be active┬á ┬áHUB_LC12┬á ┬á ┬á ┬á ┬á ┬á ┬á| False┬á ┬á ┬á| False┬á ┬á...
+----------------------------------------------------------------------------------------------------
+ID          : 14026877543
+Title       : [NVLS_i7_PTP_Low_Power] PCH DSW rail is ~240uW higher than projection in DeepSx state
+Status      : root_caused
+Owner       : jleow
+Updated By  : jjlee3
+Updated Date: 2026-03-13 01:32:03.450
+Summary     : ++++14614985745 jleow
+Captured IREM and shared with design team. Pending design confirmation on DSW_LDO and GPCOM2 emission in DeepSx state.
+++++1566844373 jleow
+This can be closed. Pre-Sil projection did not include Bias Circuit power adder. Based on IREM emission and correlation with design team expectation, bias circuit is expected to have some power adder. Original projection for DeepSx = 6...
+----------------------------------------------------------------------------------------------------
+ID          : 14026842285
+Title       : [NVLS_i7_PTP_Low_Power] VCC1p8 power not meeting projections for PKG Cstates and not meeting expectations from 28c to 52C
+Status      : open
+Owner       : ratnameh
+Updated By  : jleow
+Updated Date: 2026-03-12 00:55:50.457
+Summary     : ++++14614970962 ratnameh
+As per Rama this sighting needs to be showstopper.┬á
+
+++++14615006471 ratnameh
+DLVR team requesting to get data from 1 more 52c unit to ensure observation is consistent. Will start working on it in a day or so┬á
+
+++++14615111413 ratnameh
+Starting PMC FW 1030 D2D PLL will stay ON in 6.1 and 10.1 impacting vcc1p8 power by ~3mw in 6.1 and 10.1┬á
+
+++++14615194589 jleow
+Multipl...
+----------------------------------------------------------------------------------------------------
+ID          : 14027059325
+Title       : NVLHx_PTP_Low_Power] PKGC10.1 residency not observed for YT 4k
+Status      : rejected
+Owner       : ratnameh
+Updated By  : jleow
+Updated Date: 2026-03-12 00:45:51.360
+Summary     : ++++14615085438 ratnameh
+This issue is recently seen where 10.1 residency is not observed for YT. Working further to isolate what is blocking 10.1 residency with mike and also testing on lower resolutions if 10.1 is achieved.┬á
+
+++++14615101891 ratnameh
+Working to isolate between WW 2 wim and latest wim since at somepoint with WW 2 wim we did observe 10.1 Residency for YT┬á
+
+++++14615173846 ratna...
+----------------------------------------------------------------------------------------------------
+ID          : 14027029871
+Title       : NVL-HX_PTP_Low_Power] PKGC Latency values updates for NVL Hx, tuning checks with Youtube KPI and IDLE
+Status      : root_caused
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-03-07 07:05:11.657
+Summary     : ++++22611755579 mfmallen
+Currently -Hx and -S platforms both use the same PkgC latency constants and have the same LTR thresholds and display watermarks Current post-si measurements are showing lower latencies for Hx. This is due to the faster VR ramp rates on mobile platforms To address this discrepancy, the following pmfw was created with the changes in HSD┬á 22021977842 - Pcode needs to dynam...
+----------------------------------------------------------------------------------------------------
+ID          : 14027114192
+Title       : NVLHx_PTP_Low_Power] NVL Hx INF_VNN not turning off in 10.1
+Status      : rejected
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-03-06 14:18:48.503
+Summary     : ++++14615152601 ratnameh
+This can be closed. We did force on inf_vnn on 10.1 and power increased that indicated inf_vnn is turning off┬á
+----------------------------------------------------------------------------------------------------
+ID          : 14027162669
+Title       : NVLHx_PTP_Low_Power] With iGFX Disable Observing ~20mw savings in PKGC 6.1 10.1
+Status      : rejected
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-03-05 09:20:48.520
+Summary     : ++++1566860238 cchiam
+GT disable is not the POR configuration for Hx / Mobile
+++++14615133345 ratnameh
+Agree GT disable is not a POR config but we do IP disable experiment to check IP en vs IP dis power for the state is the same. This indicates that something could be going with igfx leading to higher power in igfx en vs igfx dis.┬á
+
+++++14615133630 ratnameh
+This is potentially due to GCD bug wh...
+----------------------------------------------------------------------------------------------------
+ID          : 14026555064
+Title       : [NVL-HX_PTP_Low_Power] Observed negative current VCCCORE and VCC_LP_ECORE and VCCSA when system is in Idle
+Status      : open
+Owner       : 
+Updated By  : jleow
+Updated Date: 2026-02-17 21:56:49.380
+Summary     : ++++14614871719 jleow
+ww49.4: Met with Rama and Abu Sarker (board). The feedback is due to inductor effect along sense resistor path. The suggestion is to check with low pass filter on these rails.
+++++22611623137 nklein2
+Hi, Could you please provide a single ended active probe scope trace + FFT of one of the phases of VCCCore? Do we have a recommendation also on possible resolution for the iss...
+----------------------------------------------------------------------------------------------------
+ID          : 22022050566
+Title       : [NVL-Hx][LP5-RVP043][A1+PCH-IOE][PLatformPnP]Idle Display ON - MCP and PCH powers not meeting Alpha target
+Status      : rejected
+Owner       : jleow
+Updated By  : ravigiri
+Updated Date: 2026-02-12 08:45:19.677
+Summary     : ++++14615061962 ravigiri
+Moving to pre-sighting - it only captures the observation at this point, need debug information.
+++++1566839057 nchee
+User Ravi, Giridhar needs more time in Presighting. On Hold
+++++14615080900 ravigiri
+These are 10,000 feet sightings which will result in 20-30 debug issues with concrete findings all through the program till PRQ. This is very generic to keep it open.
+----------------------------------------------------------------------------------------------------
+ID          : 22022050553
+Title       : [NVL-Hx][LP5-RVP043][A1+PCH-IOE][PLatformPnP] Teams3x3 - MCP and PCH powers not meeting Alpha target
+Status      : rejected
+Owner       : jleow
+Updated By  : ravigiri
+Updated Date: 2026-02-12 08:45:06.753
+Summary     : ++++22611739717 sys_bugastpd
+<p>Consolidated <a href="https://bugassist.intel.com/#/debugview/16029676559" target="_blank" style="font-size: larger; font-weight: bold; color: blue;">Sighting and Debug insights</a></p>
+
+++++22611739718 hnphan
+<p>Using latest QDF=L15H and BKC ww04.5 25H2, MCP=4.293W and PCH=0.146W</p><p>for MEP MCP=8.692 and PCH=0.127W</p>
+++++14615061960 ravigiri
+Moving to pre-s...
+----------------------------------------------------------------------------------------------------
+ID          : 22022050544
+Title       : [NVL-Hx][LP5-RVP043][A1+PCH-IOE][PLatformPnP]Youtube 4K - MCP and PCH powers not meeting Alpha target
+Status      : rejected
+Owner       : jleow
+Updated By  : ravigiri
+Updated Date: 2026-02-12 08:44:54.963
+Summary     : ++++22611739704 sys_bugastpd
+<p>Consolidated <a href="https://bugassist.intel.com/#/debugview/16029676587" target="_blank" style="font-size: larger; font-weight: bold; color: blue;">Sighting and Debug insights</a></p>
+
+++++22611739705 hnphan
+Using latest QDF=L15H and BKCww04.5 25H2, MCP=2.386W and PCH=0.177W
+
+++++22611739706 hnphan
+Automated Message: This record has been cloned. The preceding c...
+----------------------------------------------------------------------------------------------------
+ID          : 22022050441
+Title       : [NVL-Hx][LP5-RVP043][A1+PCH-IOE][PLatformPnP]BusyIdle - MCP and PCH powers not meeting Alpha target
+Status      : rejected
+Owner       : jleow
+Updated By  : ravigiri
+Updated Date: 2026-02-12 08:44:41.313
+Summary     : ++++14615061965 ravigiri
+Moving to pre-sighting - it only captures the observation at this point, need debug information.
+++++1566839054 nchee
+User Ravi, Giridhar needs more time in Presighting. On Hold
+++++14615080897 ravigiri
+These are 10,000 feet sightings which will result in 20-30 debug issues with concrete findings all through the program till PRQ. This is very generic to keep it open.
+----------------------------------------------------------------------------------------------------
+ID          : 22022050421
+Title       : [NVL-Hx][LP5-RVP043][A1+PCH-IOE][PLatformPnP]Netflix - MCP and PCH powers not meeting Alpha target
+Status      : rejected
+Owner       : jleow
+Updated By  : ravigiri
+Updated Date: 2026-02-12 08:44:24.570
+Summary     : ++++14615061967 ravigiri
+Moving to pre-sighting - it only captures the observation at this point, need debug information.
+++++1566839053 nchee
+User Ravi, Giridhar needs more time in Presighting. On Hold
+++++14615080895 ravigiri
+These are 10,000 feet sightings which will result in 20-30 debug issues with concrete findings all through the program till PRQ. This is very generic to keep it open.
+----------------------------------------------------------------------------------------------------
+ID          : 22022042977
+Title       : [NVL-Hx][LP5-RVP043][A1+PCH-IOE][PLatformPnP]MCS - MCP and PCH powers not meeting Alpha target
+Status      : rejected
+Owner       : jleow
+Updated By  : ravigiri
+Updated Date: 2026-02-12 08:44:04.250
+Summary     : ++++14615061969 ravigiri
+Moving to pre-sighting - it only captures the observation at this point, need debug information.
+++++1566839023 nchee
+Discuss with Owner. Promoted to sighting attn PnP.
+
+++++1566839052 nchee
+User Ravi, Giridhar needs more time in Presighting. On Hold
+++++14615080891 ravigiri
+These are 10,000 feet sightings which will result in 20-30 debug issues with concrete findings a...
+----------------------------------------------------------------------------------------------------
+ID          : 14025808695
+Title       : [NVLS_i7_PTP_Low_Power] High power on GPIO rails VCCPGPPEFHK and VCCPGPPBC
+Status      : complete
+Owner       : ratnameh
+Updated By  : jjlee3
+Updated Date: 2026-01-28 08:45:52.617
+Summary     : ++++14614560097 jleow
+Hi Simon, ┬á Yes we removed debug devices like XDP or usb2dbc completely from the platform and no power savings were observed on these rails. Hence we need your suggestions here w.r.t what we can do to help bring power down on these 2 rails. ┬á Thanks, Ratna ┬á From: Yuan, Simon1 <simon1.yuan@intel.com> Sent: Sunday, August 24, 2025 8:35 PM To: Mehta, Ratna <ratna.mehta@intel...
+----------------------------------------------------------------------------------------------------
+ID          : 13013966579
+Title       : [NVLS_i7_PTP_Low_Power] Wakes ~10msec observed on MCP VNNAON in Sx as well as MCS
+Status      : rejected
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-01-27 05:04:12.807
+Summary     : ++++1363450580 ratnameh 
+Based on initial discussion with Justin Madigan following experiments were defined to see if wake interval gets reduced┬á but none of them is helping┬á Thermal wake -> Disable din S0ix but should check PMC FW to disable wake Increase polling rate -> Thermal register Justin┬á spec 16_02 thermal TRPTFRQ.TRPTFRQ_NON_PUNIT DMI W/A? TRPTFRQ.TRPTFRQ_PUNIT Override fuse: Polling ...
+----------------------------------------------------------------------------------------------------
+ID          : 14026258238
+Title       : [NVLS_i7_PTP_Low_Power] OSSE IP is in D0 100%
+Status      : rejected
+Owner       : ratnameh
+Updated By  : jaegling
+Updated Date: 2026-01-23 05:31:46.560
+Summary     : ++++14614795236 ratnameh 
+As per Justin this is unexpected and expectation is OSSE needs to be in D3. Tanno-San has recommended to capture PCD OSSE FW trace where we need to start the trace at platform bootstall -> It is WIP.┬á
+
+
+++++14614796814 ratnameh
+Siva helped with capturing Power trace for pcd bootstall to S0ix. WIP to review capture with Tanno-San┬á \\amr.corp.intel.com\ec\proj\sv\Debug\P...
+----------------------------------------------------------------------------------------------------
+ID          : 14026258564
+Title       : [NVLS_i7_PTP_Low_Power] MCS power observed is higher then projections
+Status      : rejected
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2026-01-22 01:42:31.840
+Summary     : ++++14614795454 ratnameh
+Socwatch is attached.┬á
+
+++++14614795818 ratnameh
+With DAM Disabled IFWI
+
+++++14614817566 hpshah1
+Not sure why but i do see the TCSS USB4Phy2-GPD , D2D- Disp-DDI and┬á OSSE 100% active as per the attached SoCWatch Capture 1 in MCS.┬á
+++++1363460892 ratnameh 
+OSSE we are already working with CSME team it is D0 across. We also did PSE feature as a whole disable and didnt see...
+----------------------------------------------------------------------------------------------------
+ID          : 14026412793
+Title       : [NVL-HX_PTP_Low_Power] Multiple MCP power rails measuring negative value when system is in low power state (S0ix, Sx)
+Status      : complete
+Owner       : jleow
+Updated By  : ravigiri
+Updated Date: 2026-01-09 07:09:28.987
+Summary     : ++++14614828786 jleow
+Next step: Probe *_FLTR points voltages and current ΓÇô Rama to get Dan to probe with high bandwidth current meter. Try replacing 10mOhm default sense resistor with 100mOhm to see if issue goes away - JS ┬á ┬á
+
+++++14614860188 jleow
+Increasing sense resistors Ohmage on V1p8A by 10x resolved the negative measurements on V1p8A rails. Results on VNNAON rails are pending due to se...
+----------------------------------------------------------------------------------------------------
+ID          : 14025892001
+Title       : [NVLS_i7_PTP_Low_Power] Display is off after S3 resumes to Windows OS
+Status      : complete
+Owner       : basavana
+Updated By  : ravigiri
+Updated Date: 2025-12-09 03:58:55.617
+Summary     : ++++14614611052 jleow
+Automated Message: This record has been cloned. The preceding comments are originally from the parent record 14025882553.
+
+++++14614611086 jleow
+While the Display is Off after S3 resume, the Display can be turned on either with Mouse/Remote VNC/TTK power button.
+
+++++14614615226 rmcantzl
+JS can you help elaborate? "Wake the system to Windows OS, observed Display is Off ins...
+----------------------------------------------------------------------------------------------------
+ID          : 14026542238
+Title       : [NVL-HX_PTP_Low_Power] NVL-HX wakes periodically every 8 sec in MCS while NVL-S does not
+Status      : rejected
+Owner       : jleow
+Updated By  : cchiam
+Updated Date: 2025-12-08 21:39:24.267
+Summary     : ++++22611616134 kgoh8
+There are email thread on going where this is happen on mobile from EC due Currently is expected behavior from EC ┬á 15018660896 ┬á ┬á ┬á ┬á Regards ┬á SUNNY GOH ┬á
+++++14614865546 jleow
+Attached email thread on EC periodic 8s wake link. From Arch expectation, EC should stop the wake when SLP_S0# is asserted eg. in Modern Connected Standby scenario.
+----------------------------------------------------------------------------------------------------
+ID          : 14026063708
+Title       : [NVLS_i7_PTP_Low_Power]GBE clkreqs not De-asserting impacting power
+Status      : rejected
+Owner       : roslynur
+Updated By  : bajadeja
+Updated Date: 2025-12-01 15:00:58.553
+Summary     : ++++14614710821 ratnameh
+Main observation is gbe clkreqs are asserting and de-asserting. In IDLE dont expect any GBE Activity┬á
+
+++++14614711081 ratnameh 
+GBE En through socwatch observing PC0 100% as soon as we disable GBE PC10.1 is seen┬á
+++++1566578719 roslynur
+Please state your Gbe connection, is it with LAB network or P2P (without router)? Have you checked the network resource monitor under ...
+----------------------------------------------------------------------------------------------------
+ID          : 14026030801
+Title       : [NVLS_i7_PTP_Low_Power] With Display Off Disp LDO Wgt clkreq staying asserted potentially impacting power
+Status      : complete
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2025-11-20 14:59:51.327
+Summary     : ++++14614692797 ratnameh 
+Platform:┬á NVL S SR11 board with SR21 IFWI.┬á Display Details:┬á Connection┬á DP tp DP ,┬á1920 * 1080 60hz RR┬á ┬áDisplay Model: VE248Q ┬á Steps to reproduce:┬á -> Boot to OS┬á -> Put system to sleep┬á -> Read clkreq status in Python SV┬á from pysvtools import fv_pmc┬á pmc = fv_pmc.initialize() pmc.pcd.cg.status.show_clkreq_status() Few days back had a quick check with Darren and ...
+----------------------------------------------------------------------------------------------------
+ID          : 14026039206
+Title       : [NVLS_i7_PTP_Low_Power] Observed high power with DAM Enabled IFWI compared to DAM Disabled IFWI
+Status      : open
+Owner       : 
+Updated By  : rmcantzl
+Updated Date: 2025-11-19 08:27:32.450
+Summary     : ++++14614700433 hpshah1
+Can you use DAM Enabled with BIOS settings apply USB2DBC debug / trace settings disable and still see the issue ?┬á in a nutshell, can we root cause to any BIOS / IP feature change regression to power ?┬á
+
+++++14614700994 ratnameh 
+USB2DBC is additional power hence we use XDP (XDP Connected with no Python SV open is negligible power impact). The above measurement (DAM En C...
+----------------------------------------------------------------------------------------------------
+ID          : 14026259412
+Title       : [NVLS_i7_PTP_Low_Power] PEGA not working at EFI shell for PKG Cstates
+Status      : rejected
+Owner       : alexse
+Updated By  : ratnameh
+Updated Date: 2025-11-09 01:04:01.977
+Summary     : ++++1363454667 alexse
+There is no known issues with PEGA Cstate right now , the fllow is validated and working on correct way on pcode and dcode level.┬á There 2 know issue on Big Core :┬á 1. Live break issue - which prevent c6 -┬á has workaround (I can find a sighting right now)┬á ┬á ┬á ┬á ┬á ┬á ┬áWA is :┬á ┬á#livebreak dis debug.pm.cstate.control.set_cstates_limits(7,0,0,0) cdie1.ccf0_gpsb.santa0_regs.ll...
+----------------------------------------------------------------------------------------------------
+ID          : 22021647479
+Title       : [NVLS_i7_PTP_Low_Power] Periodic 100ms wakes are observed on PCH when system is idling in Sx state, Idle Display On state or Connected Standby state
+Status      : rejected
+Owner       : jleow
+Updated By  : ravigiri
+Updated Date: 2025-11-06 05:47:24.410
+Summary     : ++++22611501164 jleow
+Similar wakes are also seen in Idle Display On and Modern Connected Standby scenarios. Modern Connected Standby: Idle Display On:
+++++14614691257 jjlee3
+Need VISA to confirm this is just due to XTAL turning on which is expected. Due to bugs on ARLS/MTPS, XTAL was kept forced on. PCR below was rejected and XTAL was kept as forced on for MTPS. If XTAL is kept forced on, the ...
+----------------------------------------------------------------------------------------------------
+ID          : 14026126865
+Title       : [NVLS_i7_PTP_Low_Power] PPM package sending EPP 0 due to which HWP frequency for CDIE in IDLE is operating at higher frequencies
+Status      : rejected
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2025-11-05 14:57:35.590
+Summary     : ++++14614746235 ratnameh 
+WIP to check clos┬á
+++++22611543045 blundbe
+Based on the PPM dump off of the system It looks like we are getting the correct EPP values set through the PPM package at the OS level.
+++++14614750966 ratnameh 
+With WW 44.1 ifwi HWP for short Idle is in the lower range┬á We had a live debug session with Barak and bharath -> summary was triggering slider from perf to AC balan...
+----------------------------------------------------------------------------------------------------
+ID          : 14025919711
+Title       : [NVLS_i7_PTP_Low_Power] Observed high S0ix wake rates when system is in Connected Standby scenario
+Status      : rejected
+Owner       : ratnameh
+Updated By  : bajadeja
+Updated Date: 2025-10-30 10:20:21.720
+Summary     : ++++14614626724 ratnameh 
+Next Steps:┬á -> Disabling GBE and see if wakes does not happen┬á -> Disabling PECI wakes to rule out┬á -> Socwatch functionality not working for capturing wakes for CDIE , PKGC and PCD IP's. Following with socwatch team to see if we can get some pre-release to test.┬á -> Checking scripts like pll_status, clkreq status with boot fsm halted┬á
+
+
+++++14614627382 ratnameh
+Disab...
+----------------------------------------------------------------------------------------------------
+ID          : 14026025614
+Title       : [NVLS_i7_PTP_Low_Power] Audio IP is consuming higher than expected power in OS Idle and Connected Standby scenarios
+Status      : rejected
+Owner       : sbalasun
+Updated By  : bajadeja
+Updated Date: 2025-10-25 05:49:48.760
+Summary     : ++++14614709779 hpshah1
+Adding Siva to the HSD to get help from FV side. Once aligned we can potentially merge to the existing Audio D0 HSD or keep this one if we find new unique signature.┬á
+++++1566591939 sbalasun
+I believe this issue can be merged with┬áhttps://hsdes.intel.com/appstore/article-one/#/article/15018327358 - [NVL-S][A0][PO][ACE][SNDW] - Audio Controller stays in D0 when system idl...
+----------------------------------------------------------------------------------------------------
+ID          : 14026039237
+Title       : [NVLS_i7_PTP_Low_Power] Display seems to be impacting PKG Cstate Residencies impacting Power
+Status      : rejected
+Owner       : basavana
+Updated By  : ratnameh
+Updated Date: 2025-10-21 06:41:42.313
+Summary     : ++++14614697426 ratnameh
+WIP to capture Side band messages from Display to Punit Namratha is also working to repro or check PKGC10.1 residency at her end with Display ON scenario┬á Display: VE248Q DP to DP connection┬á 1920*1080 and RR 60┬á
+
+++++14614721389 ratnameh
+Pre silicon projection for PKG Cstate Residencies for IDON pc0 19.48 pc6p1 5.76 pc10p1 74.76 Total_soc 100.00
+
+++++14614721848 ratnam...
+----------------------------------------------------------------------------------------------------
+ID          : 14025961174
+Title       : [NVLS_i7_PTP_Low_Power] HW Counters not on retention when system enters Die C6
+Status      : rejected
+Owner       : ratnameh
+Updated By  : lgoh5
+Updated Date: 2025-10-10 04:43:15.210
+Summary     : ++++1566512646 bang6
+These IO registers are in INF_ST domain, so the data should be retained. Here is a snapshot of FSDB showing the data is retained when INF_VNN Powergood is 0. Please help to update the sighting on which IO is having the issue. ┬á ┬á
+++++14614650706 ratnameh 
+We will take power trace to ensure ┬á
+
+
+++++14614650709 ratnameh
+Sys debug lead, can you please help close the sighting :...
+----------------------------------------------------------------------------------------------------
+ID          : 14025863979
+Title       : [NVLS_i7_PTP_Low_Power] Display IP frequency is operating higher than expected in Idle Display On scenario
+Status      : rejected
+Owner       : ratnameh
+Updated By  : ravigiri
+Updated Date: 2025-09-27 07:04:28.417
+Summary     : ++++14614589146 ratnameh
+As per projections we expect display frequency to operate at 352 and lower hence need help from display team┬á Dsiplay model we are using is VE248Q DP to DP connection.┬á
+
+++++14614590927 hpshah1
+First level information - i do not think SoC Watch is reporting correct value as the value is beyond spec range.┬á can we try any other tool like Solar or PythonSV to read it ?
+
++...
+----------------------------------------------------------------------------------------------------
+ID          : 14025957964
+Title       : [NVLS_i7_PTP_Low_Power] Audio is in D0 state while system is in WinOS Idle
+Status      : rejected
+Owner       : jleow
+Updated By  : ravigiri
+Updated Date: 2025-09-25 14:33:11.583
+Summary     : <p><b>IFWI</b>:</p><p>NVL_SR21_A0A0-ODCA_CPRF_SEP0_01F40418_2025WW37.3.01_8_16_StaticEn.bin</p><p><br /></p><p><b>OS</b>:</p><p>NVL-S-CONS-25.37.6.171-24H2.wim</p><p><br /></p><p><b>Setup</b>:</p><p>1. SR11 board</p><p>2. PCIe NVMe boot drive (PCD port)</p><p>3. GbE LAN connected</p><p>4. Native DP monitor 1080p 60Hz RR</p><p><br /></p><p><b>Observation</b>:</p><p>Measured higher than expected ...
+----------------------------------------------------------------------------------------------------
+ID          : 14025770887
+Title       : [NVLS_i7_PTP_Low_Power] GbE impacting PCH Power in Display-ON C10 case.
+Status      : complete
+Owner       : ratnameh
+Updated By  : bajadeja
+Updated Date: 2025-09-25 14:20:55.997
+Summary     : ++++14614535851 ratnameh
+<div>n [119]: pcd.taps.cltap.cltcr0.deepcxwake=0x1^M</div><div>&nbsp; &nbsp; &nbsp;...: hub.punit.showsearch(&quot;pc.*cntr&quot;)^M</div><div>&nbsp; &nbsp; &nbsp;...: pcd.taps.cltap.cltcr0.deepcxwake=0x0^M</div><div>&nbsp; &nbsp; &nbsp;...: pcd.taps.cltap.cltcr0.deepcxwake=0x1^M</div><div>&nbsp; &nbsp; &nbsp;...: hub.punit.showsearch(&quot;pc.*cntr&quot;)^M</div><div>&...
+----------------------------------------------------------------------------------------------------
+ID          : 14025882553
+Title       : [NVLS_i7_PTP_Low_Power] Display is off after S3 resumes to Windows OS
+Status      : rejected
+Owner       : jleow
+Updated By  : manvipra
+Updated Date: 2025-09-22 16:03:54.430
+Summary     : ++++14614611113 jleow
+Namratha (Display team) feedback the Display should be On after S3 resume. Promoted to sighting -┬áhttps://hsdes.intel.com/appstore/article-one/#/article/14025892001
+----------------------------------------------------------------------------------------------------
+ID          : 14025857299
+Title       : [NVLS_i7_PTP_Low_Power] PkgC6.1 entry inconsistency in Windows OS idle scenario
+Status      : rejected
+Owner       : jleow
+Updated By  : vchalla
+Updated Date: 2025-09-18 00:45:07.603
+Summary     : ++++14614592238 jleow
+Able to triage the issue to the following: 1. Issue is consistently not reproducible after cold reset. 2. Issue is reproducible after warm reset. When it is stuck at PC2 > Display LTR is the blocker. When it is stuck at PC6.1 > Display LTR is not a blocker.
+++++22611453140 mfmallen
+Can we check what the display watermark levels are that display recieves from pcode in both ...
+----------------------------------------------------------------------------------------------------
+ID          : 14025767771
+Title       : [NVLS_i7_PTP_Low_Power] PEGA, Core not re-entering C6 blocking PKG Cstate entry at EFI shell with PEGA
+Status      : rejected
+Owner       : ratnameh
+Updated By  : vchalla
+Updated Date: 2025-09-15 23:18:53.717
+Summary     : ++++14614536981 ratnameh
+Also we tried to re-issue PEGA command and core c6 happened with PKG C2 counter incremented. So next step is to check whether PEGA command is still sticking. Have reached out to Alex on this.┬á
+
+++++14614565199 ratnameh
+Working with Alex on this, He gave me steps to run PEGA manually so trying that out and he will take a look later┬á
+++++1363392878 alexse
+I beleive that a...
+----------------------------------------------------------------------------------------------------
+ID          : 14025866168
+Title       : [NVLS_i7_PTP_Low_Power] VCCSA voltage level is inconsistent across silicons
+Status      : rejected
+Owner       : jleow
+Updated By  : jleow
+Updated Date: 2025-09-12 02:34:15.850
+Summary     : ++++14614592232 jleow
+Root caused the higher VCCSA voltage behavior to Display Refresh Rate being at 144Hz. The other systems that are measuring lower VCCSA voltage is due to Display Refresh Rate being at 60Hz. High VCCSA voltage: Lower VCCSA voltage:
+
+++++14614592233 jleow
+Pending Platform Arch confirmation on which Refresh Rate should be set for Platform Regulatory Power KPI measurement. Refr...
+----------------------------------------------------------------------------------------------------
+ID          : 13013659617
+Title       : [NVLS_i7_PTP_Low_Power] PEGA, Core not re-entering C6 blocking PKG Cstate entry at EFI shell with PEGA
+Status      : rejected
+Owner       : alexse
+Updated By  : jleow
+Updated Date: 2025-09-05 03:58:11.410
+Summary     : ++++1363393726 ratnameh
+Also we tried to re-issue PEGA command and core c6 happened with PKG C2 counter incremented. So next step is to check whether PEGA command is still sticking. Have reached out to Alex on this.&nbsp;
+----------------------------------------------------------------------------------------------------
+ID          : 14025808771
+Title       : [NVLS_i7_PTP_Low_Power] No residency on CDIE Atoms intermediate P-State in OS Idle scenario (no residency between max and idle freq)
+Status      : rejected
+Owner       : jleow
+Updated By  : jleow
+Updated Date: 2025-09-05 03:53:33.583
+Summary     : ++++14614580242 jleow
+Updated IFWI to NVL_SR21_A0A0-ODCA_CPRF_SEP0_01F40418_2025WW35.4.02_8_16_StaticEn. Observed residency in more intermediate freq but not all. Will check with pm_tools to rule out socwatch tool issue.
+
+++++14614584988 jleow
+Confirmed socwatch reporting is matching pll freq. iceland - 2300 big core - 3500 small core - 2800
+
+++++14614584994 jleow
+Need to check why there is no ...
+----------------------------------------------------------------------------------------------------
+ID          : 14025740249
+Title       : [NVLS_i7_PTP_Low_Power] GbE blocking Pkg Cstate Entries C2 and Deeper
+Status      : rejected
+Owner       : ratnameh
+Updated By  : jleow
+Updated Date: 2025-08-20 01:18:57.360
+Summary     : ++++14614518684 ratnameh
+n [119]: pcd.taps.cltap.cltcr0.deepcxwake=0x1^M ┬á ┬á ┬á...: hub.punit.showsearch("pc.*cntr")^M ┬á ┬á ┬á...: pcd.taps.cltap.cltcr0.deepcxwake=0x0^M ┬á ┬á ┬á...: pcd.taps.cltap.cltcr0.deepcxwake=0x1^M ┬á ┬á ┬á...: hub.punit.showsearch("pc.*cntr")^M ┬á ┬á ┬á...: pcd.taps.cltap.cltcr0.deepcxwake=0x0 punit_gpsb.punit_gpsb.pc2_rcntr = 0x1f95ab788 punit_gpsb.punit_gpsb.pc3_rcntr = 0x0 punit...
+----------------------------------------------------------------------------------------------------
+ID          : 22021468418
+Title       : [NVL-S][A0] PEGA TAP to PCode C6-States fail to execute on Cdie Atom Modules
+Status      : rejected
+Owner       : ratnameh
+Updated By  : vchalla
+Updated Date: 2025-08-15 12:38:17.227
+Summary     : ++++22611383720 fletcher 
+Do Note, for some reason MC6 residency is increasing on the Cdie, we would also expect to see Core C6 entries increasing too: Both Core-C6 and Module C6 are passing on Hub Atoms:
+++++14614508663 vchalla 
+cdie1.cores is for big core.┬á for atoms, please use this hierarchy. cdie1.atom.
+
+++++14614508999 ratnameh
+After issuing PEGA command observing C6 residency on atoms┬á
+----------------------------------------------------------------------------------------------------
